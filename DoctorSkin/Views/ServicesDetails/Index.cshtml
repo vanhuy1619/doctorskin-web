@@ -1,0 +1,10 @@
+﻿<div>
+    <div>
+        <div>
+            <img style="width:100%" src="~/Content/assets/img/slider/@ViewBag.img"/>
+        </div>
+    </div>
+    <div style="padding:1rem 9%">
+        @Html.Action("getListDetailByService", "Default", new { id_dt = Model.id_dt })
+    </div>
+</div>

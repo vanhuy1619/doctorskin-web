@@ -1,0 +1,98 @@
+﻿@model DoctorSkin.Models.Products
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>Products</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.namep)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.namep)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.typep)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.typep)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.newprice)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.newprice)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.oldprice)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.oldprice)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.descr)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.descr)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.date_create)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.date_create)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.hide)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.hide)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.statep)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.statep)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.img)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.img)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.idp }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>
