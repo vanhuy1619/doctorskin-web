@@ -15,12 +15,15 @@ namespace DoctorSkin.Controllers
         private DoctorSkinEntities db = new DoctorSkinEntities();
 
         // GET: Products
-        public ActionResult Index(String meta)
+
+        public ActionResult Index(string meta)
         {
-            ViewBag.title =  from t in db.Categories where t.meta == meta select t.namec;
+            ViewBag.meta = meta;
+            ViewBag.title =  (from t in db.Categories where t.meta == meta select t.namec).FirstOrDefault();
             var v = from t in db.Categories where t.meta == meta select t;
             return View(v.FirstOrDefault());
         }
+
         public ActionResult getCat()
         {
             var v = from t in db.Categories where t.hide == false select t;

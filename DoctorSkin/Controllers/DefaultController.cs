@@ -1,4 +1,5 @@
 ﻿using DoctorSkin.Models;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,14 +24,38 @@ namespace DoctorSkin.Controllers
             return PartialView(v.ToList());
         }
 
-        public ActionResult getListProduct(int typep)
+        [HttpGet]
+        public ActionResult getListProduct(int? typep, string sortOrder, int? page)
         {
             //ViewBag.meta = "san-pham";
-            var v = from t in db.Products
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "new" : "";
+            ViewBag.Type = null;
+            var v = (from t in db.Products
                     where t.typep == typep && t.hide == false
-                    orderby t.date_create ascending
-                    select t;
-            return PartialView(v.ToList());
+                    select t).ToList();
+            if (!typep.HasValue)
+                v = db.Products.ToList();
+            switch (sortOrder)
+            {
+                case "new":
+                    v = v.OrderByDescending(p => p.date_up).ToList();
+                    break;
+                case "price_desc":
+                    v = v.OrderByDescending(p => p.newprice).ToList();
+                    break;
+                default:
+                    v = v.OrderBy(p => p.newprice).ToList();
+                    break;
+            }
+            int pageSize = 21;
+            int pageNumber = (page ?? 1);
+            return PartialView(v.ToPagedList(pageNumber, pageSize));
+        }
+
+        [Route("san-pham")]
+        public ActionResult getListProductAll()
+        {
+            return View(db.Products.ToList());
         }
 
         public ActionResult getListBlogType()
@@ -67,6 +92,13 @@ namespace DoctorSkin.Controllers
                     where t.hide_dt == false
                     select t;
             return PartialView(v.ToList());
+        }
+
+        public ActionResult getRandomBrand()
+        {
+            Random rnd = new Random();
+            var v = db.Brands.Where(p=>p.idbrand!=1).ToList();
+            return PartialView(v.OrderBy(x => rnd.Next()).Take(4).ToList());
         }
     }
 }

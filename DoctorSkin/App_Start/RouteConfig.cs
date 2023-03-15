@@ -14,13 +14,15 @@ namespace DoctorSkin
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapRoute("Products", "{type}/{meta}",
+            routes.MapRoute(name:"Products", url:"{type}/{meta}",
                 new {Controller = "Products",action="Index",meta = UrlParameter.Optional},
                 new RouteValueDictionary
                 {
                     {"type","san-pham" }
                 },
                 new[] { "DoctorSkin.Controllers"});
+
+           
 
             routes.MapRoute("BlogByType", "{type}/{meta}",
                 new { Controller = "BlogByType", action = "Index", meta = UrlParameter.Optional },

@@ -180,7 +180,7 @@
                             <li><a href="/">Trang chủ</a></li>
                             <li><a href="#">Giới thiệu</a></li>
                             <li>
-                                <a href="#">Sản phẩm<span class="caret"></span></a>
+                                <a href="/san-pham">Sản phẩm<span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     @{ Html.RenderAction("getListCat", "Default");}
                                 </ul>
@@ -189,7 +189,7 @@
                                 <a href="#">Gói dịch vụ <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     @{ Html.RenderAction("getListServices", "Default");}
-                                   
+
                                 </ul>
                             </li>
                             @*<li><a href="#">Bảng giá dịch vụ<span></span></a></li>*@
@@ -342,6 +342,7 @@
     <script type="text/javascript" src="~/Scripts/js/nouislider.js"></script>
     <!-- Custom js -->
     <script src="~/Scripts/js/custom.js"></script>
+    <script src="~/Content/ckeditor/ckeditor.js"></script>
 
 </body>
 

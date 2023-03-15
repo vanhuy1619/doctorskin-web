@@ -16,10 +16,12 @@ namespace DoctorSkin.Models
         public String newprice { set; get; }
         public String oldprice { set; get; }
         public String descr { set; get; }
-        public Nullable<System.DateTime> date_create { get; set; }
+        public Nullable<System.DateTime> date_up { get; set; }
         public Boolean hide { set; get; }
         public String statep { set; get; }
         public String img { set; get; }
         //public String nameshort { set; get; }
+        public int idbrand { set; get; }
+        public String metap { set; get; }
     }
 }

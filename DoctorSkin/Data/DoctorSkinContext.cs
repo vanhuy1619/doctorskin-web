@@ -38,6 +38,11 @@ namespace DoctorSkin.Models
 
         public virtual DbSet<Services> Services { get; set; }
 
+        public virtual DbSet<Bills> Bills { get; set; }
+        public virtual DbSet<Feedbacks> Feedbacks { get; set; }
+
+        public virtual DbSet<Brands> Brands { get; set; }
+
         public System.Data.Entity.DbSet<DoctorSkin.Models.ServicesDetails> ServicesDetails { get; set; }
     }
 }

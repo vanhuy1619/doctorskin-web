@@ -1229,7 +1229,9 @@ img {
 .aa-product-catg li .aa-hot {
   background-color: #ff6600;
 }
-
+    .aa-product-catg li .aa-new {
+        background-color: #FFD800;
+    }
 /*=== modal window ===*/
 
 #quick-view-modal .modal-dialog {
@@ -1763,7 +1765,7 @@ img {
   width: 100%;
 }
 #aa-catg-head-banner .aa-catg-head-banner-area {
-  background-color: rgba(0, 0, 0, 0.5);
+  /*background-color: rgba(0, 0, 0, 0.5);*/
   bottom: 0;
   left: 0;
   position: absolute;
