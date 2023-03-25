@@ -475,3 +475,11 @@ D:\.NET\doctorskin-web\DoctorSkin\obj\Debug\DoctorSkin.csproj.CoreCompileInputs.
 D:\.NET\doctorskin-web\DoctorSkin\obj\Debug\DoctorSkin.csproj.CopyComplete
 D:\.NET\doctorskin-web\DoctorSkin\obj\Debug\DoctorSkin.dll
 D:\.NET\doctorskin-web\DoctorSkin\obj\Debug\DoctorSkin.pdb
+D:\.NET\doctorskin-web\DoctorSkin\bin\AutoMapper.Collection.dll
+D:\.NET\doctorskin-web\DoctorSkin\bin\AutoMapper.dll
+D:\.NET\doctorskin-web\DoctorSkin\bin\AutoMapper.Extensions.ExpressionMapping.dll
+D:\.NET\doctorskin-web\DoctorSkin\bin\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+D:\.NET\doctorskin-web\DoctorSkin\bin\AutoMapper.xml
+D:\.NET\doctorskin-web\DoctorSkin\bin\AutoMapper.Extensions.ExpressionMapping.xml
+D:\.NET\doctorskin-web\DoctorSkin\bin\System.Security.Cryptography.Cng.dll
+D:\.NET\doctorskin-web\DoctorSkin\bin\System.Security.Cryptography.Cng.xml

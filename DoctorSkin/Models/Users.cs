@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -7,13 +9,25 @@ namespace DoctorSkin.Models
 {
     public class Users
     {
+        [Key]
         public String iduser { set; get; }
         public String name { set; get; }
         public Nullable<System.DateTime> birth { set; get; }
         public String gender { set; get; }
         public String phone { set; get; }
+
+        [Required]
+        [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}")]
         public String email { set; get; }
+
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,15}$")]
         public String password { set; get; }
+
+        [NotMapped]
+        [Required]
+        [System.ComponentModel.DataAnnotations.Compare("Password")]
+        public string ConfirmPassword { get; set; }
+
         public bool hide { set; get; }
         public bool block { set; get; }
         public String ava { set; get; }

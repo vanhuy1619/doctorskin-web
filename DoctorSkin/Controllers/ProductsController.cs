@@ -6,15 +6,15 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using AutoMapper;
 using DoctorSkin.Models;
+using DoctorSkin.Models.ViewModel;
 
 namespace DoctorSkin.Controllers
 {
     public class ProductsController : Controller
     {
         private DoctorSkinEntities db = new DoctorSkinEntities();
-
-        // GET: Products
 
         public ActionResult Index(string meta)
         {
@@ -31,19 +31,21 @@ namespace DoctorSkin.Controllers
         }
 
         //// GET: Products/Details/5
-        //public ActionResult Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Models.Products products = db.Products.Find(id);
-        //    if (products == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(products);
-        //}
+        public ActionResult Details(int? idp)
+        {
+            if (idp == null)
+           {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+           }
+            //Models.Products products = db.Products.Find(id);
+            var pr = from a in db.Products where a.hide == false && a.idp==idp select a;
+            ViewBag.countfb = db.Feedbacks.Count();
+            if (pr == null)
+            {
+                return HttpNotFound();
+            }
+            return View(pr.FirstOrDefault());
+        }
 
         //// GET: Products/Create
         //public ActionResult Create()

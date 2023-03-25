@@ -33,7 +33,7 @@ namespace DoctorSkin
                 new[] { "DoctorSkin.Controllers" });
 
             routes.MapRoute("Doctors", "{type}",
-                new { Controller = "Doctors", action = "Index", meta = UrlParameter.Optional },
+                new { Controller = "Doctors", action = "Index"},
                 new RouteValueDictionary
                 {
                     {"type","doi-ngu-bac-si" }
@@ -41,7 +41,7 @@ namespace DoctorSkin
                 new[] { "DoctorSkin.Controllers" });
 
             routes.MapRoute("Blog", "{type}",
-                new { Controller = "Blog", action = "Index", meta = UrlParameter.Optional },
+                new { Controller = "Blog", action = "Index"},
                 new RouteValueDictionary
                 {
                     {"type","kien-thuc" }
@@ -57,10 +57,46 @@ namespace DoctorSkin
                 new[] { "DoctorSkin.Controllers" });
 
             routes.MapRoute(
+                 name: "Product Detail",
+                 url: "{type}/{metap}/{idp}",
+                 new { controller = "Products", action = "Details", idp = UrlParameter.Optional },
+                 new RouteValueDictionary
+                 {
+                     { "type","san-pham" }
+                 },
+                 new[] { "DoctorSkin.Controllers" }
+             );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute("Carts", "{type}",
+                new { Controller = "Carts", action = "Index"},
+                new RouteValueDictionary
+                {
+                    {"type","cart" }
+                },
+                new[] { "DoctorSkin.Controllers" });
+
+            //Đăng nhập & đăng ký
+            //routes.MapRoute(name: "Login", url: "{controller}/{type}",
+            //     new { Controller = "Users", action ="Index"},
+            //     new RouteValueDictionary
+            //     {
+            //        {"type","dang-nhap" }
+            //     },
+            //     new[] { "DoctorSkin.Controllers" });
+
+            //routes.MapRoute(name: "Forgot Pass", url: "{controller}/{type}",
+            //     new { Controller = "Users", action = "ResetPass" },
+            //     new RouteValueDictionary
+            //     {
+            //        {"type","forgot-pass" }
+            //     },
+            //     new[] { "DoctorSkin.Controllers" });
         }
 
     }

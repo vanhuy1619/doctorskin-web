@@ -4,13 +4,13 @@
         @foreach (var i in Model)
         {
             <div class="col-sm-6 col-md-3">
-                <div style="box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;height:300px">
+                <div style="border-radius:8px;box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;height:300px">
                     <div>
-                        <img style="width:100%" src="@i.img_sd" />
+                        <img style="width:100%;border-top-left-radius:8px;border-top-right-radius:8px" src="@i.img_sd" />
                     </div>
-                    <div style="text-align:center">
-                        <p>@i.name_sd</p>
-                        <p style="color: #f46f0b;font-size:20px">@i.price_sd <span>đ</span><p />
+                    <div style="text-align:center;padding:4px">
+                        <div style="height:60px">@i.name_sd</div>
+                        <p style="color: #f46f0b;font-size:20px">@decimal.Parse(i.price_sd).ToString("#,##0đ")<span></span><p />
                     </div>
                 </div>
             </div>

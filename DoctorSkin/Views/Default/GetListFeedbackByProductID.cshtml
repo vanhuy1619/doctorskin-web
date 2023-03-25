@@ -1,0 +1,33 @@
+﻿@model PagedList.IPagedList<DoctorSkin.Models.ViewModel.UserFeedBackViewModel>
+@using PagedList.Mvc;
+
+@foreach (var i in Model)
+{
+    <li>
+        <div class="media">
+            <div class="media-left">
+                <a href="#">
+                    <img class="media-object" src="@i.avau" alt="girl image" style="object-fit:cover;border-radius:50%">
+                </a>
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading"><strong>@i.nameu</strong> - <span>@i.datefb</span></h4>
+                <div class="aa-product-rating">
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star-o"></span>
+                </div>
+                <p>@i.cmt</p>
+                <div style="padding-left:20px">
+                    @Html.Action("getListRepFeedbacks", "Default", new { sttfb = i.sttfb })
+                </div>
+            </div>
+        </div>
+       
+    </li>
+}
+<div>
+    @Html.PagedListPager(Model, pagecmt => Url.Action("Details", "Products", new { pagecmt }))
+</div>

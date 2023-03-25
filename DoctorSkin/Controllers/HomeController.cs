@@ -9,6 +9,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using DoctorSkin.Models;
 using Microsoft.Ajax.Utilities;
+using RouteAttribute = System.Web.Mvc.RouteAttribute;
 
 namespace DoctorSkin.Controllers
 {
@@ -61,6 +62,8 @@ namespace DoctorSkin.Controllers
             return PartialView(v.Take(4).ToList());
         }
 
+
+        
 
     }
 }

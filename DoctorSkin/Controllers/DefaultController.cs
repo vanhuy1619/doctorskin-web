@@ -1,7 +1,9 @@
 ﻿using DoctorSkin.Models;
+using DoctorSkin.Models.ViewModel;
 using PagedList;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -20,14 +22,15 @@ namespace DoctorSkin.Controllers
         public ActionResult getListCat()
         {
             ViewBag.meta = "san-pham";
-            var v = from t in db.Categories where t.hide == false select t;
+            var v = from t in db.Categories 
+                     where t.hide == false select t;
             return PartialView(v.ToList());
         }
 
         [HttpGet]
         public ActionResult getListProduct(int? typep, string sortOrder, int? page)
         {
-            //ViewBag.meta = "san-pham";
+            ViewBag.meta = "san-pham";
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "new" : "";
             ViewBag.Type = null;
             var v = (from t in db.Products
@@ -99,6 +102,45 @@ namespace DoctorSkin.Controllers
             Random rnd = new Random();
             var v = db.Brands.Where(p=>p.idbrand!=1).ToList();
             return PartialView(v.OrderBy(x => rnd.Next()).Take(4).ToList());
+        }
+
+        public ActionResult GetListFeedbackByProductID(int? idp, int? pagecmt)
+        {
+            
+            var query = from a in db.Feedbacks
+                        join b in db.Users on a.iduser equals b.iduser
+                        where a.idp == idp
+                        orderby a.datefb descending
+                        select new
+                        {
+                        sttfb = a.sttfb,
+                        cmt = a.cmt,
+                        datefb = a.datefb,
+                        nameu = b.name,
+                        avau = b.ava
+                    };
+            var products = query.ToList().Select(r => new UserFeedBackViewModel
+            {
+                sttfb = r.sttfb,
+                cmt = r.cmt,
+                datefb = r.datefb,
+                nameu = r.nameu,
+                avau = r.avau
+            }).ToList();
+            int pageSize = 1;
+            int pageNumber = (pagecmt ?? 1);
+            ViewBag.listfb = products.Count();
+            return PartialView(products.ToPagedList(pageNumber, pageSize));
+        }
+
+        public ActionResult getListRepFeedbacks(int? sttfb)
+        {
+            var v = from a in db.RepFeedbacks
+                    join b in db.Feedbacks on a.sttfb equals b.sttfb
+                    where a.hide_rep == false && b.sttfb == sttfb && a.sttfb == sttfb
+                    select a;
+            
+            return PartialView(v.ToList());
         }
     }
 }

@@ -1,98 +1,373 @@
 ﻿@model DoctorSkin.Models.Products
+<section id="aa-product-details">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="aa-product-details-area">
+                    <div class="aa-product-details-content">
+                        <div class="row">
+                            <!-- Modal view slider -->
+                            <div class="col-md-5 col-sm-5 col-xs-12">
+                                <div class="aa-product-view-slider">
+                                    <div id="demo-1" class="simpleLens-gallery-container">
+                                        <div class="simpleLens-container">
+                                            <div class="simpleLens-big-image-container"><a data-lens-image="img/view-slider/large/polo-shirt-1.png" class="simpleLens-lens-image"><img src="img/view-slider/medium/polo-shirt-1.png" class="simpleLens-big-image"></a></div>
+                                        </div>
+                                        <div class="simpleLens-thumbnails-container">
+                                            <a data-big-image="img/view-slider/medium/polo-shirt-1.png" data-lens-image="img/view-slider/large/polo-shirt-1.png" class="simpleLens-thumbnail-wrapper" href="#">
+                                                <img src="img/view-slider/thumbnail/polo-shirt-1.png">
+                                            </a>
+                                            <a data-big-image="img/view-slider/medium/polo-shirt-3.png" data-lens-image="img/view-slider/large/polo-shirt-3.png" class="simpleLens-thumbnail-wrapper" href="#">
+                                                <img src="img/view-slider/thumbnail/polo-shirt-3.png">
+                                            </a>
+                                            <a data-big-image="img/view-slider/medium/polo-shirt-4.png" data-lens-image="img/view-slider/large/polo-shirt-4.png" class="simpleLens-thumbnail-wrapper" href="#">
+                                                <img src="img/view-slider/thumbnail/polo-shirt-4.png">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Modal view content -->
+                            <div class="col-md-7 col-sm-7 col-xs-12">
+                                <div class="aa-product-view-content">
+                                    <h3>@Model.namep</h3>
+                                    <div class="aa-price-block">
+                                        <span class="aa-product-view-price">@Model.newprice</span>
+                                        <p class="aa-product-avilability">Tình trạng: <span>@Model.avilability</span></p>
+                                    </div>
+                                    @*<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis animi, veritatis quae repudiandae quod nulla porro quidem, itaque quis quaerat!</p>*@
+                                    @*<h4>Size</h4>
+                                    <div class="aa-prod-view-size">
+                                        <a href="#">S</a>
+                                        <a href="#">M</a>
+                                        <a href="#">L</a>
+                                        <a href="#">XL</a>
+                                    </div>*@
+                                    @*<h4>Color</h4>
+                                    <div class="aa-color-tag">
+                                        <a href="#" class="aa-color-green"></a>
+                                        <a href="#" class="aa-color-yellow"></a>
+                                        <a href="#" class="aa-color-pink"></a>
+                                        <a href="#" class="aa-color-black"></a>
+                                        <a href="#" class="aa-color-white"></a>
+                                    </div>*@
+                                    <div class="aa-prod-quantity">
+                                        <form action="">
+                                            <select id="" name="">
+                                                <option selected="1" value="0">1</option>
+                                                <option value="1">2</option>
+                                                <option value="2">3</option>
+                                                <option value="3">4</option>
+                                                <option value="4">5</option>
+                                                <option value="5">6</option>
+                                            </select>
+                                        </form>
+                                        <p class="aa-prod-category">
+                                            Category: <a href="#">Polo T-Shirt</a>
+                                        </p>
+                                    </div>
+                                    <div class="aa-prod-view-bottom">
+                                        <a class="aa-add-to-cart-btn" href="#" style="border-radius: 3px; background: #cfeadd; border: 1px solid #b6ddca; color: #326e51;">Thêm vào giỏ hàng</a>
+                                        <a class="aa-add-to-cart-btn" href="#" style="background: #326e52; border-radius: 3px; color: #fff;">Yêu thích</a>
+                                        <a class="aa-add-to-cart-btn" href="#" style="background: #ff6600; border: 1px solid #ff6600; border-radius: 3px; color: #fff;">Mua ngay</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="aa-product-details-bottom">
+                        <ul class="nav nav-tabs" id="myTab2">
+                            <li><a href="#description" data-toggle="tab">Thông tin sản phẩm</a></li>
+                            <li><a href="#review" data-toggle="tab">Đánh giá</a></li>
+                        </ul>
 
-@{
-    Layout = null;
-}
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div class="tab-pane fade in active" id="description">
+                                @Model.descr
+                            </div>
+                            <div class="tab-pane fade " id="review">
+                                <div class="aa-product-review-area">
+                                    <div>
+                                        <div style="font-size:18px">@ViewBag.countfb đánh giá cho sản phẩm này</div>
+                                        <div>
+                                            <div class="aa-product-catg-head-left">
+                                                <label for="">Sắp xếp</label>
+                                                <select name="sortOrder" onchange="handleSelect(this)">
+                                                    <option value="new">Mới nhất</option>
+                                                    <option value="price_increase">Giá từ thấp đến cao</option>
+                                                    <option value="price_desc">Giá từ cao đến thấp</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <ul class="aa-review-nav">
 
-<!DOCTYPE html>
+                                        @Html.Action("GetListFeedbackByProductID", "Default", new { idp = @Model.idp })
+                                        
+                                        
+                                    </ul>
+                                    <h4>Add a review</h4>
+                                    <div class="aa-your-rating">
+                                        <p>Your Rating</p>
+                                        <a href="#"><span class="fa fa-star-o"></span></a>
+                                        <a href="#"><span class="fa fa-star-o"></span></a>
+                                        <a href="#"><span class="fa fa-star-o"></span></a>
+                                        <a href="#"><span class="fa fa-star-o"></span></a>
+                                        <a href="#"><span class="fa fa-star-o"></span></a>
+                                    </div>
+                                    <!-- review form -->
+                                    <form action="" class="aa-review-form">
+                                        <div class="form-group">
+                                            <label for="message">Your Review</label>
+                                            <textarea class="form-control" rows="3" id="message"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="name">Name</label>
+                                            <input type="text" class="form-control" id="name" placeholder="Name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email">Email</label>
+                                            <input type="email" class="form-control" id="email" placeholder="example@gmail.com">
+                                        </div>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Details</title>
-</head>
-<body>
-    <div>
-        <h4>Products</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.namep)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.namep)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.typep)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.typep)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.newprice)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.newprice)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.oldprice)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.oldprice)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.descr)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.descr)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.date_create)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.date_create)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.hide)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.hide)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.statep)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.statep)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.img)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.img)
-            </dd>
-    
-        </dl>
+                                        <button type="submit" class="btn btn-default aa-review-submit">Submit</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Related product -->
+                    <div class="aa-product-related-item">
+                        <h3>Related Products</h3>
+                        <ul class="aa-product-catg aa-related-item-slider">
+                            <!-- start single product item -->
+                            <li>
+                                <figure>
+                                    <a class="aa-product-img" href="#"><img src="img/man/polo-shirt-2.png" alt="polo shirt img"></a>
+                                    <a class="aa-add-card-btn" href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                                    <figcaption>
+                                        <h4 class="aa-product-title"><a href="#">Polo T-Shirt</a></h4>
+                                        <span class="aa-product-price">$45.50</span><span class="aa-product-price"><del>$65.50</del></span>
+                                    </figcaption>
+                                </figure>
+                                <div class="aa-product-hvr-content">
+                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
+                                    <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
+                                </div>
+                                <!-- product badge -->
+                                <span class="aa-badge aa-sale" href="#">SALE!</span>
+                            </li>
+                            <!-- start single product item -->
+                            <li>
+                                <figure>
+                                    <a class="aa-product-img" href="#"><img src="img/women/girl-2.png" alt="polo shirt img"></a>
+                                    <a class="aa-add-card-btn" href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                                    <figcaption>
+                                        <h4 class="aa-product-title"><a href="#">Lorem ipsum doller</a></h4>
+                                        <span class="aa-product-price">$45.50</span>
+                                    </figcaption>
+                                </figure>
+                                <div class="aa-product-hvr-content">
+                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
+                                    <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
+                                </div>
+                                <!-- product badge -->
+                                <span class="aa-badge aa-sold-out" href="#">Sold Out!</span>
+                            </li>
+                            <!-- start single product item -->
+                            <li>
+                                <figure>
+                                    <a class="aa-product-img" href="#"><img src="img/man/t-shirt-1.png" alt="polo shirt img"></a>
+                                    <a class="aa-add-card-btn" href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                                </figure>
+                                <figcaption>
+                                    <h4 class="aa-product-title"><a href="#">T-Shirt</a></h4>
+                                    <span class="aa-product-price">$45.50</span>
+                                </figcaption>
+                                <div class="aa-product-hvr-content">
+                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
+                                    <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
+                                </div>
+                                <!-- product badge -->
+                                <span class="aa-badge aa-hot" href="#">HOT!</span>
+                            </li>
+                            <!-- start single product item -->
+                            <li>
+                                <figure>
+                                    <a class="aa-product-img" href="#"><img src="img/women/girl-3.png" alt="polo shirt img"></a>
+                                    <a class="aa-add-card-btn" href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                                    <figcaption>
+                                        <h4 class="aa-product-title"><a href="#">Lorem ipsum doller</a></h4>
+                                        <span class="aa-product-price">$45.50</span><span class="aa-product-price"><del>$65.50</del></span>
+                                    </figcaption>
+                                </figure>
+                                <div class="aa-product-hvr-content">
+                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
+                                    <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
+                                </div>
+                            </li>
+                            <!-- start single product item -->
+                            <li>
+                                <figure>
+                                    <a class="aa-product-img" href="#"><img src="img/man/polo-shirt-1.png" alt="polo shirt img"></a>
+                                    <a class="aa-add-card-btn" href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                                    <figcaption>
+                                        <h4 class="aa-product-title"><a href="#">Polo T-Shirt</a></h4>
+                                        <span class="aa-product-price">$45.50</span><span class="aa-product-price"><del>$65.50</del></span>
+                                    </figcaption>
+                                </figure>
+                                <div class="aa-product-hvr-content">
+                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
+                                    <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
+                                </div>
+                            </li>
+                            <!-- start single product item -->
+                            <li>
+                                <figure>
+                                    <a class="aa-product-img" href="#"><img src="img/women/girl-4.png" alt="polo shirt img"></a>
+                                    <a class="aa-add-card-btn" href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                                    <figcaption>
+                                        <h4 class="aa-product-title"><a href="#">Lorem ipsum doller</a></h4>
+                                        <span class="aa-product-price">$45.50</span><span class="aa-product-price"><del>$65.50</del></span>
+                                    </figcaption>
+                                </figure>
+                                <div class="aa-product-hvr-content">
+                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
+                                    <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
+                                </div>
+                                <!-- product badge -->
+                                <span class="aa-badge aa-sold-out" href="#">Sold Out!</span>
+                            </li>
+                            <!-- start single product item -->
+                            <li>
+                                <figure>
+                                    <a class="aa-product-img" href="#"><img src="img/man/polo-shirt-4.png" alt="polo shirt img"></a>
+                                    <a class="aa-add-card-btn" href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                                    <figcaption>
+                                        <h4 class="aa-product-title"><a href="#">Polo T-Shirt</a></h4>
+                                        <span class="aa-product-price">$45.50</span><span class="aa-product-price"><del>$65.50</del></span>
+                                    </figcaption>
+                                </figure>
+                                <div class="aa-product-hvr-content">
+                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
+                                    <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
+                                </div>
+                                <!-- product badge -->
+                                <span class="aa-badge aa-hot" href="#">HOT!</span>
+                            </li>
+                            <!-- start single product item -->
+                            <li>
+                                <figure>
+                                    <a class="aa-product-img" href="#"><img src="img/women/girl-1.png" alt="polo shirt img"></a>
+                                    <a class="aa-add-card-btn" href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                                    <figcaption>
+                                        <h4 class="aa-product-title"><a href="#">This is Title</a></h4>
+                                        <span class="aa-product-price">$45.50</span><span class="aa-product-price"><del>$65.50</del></span>
+                                    </figcaption>
+                                </figure>
+                                <div class="aa-product-hvr-content">
+                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
+                                    <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
+                                </div>
+                                <!-- product badge -->
+                                <span class="aa-badge aa-sale" href="#">SALE!</span>
+                            </li>
+                        </ul>
+                        <!-- quick view modal -->
+                        <div class="modal fade" id="quick-view-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <div class="row">
+                                            <!-- Modal view slider -->
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <div class="aa-product-view-slider">
+                                                    <div class="simpleLens-gallery-container" id="demo-1">
+                                                        <div class="simpleLens-container">
+                                                            <div class="simpleLens-big-image-container">
+                                                                <a class="simpleLens-lens-image" data-lens-image="img/view-slider/large/polo-shirt-1.png">
+                                                                    <img src="img/view-slider/medium/polo-shirt-1.png" class="simpleLens-big-image">
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="simpleLens-thumbnails-container">
+                                                            <a href="#" class="simpleLens-thumbnail-wrapper"
+                                                               data-lens-image="img/view-slider/large/polo-shirt-1.png"
+                                                               data-big-image="img/view-slider/medium/polo-shirt-1.png">
+                                                                <img src="img/view-slider/thumbnail/polo-shirt-1.png">
+                                                            </a>
+                                                            <a href="#" class="simpleLens-thumbnail-wrapper"
+                                                               data-lens-image="img/view-slider/large/polo-shirt-3.png"
+                                                               data-big-image="img/view-slider/medium/polo-shirt-3.png">
+                                                                <img src="img/view-slider/thumbnail/polo-shirt-3.png">
+                                                            </a>
+
+                                                            <a href="#" class="simpleLens-thumbnail-wrapper"
+                                                               data-lens-image="img/view-slider/large/polo-shirt-4.png"
+                                                               data-big-image="img/view-slider/medium/polo-shirt-4.png">
+                                                                <img src="img/view-slider/thumbnail/polo-shirt-4.png">
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Modal view content -->
+                                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                                <div class="aa-product-view-content">
+                                                    <h3>T-Shirt</h3>
+                                                    <div class="aa-price-block">
+                                                        <span class="aa-product-view-price">$34.99</span>
+                                                        <p class="aa-product-avilability">Avilability: <span>In stock</span></p>
+                                                    </div>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis animi, veritatis quae repudiandae quod nulla porro quidem, itaque quis quaerat!</p>
+                                                    <h4>Size</h4>
+                                                    <div class="aa-prod-view-size">
+                                                        <a href="#">S</a>
+                                                        <a href="#">M</a>
+                                                        <a href="#">L</a>
+                                                        <a href="#">XL</a>
+                                                    </div>
+                                                    <div class="aa-prod-quantity">
+                                                        <form action="">
+                                                            <select name="" id="">
+                                                                <option value="0" selected="1">1</option>
+                                                                <option value="1">2</option>
+                                                                <option value="2">3</option>
+                                                                <option value="3">4</option>
+                                                                <option value="4">5</option>
+                                                                <option value="5">6</option>
+                                                            </select>
+                                                        </form>
+                                                        <p class="aa-prod-category">
+                                                            Category: <a href="#">Polo T-Shirt</a>
+                                                        </p>
+                                                    </div>
+                                                    <div class="aa-prod-view-bottom">
+                                                        <a href="#" class="aa-add-to-cart-btn"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                                                        <a href="#" class="aa-add-to-cart-btn">View Details</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                        </div>
+                        <!-- / quick view modal -->
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.idp }) |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
-</body>
-</html>
+</section>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DoctorSkin.Mappings;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -17,6 +18,7 @@ namespace DoctorSkin
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            //AutoMapperConfiguration.Configure();
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             //SwaggerConfig.Register(GlobalConfiguration.Configuration);
             //SwaggerConfig.Register(MyOtherApiConfiguration);

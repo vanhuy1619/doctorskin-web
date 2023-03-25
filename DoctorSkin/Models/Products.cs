@@ -23,5 +23,6 @@ namespace DoctorSkin.Models
         //public String nameshort { set; get; }
         public int idbrand { set; get; }
         public String metap { set; get; }
+        public String avilability { set; get; }
     }
 }

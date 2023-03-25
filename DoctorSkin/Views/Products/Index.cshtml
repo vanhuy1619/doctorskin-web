@@ -1,4 +1,6 @@
-﻿<!-- catg header banner section -->
+﻿<link href="~/Content/assets/css/nouislider.css" rel="stylesheet" />
+
+<!-- catg header banner section -->
 <section id="aa-catg-head-banner">
     <img src="https://media.hasaki.vn/hsk/1677722764home-(1).jpg" style="width:100%" alt="fashion img">
     <div class="aa-catg-head-banner-area">
@@ -18,7 +20,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-9 col-md-9 col-sm-8 col-md-push-3">
-                @Html.Action("getListProduct", "Default", new { typep = Model.typep})
+                @Html.Action("getListProduct", "Default", new { typep = Model.typep })
             </div>
             <div class="col-lg-3 col-md-3 col-sm-4 col-md-pull-9">
                 <aside class="aa-sidebar">
@@ -31,17 +33,17 @@
                     </div>
                     <!-- single sidebar -->
                     @*<div class="aa-sidebar-widget">
-                        <h3>Tags</h3>
-                        <div class="tag-cloud">
-                            <a href="#">Fashion</a>
-                            <a href="#">Ecommerce</a>
-                            <a href="#">Shop</a>
-                            <a href="#">Hand Bag</a>
-                            <a href="#">Laptop</a>
-                            <a href="#">Head Phone</a>
-                            <a href="#">Pen Drive</a>
-                        </div>
-                    </div>*@
+                            <h3>Tags</h3>
+                            <div class="tag-cloud">
+                                <a href="#">Fashion</a>
+                                <a href="#">Ecommerce</a>
+                                <a href="#">Shop</a>
+                                <a href="#">Hand Bag</a>
+                                <a href="#">Laptop</a>
+                                <a href="#">Head Phone</a>
+                                <a href="#">Pen Drive</a>
+                            </div>
+                        </div>*@
                     <!-- single sidebar -->
                     <div class="aa-sidebar-widget">
                         <h3>Sản phẩm theo giá</h3>
@@ -50,9 +52,9 @@
                             <form action="">
                                 <div id="skipstep" class="noUi-target noUi-ltr noUi-horizontal noUi-background">
                                 </div>
-                                <span id="skip-value-lower" class="example-val">30,000</span>
-                                <span id="skip-value-upper" class="example-val">100,000</span>
-                                <button class="aa-filter-btn" type="submit">Lọc</button>
+                                <span id="skip-value-lower" class="example-val">30.00</span>
+                                <span id="skip-value-upper" class="example-val">100.00</span>
+                                <button class="aa-filter-btn" type="submit">Filter</button>
                             </form>
                         </div>
 
@@ -62,17 +64,17 @@
                         <h3>Thương hiệu</h3>
                         <div class="aa-color-tag">
                             @*<a class="aa-color-green" href="#"></a>
-                            <a class="aa-color-yellow" href="#"></a>
-                            <a class="aa-color-pink" href="#"></a>
-                            <a class="aa-color-purple" href="#"></a>
-                            <a class="aa-color-blue" href="#"></a>
-                            <a class="aa-color-orange" href="#"></a>
-                            <a class="aa-color-gray" href="#"></a>
-                            <a class="aa-color-black" href="#"></a>
-                            <a class="aa-color-white" href="#"></a>
-                            <a class="aa-color-cyan" href="#"></a>
-                            <a class="aa-color-olive" href="#"></a>
-                            <a class="aa-color-orchid" href="#"></a>*@
+                                <a class="aa-color-yellow" href="#"></a>
+                                <a class="aa-color-pink" href="#"></a>
+                                <a class="aa-color-purple" href="#"></a>
+                                <a class="aa-color-blue" href="#"></a>
+                                <a class="aa-color-orange" href="#"></a>
+                                <a class="aa-color-gray" href="#"></a>
+                                <a class="aa-color-black" href="#"></a>
+                                <a class="aa-color-white" href="#"></a>
+                                <a class="aa-color-cyan" href="#"></a>
+                                <a class="aa-color-olive" href="#"></a>
+                                <a class="aa-color-orchid" href="#"></a>*@
                             @{ Html.RenderAction("getRandomBrand", "Default");}
                         </div>
                     </div>
@@ -159,9 +161,11 @@
     </div>
 </section>
 <!-- / Subscribe section -->
-
+<link href="~/Content/assets/css/nouislider.css" rel="stylesheet" />
+<script src="~/Scripts/js/nouislider.js"></script>
+<script src="~/Scripts/js/custom.js"></script>
 <script type="text/javascript">
     function handleSelect(elm) {
-        window.location = "?sortOrder="+elm.value;
+        window.location = "?sortOrder=" + elm.value;
     }
 </script>

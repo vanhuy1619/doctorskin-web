@@ -42,7 +42,16 @@ namespace DoctorSkin.Models
         public virtual DbSet<Feedbacks> Feedbacks { get; set; }
 
         public virtual DbSet<Brands> Brands { get; set; }
-
+        public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<RepFeedbacks> RepFeedbacks { get; set; }
         public System.Data.Entity.DbSet<DoctorSkin.Models.ServicesDetails> ServicesDetails { get; set; }
+
+        public System.Data.Entity.DbSet<DoctorSkin.Models.ViewModel.ProductsViewModel> ProductsViewModels { get; set; }
+
+        public System.Data.Entity.DbSet<DoctorSkin.Models.ViewModel.UserFeedBackViewModel> UserFeedBackViewModels { get; set; }
+
+        public System.Data.Entity.DbSet<DoctorSkin.Models.Wishlists> Wishlists { get; set; }
+
+        public System.Data.Entity.DbSet<DoctorSkin.Models.Carts> Carts { get; set; }
     }
 }

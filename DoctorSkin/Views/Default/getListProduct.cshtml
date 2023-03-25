@@ -1,4 +1,7 @@
-﻿@model PagedList.IPagedList<DoctorSkin.Models.Products>
+﻿<link href="~/Content/assets/css/nouislider.css" rel="stylesheet" />
+
+
+@model PagedList.IPagedList<DoctorSkin.Models.Products>
 @using PagedList.Mvc;
 <style>
     .active {
@@ -27,10 +30,10 @@
             {
                 <li>
                     <figure>
-                        <a class="aa-product-img" href="#"><img src="@i.img" style="width:100%;height:250px;object-fit:cover" alt="polo shirt img"></a>
-                        <a class="aa-add-card-btn" href="#"><span class="fa fa-shopping-cart"></span>Thêm vào giỏ hàng</a>
+                        <a class="aa-product-img" href="/@ViewBag.meta/@i.metap/@i.idp"><img src="@i.img" style="width:100%;height:250px;object-fit:cover" alt="polo shirt img"></a>
+                        <a onclick="addCart(@i.idp)" class="aa-add-card-btn" href="#"><span class="fa fa-shopping-cart"></span>Thêm vào giỏ hàng</a>
                         <figcaption>
-                            <p class="aa-product-title" style="font-size: 14px !important; text-align: left; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; display: -webkit-box;"><a href="#">@i.namep</a></p>
+                            <div class="aa-product-title" style="font-size: 14px !important;height:60px; text-align: left; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; display: -webkit-box;"><a href="#">@i.namep</a></div>
                             <span class="aa-product-price">@decimal.Parse(i.newprice).ToString("#,##0đ")</span><span class="aa-product-price"><del>@decimal.Parse(i.oldprice).ToString("#,##0đ")</del></span>
                             <p class="aa-product-descrip">@i.descr</p>
                         </figcaption>
