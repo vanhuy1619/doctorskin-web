@@ -11,9 +11,19 @@ namespace DoctorSkin.Models
     {
         [Key]
         public String iduser { set; get; }
+
+        [Required]
+        [StringLength(50, MinimumLength = 3)]
         public String name { set; get; }
+
+        [Required]
         public Nullable<System.DateTime> birth { set; get; }
+
+        [Required]
         public String gender { set; get; }
+
+        [Required]
+        [StringLength(50, MinimumLength = 10)]
         public String phone { set; get; }
 
         [Required]
@@ -30,6 +40,8 @@ namespace DoctorSkin.Models
 
         public bool hide { set; get; }
         public bool block { set; get; }
+
+        [StringLength(50, MinimumLength = 3)]
         public String ava { set; get; }
 
     }

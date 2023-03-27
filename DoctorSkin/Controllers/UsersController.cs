@@ -7,6 +7,13 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using DoctorSkin.Models;
+using DoctorSkin.config;
+using Azure.Core;
+using CloudinaryDotNet.Actions;
+using Microsoft.Ajax.Utilities;
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
+using System.Web.UI.WebControls;
 
 namespace DoctorSkin.Controllers
 {
@@ -14,6 +21,7 @@ namespace DoctorSkin.Controllers
     public class UsersController : Controller
     {
         private DoctorSkinEntities db = new DoctorSkinEntities();
+        private Config config = new Config();
 
         // GET: Users
         public ActionResult Index()
@@ -61,17 +69,45 @@ namespace DoctorSkin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "iduser,name,birth,gender,phone,email,password,hide,block,ava")] Users users)
+        public ActionResult Create([Bind(Include = "iduser,name,birth,gender,phone,email,password,ava")] Users users)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && FileUpload.Equals(""))
             {
-                String pass = GetMD
-                db.Users.Add(users);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                var check = db.Users.FirstOrDefault(s => s.email == users.email);
+                var cloudinary = new Cloudinary();
 
-            return View(users);
+                if (check == null){
+                    users.password = config.GetMD5(users.password);
+                    db.Configuration.ValidateOnSaveEnabled = false;
+
+                    
+                    var uploadParams = new ImageUploadParams()
+                    {
+                        File = new FileDescription(fileAvatar.FileName, fileAvatar.FileContent),
+                        PublicId = "avatar/" + Guid.NewGuid().ToString() // Tên public id để lưu hình ảnh trên Cloudinary
+                    };
+
+                    // Tải lên hình ảnh lên Cloudinary
+                    var uploadResult = cloudinary.Upload(uploadParams);
+
+                    // Lưu URL của hình ảnh vào cơ sở dữ liệu của bạn hoặc sử dụng nó để hiển thị hình ảnh trong trang web của bạn
+                    string imageUrl = uploadResult.Uri.ToString();
+
+                    users.ava = imageUrl;
+
+                    db.Users.Add(users);
+                    db.SaveChanges();
+                    ViewBag.noti = "Đăng ký thành công, vui lòng đang nhập tài khoản!";
+                    
+                    return View();
+                }
+                else
+                {
+                    ViewBag.noti = "Đăng ký tài khoản không thành công!";
+                    return View();
+                }
+            }
+            return View();
         }
 
         // GET: Users/Edit/5
