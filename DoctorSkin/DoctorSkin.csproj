@@ -511,7 +511,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="APIController\CartsController.cs" />
-    <Compile Include="APIController\UsersController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -520,6 +519,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="APIController\ProductsController.cs" />
     <Compile Include="config\Config.cs" />
+    <Compile Include="config\HttpContext.cs" />
     <Compile Include="Controllers\BlogByTypeController.cs" />
     <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Controllers\CartsController.cs" />
@@ -561,7 +561,11 @@
   <ItemGroup>
     <Content Include="Content\assets\css\bootstrap.css" />
     <Content Include="Content\assets\css\font-awesome.css" />
+    <Content Include="Content\assets\css\index.css" />
+    <Content Include="Content\assets\css\loading.css" />
+    <Content Include="Content\assets\css\profile.css" />
     <Content Include="Content\assets\css\style1.css" />
+    <Content Include="Content\assets\img\loading.svg" />
     <Content Include="Content\ckeditor\adapters\jquery.js" />
     <Content Include="Content\ckeditor\build-config.js" />
     <Content Include="Content\ckeditor\ckeditor.js" />
@@ -1402,11 +1406,15 @@
     <Content Include="Scripts\js\jquery.simpleLens.js" />
     <Content Include="Scripts\js\jquery.smartmenus.bootstrap.js" />
     <Content Include="Scripts\js\jquery.smartmenus.js" />
+    <Content Include="Scripts\js\loading.js" />
     <Content Include="Scripts\js\nouislider.js" />
     <Content Include="Scripts\js\cart.js" />
+    <Content Include="Scripts\js\profile.js" />
+    <Content Include="Scripts\js\script.js" />
     <Content Include="Scripts\js\sequence-theme.modern-slide-in.js" />
     <Content Include="Scripts\js\sequence.js" />
     <Content Include="Scripts\js\slick.js" />
+    <Content Include="Scripts\js\user.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -1462,11 +1470,10 @@
     <Content Include="Views\Carts\Edit.cshtml" />
     <Content Include="Views\Carts\Index.cshtml" />
     <Content Include="Views\Users\Create.cshtml" />
-    <Content Include="Views\Users\Delete.cshtml" />
     <Content Include="Views\Users\Details.cshtml" />
     <Content Include="Views\Users\Edit.cshtml" />
-    <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Users\ResetPass.cshtml" />
+    <Content Include="Views\Users\Profile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -26,5 +26,6 @@ namespace DoctorSkin.config
             }
             return byte2String;
         }
+
     }
 }

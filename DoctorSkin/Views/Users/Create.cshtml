@@ -1,119 +1,113 @@
-﻿@model DoctorSkin.Models.Users
-
-@{
+﻿@{
     Layout = null;
 }
 
-<!DOCTYPE html>
 
+<!DOCTYPE html>
 <html>
+
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Create</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/Content/assets/css/style1.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link href="~/Content/assets/css/loading.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="//o2skin.vn/wp-content/uploads/2021/09/favicon.ico" type="image/x-icon">
+
+    <style>
+        .error-text {
+            color: #721c24;
+            padding: 8px 10px;
+            text-align: center;
+            border-radius: 5px;
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            /*display: none;*/
+        }
+    </style>
 </head>
+
 <body>
-    @using (Html.BeginForm()) 
-    {
-        @Html.AntiForgeryToken()
-        
-        <div class="form-horizontal">
-            <h4>Users</h4>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(model => model.iduser, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.iduser, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.iduser, "", new { @class = "text-danger" })
-                </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
-                </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.birth, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.birth, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.birth, "", new { @class = "text-danger" })
-                </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.gender, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.gender, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.gender, "", new { @class = "text-danger" })
-                </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.phone, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.phone, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.phone, "", new { @class = "text-danger" })
-                </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
-                </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
-                </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.hide, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    <div class="checkbox">
-                        @Html.EditorFor(model => model.hide)
-                        @Html.ValidationMessageFor(model => model.hide, "", new { @class = "text-danger" })
+    <div>
+        <img class="logoImg" src="https://o2skin.cdn.vccloud.vn/wp-content/uploads/2022/01/logo-o2skin.png"
+             style="width:100%;object-fit:cover">
+    </div>
+    <div class="container" id="container">
+        <div class="form-container sign-up-container">
+            @*@Html.AntiForgeryToken()*@
+            <form method="post" id="register-form" action="/users/create" enctype="multipart/form-data">
+                <input name="name" type="text" required placeholder="Họ và tên" />
+                <input name="email" type="email" required placeholder="Email" />
+                <div class="form-group"
+                     style="width: 100%; float: left; display: flex; align-items: center; justify-content: flex-start;">
+                    <label>Giới tính</label>
+                    <div class="form-check form-check-inline" style="display:flex">
+                        <div>
+                            <input class="form-check-input" type="radio" name="gender" value="Male" id="male" checked>
+                            Nam
+                        </div>
+                        <div>
+                            <input class="form-check-input" type="radio" name="gender" value="Memale" id="female"> Nữ
+                        </div>
+                        <div>
+                            <input class="form-check-input" type="radio" name="gender" value="Other" id="other"> Khác
+                        </div>
                     </div>
                 </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.block, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    <div class="checkbox">
-                        @Html.EditorFor(model => model.block)
-                        @Html.ValidationMessageFor(model => model.block, "", new { @class = "text-danger" })
-                    </div>
+                <input name="phone" placeholder="Số điện thoại" required />
+                <input name="birth" type="date" placeholder="Ngày sinh" />
+                <input required id="password" name="password" type="password" placeholder="Mật khẩu"
+                       minlength="8" maxlength="12" />
+                <input required id="confirm_password" type="password" placeholder="Nhập lại mật khẩu" minlength="8"
+                       maxlength="12" />
+                <div class="custom-file">
+                    <input type="file" name="file" class="custom-file-input" id="file" accept="image/*" required>
                 </div>
-            </div>
-    
-            <div class="form-group">
-                @Html.LabelFor(model => model.ava, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.ava, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.ava, "", new { @class = "text-danger" })
+                <span id="messageMatch"></span>
+                @*<div class="error-text" id="error-text">Hello</div>*@
+                <button type="submit" class="btn-regist">Đăng Ký</button>
+            </form>
+        </div>
+        <div class="form-container sign-in-container">
+            <form id="login-form" action="/users/login" method="post" enctype="multipart/form-data">
+                <h1 class="headerLogin">Đăng Nhập</h1>
+                <input id="email-login" name="email" type="text" placeholder="Email/Số điện thoại" required/>
+                <input id="password-login" name="password" type="password" placeholder="Mật khẩu" required/>
+                <div class="passwordFind">
+                    <a href="forgotPassword">Quên mật khẩu? </a>
+                    <a href="changePassword">Thay đổi mật khẩu</a>
                 </div>
-            </div>
-    
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
+                <button type="submit" name="submitLogin">Đăng Nhập</button>
+            </form>
+
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>O2 SKIN Trị mụn chuẩn y khoa</h1>
+                    <p>Để có thể sử dụng những chức năng, vui lòng đăng ký</p>
+                    <button class="ghost" id="signIn">Đăng Nhập</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>Xin chào</h1>
+                    <p class="signUpIntroduction">
+                        Vui lòng đăng nhập để có thể thực hiện những chức năng trong hệ thống
+                    </p>
+                    <button class="ghost" id="signUp">Đăng Ký</button>
                 </div>
             </div>
         </div>
-    }
-    
-    <div>
-        @Html.ActionLink("Back to List", "Index")
     </div>
+
+    <div id="loading">
+        <img src="~/Content/assets/img/loading.svg" />
+    </div>
+    <script src="~/Scripts/js/user.js"></script>
+    <script src="~/Scripts/js/loading.js"></script>
 </body>
+
 </html>

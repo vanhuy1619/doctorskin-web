@@ -15,9 +15,27 @@ namespace DoctorSkin.Controllers
         private DoctorSkinEntities db = new DoctorSkinEntities();
 
         // GET: Carts
-        public ActionResult Index()
+        public ActionResult Index(string filter)
         {
-            return View(db.Carts.ToList());
+            if (Session["iduser"] == null)
+            {
+                Response.Redirect("/dang-nhap");
+            }
+            var v = (from a in db.Products
+                     join b in db.Carts on a.idp equals b.idp
+                     where b.iduser.Equals("htye7go15")
+                     select a).ToList();
+
+            switch (filter)
+            {
+                case "hethang":
+                    v = v.Where(c => c.hide == true).ToList();
+                    break;
+                default:
+                    v = v.Where(c => c.hide == false).ToList();
+                    break;
+            }
+            return View(v);
         }
 
         // GET: Carts/Details/5

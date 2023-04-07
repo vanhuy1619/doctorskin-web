@@ -34,15 +34,17 @@ namespace DoctorSkin.Models
         public String password { set; get; }
 
         [NotMapped]
-        [Required]
         [System.ComponentModel.DataAnnotations.Compare("Password")]
         public string ConfirmPassword { get; set; }
 
-        public bool hide { set; get; }
-        public bool block { set; get; }
+        
+        public bool hide { set; get; } = false;
+        public bool block { set; get; } = false;
 
         [StringLength(50, MinimumLength = 3)]
         public String ava { set; get; }
+
+        public int total { set; get; }
 
     }
 }

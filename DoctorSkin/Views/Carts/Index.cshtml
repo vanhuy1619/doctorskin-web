@@ -1,50 +1,90 @@
-﻿ <section id="cart-view">
-   <div class="container">
-     <div class="row">
-       <div class="col-md-12">
-           <div class="cart-view-area">
-               <div style="margin-bottom:15px">
-                   <div class="row" style="background-color: #F5F5F5">
-                       <div class="col-md-6">
-                           <p>Sản phẩm</p>
-                       </div>
-                       <div class="col-md-2">
-                           <p>Đơn giá</p>
-                       </div>
-                       <div class="col-md-1">
-                           <p>Số lượng</p>
-                       </div>
-                       <div class="col-md-2">
-                           <p>Thành tiền</p>
-                       </div>
-                       <div class="col-md-1">
-                           <p>Thao tác</p>
-                       </div>
-                   </div>
-               </div>
-               <div class="cart-view-table">
-                   <div id="table-data-cart">
-                   </div>
-                   <!-- Cart Total view -->
-                   <div class="cart-view-total">
-                       <h4>Cart Totals</h4>
-                       <table class="aa-totals-table">
-                           <tbody>
-                               <tr>
-                                   <th>Subtotal</th>
-                                   <td>$450</td>
-                               </tr>
-                               <tr>
-                                   <th>Total</th>
-                                   <td>$450</td>
-                               </tr>
-                           </tbody>
-                       </table>
-                       <a href="#" class="aa-cart-view-btn">Proced to Checkout</a>
-                   </div>
-               </div>
-           </div>
-       </div>
-     </div>
-   </div>
- </section>
+﻿@model List<DoctorSkin.Models.Products>
+@{ 
+    DoctorSkin.Models.DoctorSkinEntities db = new DoctorSkin.Models.DoctorSkinEntities();
+}
+
+<section id="aa-promo" style="margin-top:20px;margin-bottom:40px">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12" style="background-color: #F5F5F5;padding:12px">
+                <div class="col-md-6">
+                    <p>Sản phẩm</p>
+                </div>
+                <div class="col-md-2">
+                    <p>Đơn giá</p>
+                </div>
+                <div class="col-md-1">
+                    <p>Số lượng</p>
+                </div>
+                <div class="col-md-2">
+                    <p>Thành tiền</p>
+                </div>
+                <div class="col-md-1">
+                    <p>Thao tác</p>
+                </div>
+            </div>
+            <div class="col-sm-12" style="background-color:#f5f5f5;margin-top:20px">
+                <div id="table-data-cart" style="padding:12px">
+                    @foreach (var item in Model)
+                    {
+                        string iduser = (String)Session["iduser"];
+                        int amount = db.Carts.Where(c => c.idp == item.idp && c.iduser.Equals(iduser)).FirstOrDefault().quanlity;
+
+                        <div class="row" id="div-pr-@item.idp" stock="@item.avilability">
+                            <div class="row" style="margin-bottom:15px">
+                                <div class="col-md-4" style="display: flex;justify-content: space-between;">
+                                    <div>
+                                        <input type="checkbox"></input>
+                                    </div>
+                                    <div class="" style="padding: 0 8px;">
+                                        <a class="aa-cartbox-img" href="#">
+                                            <img style="width: 100px;height: 100px;object-fit: cover;" src="@item.img" alt="img"/>
+                                        </a>
+                                    </div>
+                                    <div>
+                                        <a href="#" style="-webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; display: -webkit-box;font-size:14px">@item.namep</a>
+                                        <img style="height: 18px;object-fit: contain;" src="@item.img" alt="" />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div style="opacity: 0.7;">
+                                        <div>Thương hiệu:</div>
+                                        <div>@db.Brands.Find(item.idbrand).namebrand</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div>
+                                        <p class="money" value="@item.newprice">@item.newprice</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div>
+                                        <input style="width: 100%;" type="number" value="@amount"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div>
+                                        <p class="money" value="@Math.Abs(amount*int.Parse(item.newprice))" style="color: #ee4d2d">@Math.Abs(amount*int.Parse(item.newprice))</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div>
+                                        <a class="aa-remove-product" href="#" style="top:0 !important">
+                                            <span class="fa fa-times" onclick="deletePro(@item.idp)"></span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                </div>
+                <!-- Cart Total view -->
+
+            </div>
+        </div>
+        
+    </div>
+</section>
+

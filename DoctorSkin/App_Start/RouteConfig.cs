@@ -67,6 +67,18 @@ namespace DoctorSkin
                  new[] { "DoctorSkin.Controllers" }
              );
 
+            //Đăng nhập & đăng ký
+            routes.MapRoute(
+                 name: "Login",
+                 url: "{type}",
+                 new { controller = "Users", action = "Create", idp = UrlParameter.Optional },
+                 new RouteValueDictionary
+                 {
+                     { "type","dang-nhap" }
+                 },
+                 new[] { "DoctorSkin.Controllers" }
+             );
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
@@ -81,14 +93,7 @@ namespace DoctorSkin
                 },
                 new[] { "DoctorSkin.Controllers" });
 
-            //Đăng nhập & đăng ký
-            //routes.MapRoute(name: "Login", url: "{controller}/{type}",
-            //     new { Controller = "Users", action ="Index"},
-            //     new RouteValueDictionary
-            //     {
-            //        {"type","dang-nhap" }
-            //     },
-            //     new[] { "DoctorSkin.Controllers" });
+            
 
             //routes.MapRoute(name: "Forgot Pass", url: "{controller}/{type}",
             //     new { Controller = "Users", action = "ResetPass" },

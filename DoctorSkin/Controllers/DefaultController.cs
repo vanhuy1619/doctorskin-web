@@ -14,10 +14,10 @@ namespace DoctorSkin.Controllers
     {
         DoctorSkinEntities db = new DoctorSkinEntities();
         // GET: Default
-        public ActionResult Index()
-        {
-            return View();
-        }
+        // public ActionResult Index()
+        // {
+        //     return View();
+        // }
 
         public ActionResult getListCat()
         {
@@ -55,11 +55,11 @@ namespace DoctorSkin.Controllers
             return PartialView(v.ToPagedList(pageNumber, pageSize));
         }
 
-        [Route("san-pham")]
-        public ActionResult getListProductAll()
-        {
-            return View(db.Products.ToList());
-        }
+        // [Route("san-pham")]
+        // public ActionResult getListProductAll()
+        // {
+        //     return View(db.Products.ToList());
+        // }
 
         public ActionResult getListBlogType()
         {

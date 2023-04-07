@@ -9,6 +9,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using System.Web.ModelBinding;
 using System.Windows.Forms;
 using DoctorSkin.Models;
 
@@ -110,9 +111,9 @@ namespace DoctorSkin.APIController
 
         // DELETE: api/Carts/5
         [ResponseType(typeof(Carts))]
-        public IHttpActionResult DeleteCarts(int idp)
+        public IHttpActionResult DeleteCarts(int idp, string iduser)
         {
-            String iduser = "htye7go15";
+            
             Carts carts = db.Carts.Where(i=>i.iduser.Equals(iduser) && i.idp==idp).FirstOrDefault();
             if (carts == null)
             {

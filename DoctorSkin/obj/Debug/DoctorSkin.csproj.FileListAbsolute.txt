@@ -483,3 +483,10 @@ D:\.NET\doctorskin-web\DoctorSkin\bin\AutoMapper.xml
 D:\.NET\doctorskin-web\DoctorSkin\bin\AutoMapper.Extensions.ExpressionMapping.xml
 D:\.NET\doctorskin-web\DoctorSkin\bin\System.Security.Cryptography.Cng.dll
 D:\.NET\doctorskin-web\DoctorSkin\bin\System.Security.Cryptography.Cng.xml
+D:\.NET\doctorskin-web\DoctorSkin\bin\CloudinaryDotNet.dll
+D:\.NET\doctorskin-web\DoctorSkin\bin\MD5.dll
+D:\.NET\doctorskin-web\DoctorSkin\bin\System.Security.Cryptography.OpenSsl.dll
+D:\.NET\doctorskin-web\DoctorSkin\bin\System.Security.Cryptography.Pkcs.dll
+D:\.NET\doctorskin-web\DoctorSkin\bin\CloudinaryDotNet.xml
+D:\.NET\doctorskin-web\DoctorSkin\bin\System.Security.Cryptography.OpenSsl.xml
+D:\.NET\doctorskin-web\DoctorSkin\bin\System.Security.Cryptography.Pkcs.xml
