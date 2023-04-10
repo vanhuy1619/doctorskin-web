@@ -490,3 +490,6 @@ D:\.NET\doctorskin-web\DoctorSkin\bin\System.Security.Cryptography.Pkcs.dll
 D:\.NET\doctorskin-web\DoctorSkin\bin\CloudinaryDotNet.xml
 D:\.NET\doctorskin-web\DoctorSkin\bin\System.Security.Cryptography.OpenSsl.xml
 D:\.NET\doctorskin-web\DoctorSkin\bin\System.Security.Cryptography.Pkcs.xml
+D:\.NET\doctorskin-web\DoctorSkin\bin\BCrypt.Net-Next.dll
+D:\.NET\doctorskin-web\DoctorSkin\bin\DevOne.Security.Cryptography.BCrypt.dll
+D:\.NET\doctorskin-web\DoctorSkin\bin\BCrypt.Net-Next.xml

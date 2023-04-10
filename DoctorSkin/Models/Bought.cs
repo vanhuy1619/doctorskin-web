@@ -13,6 +13,6 @@ namespace DoctorSkin.Models
         public Nullable<System.DateTime> datebuy { set; get; }
         public String status { set; get; }
         public Nullable<System.DateTime> datestatus { set; get; }
-
+        public String yesfb { set; get; }
     }
 }

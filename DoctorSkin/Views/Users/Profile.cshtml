@@ -1,4 +1,19 @@
 ﻿@model DoctorSkin.Models.Users
+@{ 
+    string formatBirth(string s)
+    {
+        string a = s.Split(' ')[0];
+        string[] arr = a.Split('/');
+        Array.Reverse(arr);
+        string result = String.Join("-", arr);
+        return result;
+    }
+}
+<style>
+    .active {
+        background-color: #ebe6e6;
+    }
+</style>
 
 <link href="~/Content/assets/css/profile.css" rel="stylesheet" />
 <link href="~/Content/assets/css/index.css" rel="stylesheet" />
@@ -27,34 +42,39 @@
                         <div class="diemkhadung col-6">
                             <P class="tichluy_diem_main">
                                 Điểm khả dụng
-                                <b>0 điểm</b>
+                                <b>@Model.point điểm</b>
                             </P>
                         </div>
                     </div>
                     <div class="slide-profile-main tichluy_diem">
                         <div style="padding:0px 15px" class="choose-item-profile">
                             <!--thông tin tài khoản -->
-                            <div>
-                                <a href="" class="choose-item-profile-a">
+                            <div class="choose">
+                                <a href="/users/profile" class="choose-item-profile-a">
                                     <i class="fa fa-user"></i>Thông tin tài khoản
                                 </a>
                             </div>
-                            <div>
-                                <a href="" class="choose-item-profile-a">
+                            <div class="choose">
+                                <a href="/users/muahang" class="choose-item-profile-a">
                                     <i class="fa fa-list-alt"></i>Lịch sử mua hàng
                                 </a>
                             </div>
-                            <div>
-                                <a href="" class="choose-item-profile-a">
+                            <div class="choose">
+                                <a href="/users/uudai" class="choose-item-profile-a">
                                     <i class="fa fa-money"></i>Ưu đãi của tôi
                                 </a>
                             </div>
-                            <div>
-                                <a href="" class="choose-item-profile-a">
+                            <div class="choose">
+                                <a href="/users/question" class="choose-item-profile-a">
+                                    <i class="fa fa-question"></i>Câu hỏi của tôi
+                                </a>
+                            </div>
+                            <div class="choose">
+                                <a href="/users/dacquyen" class="choose-item-profile-a">
                                     <i class="fa fa-credit-card"></i>Thông tin đặc quyền thẻ
                                 </a>
                             </div>
-                            <div>
+                            <div class="choose">
                                 <a href="" class="choose-item-profile-a">
                                     <i class="fa fa-sign-out"></i>Đăng xuất
                                 </a>
@@ -100,46 +120,48 @@
                     <!-- THÔNG TIN CÁ NHÂN -->
                     <div class="form-group thongtinthe mt-5">
                         <label for="" style="font-weight:bold">Thông tin liên hệ</label>
-                        <div>
-                            <div class="row">
-                                <div class="col-12 col-md-6">
-                                    <div class="form-group">
-                                        <label for="">Họ</label>
-                                        <input type="text" class="form-control thongtincanhanh-input" id="" aria-describedby="" placeholder="" value="NGUYỄN">
+                        <form action="/users/edit" method="post" id="profile-form">
+                            <div>
+                                <div class="row">
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="">Họ và tên</label>
+                                            <input required type="text" class="form-control thongtincanhanh-input" id="" aria-describedby="" name="name" placeholder="" value="@Model.name">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="">Năm sinh</label>
+                                            <input required type="date" class="form-control thongtincanhanh-input" id="" aria-describedby="" placeholder="" name="birth" value="@formatBirth(Model.birth.ToString())">
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-6">
-                                    <div class="form-group">
-                                        <label for="">Tên đệm và tên</label>
-                                        <input type="text" class="form-control thongtincanhanh-input" id="" aria-describedby="" placeholder="" value="VĂN HUY">
+                                <div class="form-group">
+                                    <label for="">Giới tính</label>
+                                    <div>
+                                        <input type="radio" name="gender" id="" value="Male" @Html.Encode(Model.gender.Equals("Male") ? "checked" : "")>Nam
+                                        <input type="radio" name="gender" id="" value="Female" style="margin-left: 10px" @Html.Encode(Model.gender.Equals("Female") ? "checked" : "")>Nữ
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Giới tính</label>
-                                <div>
-                                    <input type="radio" name="gender" id="" value="male">Nam
-                                    <input type="radio" name="gender" id="" value="female" style="margin-left: 10px">Nữ
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12 col-md-6">
-                                    <div class="form-group">
-                                        <label for="">Email</label>
-                                        <input type="Email" class="form-control thongtincanhanh-input" id="" aria-describedby="" placeholder="" value="@Model.email" disabled>
+                                <div class="row">
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="">Email</label>
+                                            <input type="Email" name="email" class="form-control thongtincanhanh-input" id="" aria-describedby="" placeholder="" value="@Model.email" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="">Điện thoại</label>
+                                            <input type="tel" name="phone" class="form-control thongtincanhanh-input" id="" aria-describedby="" placeholder="" value="@Model.phone" maxlength="10" required pattern="[0]{1}[0-9]{4}[0-9]{5}">
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-6">
-                                    <div class="form-group">
-                                        <label for="">Điện thoại</label>
-                                        <input type="text" class="form-control thongtincanhanh-input" id="" aria-describedby="" placeholder="" value="@Model.phone">
-                                    </div>
+                                <div class="btn-search" style="width: fit-content;margin:0 auto;margin-top: 10px;">
+                                    <button type="submit" class="btn-search-click btn-search-click-listhotel" style="padding: 20px">Lưu</button>
                                 </div>
                             </div>
-                            <div class="btn-search" style="width: fit-content;margin:0 auto;margin-top: 10px;">
-                                <button type="submit" class="btn-search-click btn-search-click-listhotel" style="padding: 20px 40px">Lưu</button>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>

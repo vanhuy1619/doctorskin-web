@@ -23,14 +23,14 @@ namespace DoctorSkin.Models
         public String gender { set; get; }
 
         [Required]
-        [StringLength(50, MinimumLength = 10)]
+        [StringLength(10, MinimumLength = 10)]
         public String phone { set; get; }
 
         [Required]
         [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}")]
         public String email { set; get; }
 
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,15}$")]
+        //[RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,15}$")]
         public String password { set; get; }
 
         [NotMapped]
@@ -45,6 +45,8 @@ namespace DoctorSkin.Models
         public String ava { set; get; }
 
         public int total { set; get; }
+
+        public int point { set; get; }
 
     }
 }

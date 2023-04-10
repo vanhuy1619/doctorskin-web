@@ -73,11 +73,17 @@
     <Reference Include="Azure.Security.KeyVault.Secrets, Version=4.1.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
       <HintPath>..\packages\Azure.Security.KeyVault.Secrets.4.1.0\lib\netstandard2.0\Azure.Security.KeyVault.Secrets.dll</HintPath>
     </Reference>
+    <Reference Include="BCrypt.Net-Next, Version=4.0.3.0, Culture=neutral, PublicKeyToken=1e11be04b6288443, processorArchitecture=MSIL">
+      <HintPath>..\packages\BCrypt.Net-Next.4.0.3\lib\net472\BCrypt.Net-Next.dll</HintPath>
+    </Reference>
     <Reference Include="CloudinaryDotNet, Version=1.20.0.0, Culture=neutral, PublicKeyToken=c8234dc617ae7841, processorArchitecture=MSIL">
       <HintPath>..\packages\CloudinaryDotNet.1.20.0\lib\net452\CloudinaryDotNet.dll</HintPath>
     </Reference>
     <Reference Include="DataTables.AspNet.Core, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DataTables.AspNet.Core.2.0.2\lib\net45\DataTables.AspNet.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevOne.Security.Cryptography.BCrypt, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\BCrypt.1.0.0.0\lib\DevOne.Security.Cryptography.BCrypt.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
@@ -522,6 +528,7 @@
     <Compile Include="config\HttpContext.cs" />
     <Compile Include="Controllers\BlogByTypeController.cs" />
     <Compile Include="Controllers\BlogController.cs" />
+    <Compile Include="Controllers\BookingsController.cs" />
     <Compile Include="Controllers\CartsController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\DoctorsController.cs" />
@@ -539,6 +546,7 @@
     <Compile Include="Models\BlogContent.cs" />
     <Compile Include="Models\BlogDetails.cs" />
     <Compile Include="Models\BlogTypes.cs" />
+    <Compile Include="Models\Booking.cs" />
     <Compile Include="Models\Bought.cs" />
     <Compile Include="Models\Brands.cs" />
     <Compile Include="Models\Carts.cs" />
@@ -1434,10 +1442,7 @@
     <Content Include="Views\Home\getDoctor.cshtml" />
     <Content Include="Views\Home\getMedia.cshtml" />
     <Content Include="Views\Home\getService.cshtml" />
-    <Content Include="Views\Products\Create.cshtml" />
-    <Content Include="Views\Products\Delete.cshtml" />
     <Content Include="Views\Products\Details.cshtml" />
-    <Content Include="Views\Products\Edit.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Default\getListCat.cshtml" />
     <Content Include="Views\Default\getListProduct.cshtml" />
@@ -1464,16 +1469,14 @@
     <Content Include="Views\ServicesDetails\Details.cshtml" />
     <Content Include="Views\Default\GetListFeedbackByProductID.cshtml" />
     <Content Include="Views\Default\getListRepFeedbacks.cshtml" />
-    <Content Include="Views\Carts\Create.cshtml" />
-    <Content Include="Views\Carts\Delete.cshtml" />
-    <Content Include="Views\Carts\Details.cshtml" />
-    <Content Include="Views\Carts\Edit.cshtml" />
     <Content Include="Views\Carts\Index.cshtml" />
     <Content Include="Views\Users\Create.cshtml" />
-    <Content Include="Views\Users\Details.cshtml" />
-    <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Users\ResetPass.cshtml" />
     <Content Include="Views\Users\Profile.cshtml" />
+    <Content Include="Views\Users\Purchase.cshtml" />
+    <Content Include="Views\Carts\payMent.cshtml" />
+    <Content Include="Views\Default\getListProductSale.cshtml" />
+    <Content Include="Views\Default\getListProductTopRate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

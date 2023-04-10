@@ -53,5 +53,7 @@ namespace DoctorSkin.Models
         public System.Data.Entity.DbSet<DoctorSkin.Models.Wishlists> Wishlists { get; set; }
 
         public System.Data.Entity.DbSet<DoctorSkin.Models.Carts> Carts { get; set; }
+
+        public System.Data.Entity.DbSet<DoctorSkin.Models.Booking> Bookings { get; set; }
     }
 }

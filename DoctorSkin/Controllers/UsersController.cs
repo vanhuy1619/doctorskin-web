@@ -90,27 +90,24 @@ namespace DoctorSkin.Controllers
 
             if (check == null)
             {
-                byte[] bytes = Encoding.Unicode.GetBytes(users.password);
-                byte[] inArray = HashAlgorithm.Create("SHA256").ComputeHash(bytes);
-                string hashedPassword = Convert.ToBase64String(inArray);
+                string salt = BCrypt.Net.BCrypt.GenerateSalt();
+                string hash = BCrypt.Net.BCrypt.HashPassword(users.password, salt);
 
-                //users.password = config.GetMD5(users.password);
-                users.password = hashedPassword;
                 db.Configuration.ValidateOnSaveEnabled = false;
 
-                //// Lưu URL của hình ảnh vào cơ sở dữ liệu của bạn hoặc sử dụng nó để hiển thị hình ảnh trong trang web của bạn
-                //string imageUrl = uploadResult.Uri.ToString();
 
+                users.password = hash;
                 users.ava = uploadResult?.SecureUri.ToString();
                 users.iduser = randomID();
+                users.point = 0;
                 db.Users.Add(users);
                 db.SaveChanges();
 
                 return Json(new { code = 0, message = "Đăng ký thành công" });
             }
-            
+
             else
-                return Json(new { code = 1 ,message="Đăng ký không thành công, số điện thoại hoặc Email đã được đăng ký" });
+                return Json(new { code = 1, message = "Đăng ký không thành công, số điện thoại hoặc Email đã được đăng ký" });
         }
 
         public static bool VerifyHashedPassword(string hashedPassword, string password)
@@ -134,7 +131,8 @@ namespace DoctorSkin.Controllers
         public JsonResult Login(string email, string phone, string password)
         {
             var data = db.Users.Where(s => s.email.Equals(email) || s.phone.Equals(phone)).FirstOrDefault();
-            if (data!=null && VerifyHashedPassword(data.password,password)==true)
+
+            if (data != null && BCrypt.Net.BCrypt.Verify(password, data.password) == true)
             {
                 Session["iduser"] = data.iduser;
                 Session.Timeout = 14400; //trong 4 ngày
@@ -168,28 +166,13 @@ namespace DoctorSkin.Controllers
         }
 
 
-        // GET: Users/Edit/5
-        public ActionResult Edit(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Users users = db.Users.Find(id);
-            if (users == null)
-            {
-                return HttpNotFound();
-            }
-            return View(users);
-        }
-
         public ActionResult Profile()
         {
             if (Session["iduser"] == null)
             {
                 Response.Redirect("/dang-nhap");
             }
-           
+
             string iduser = (string)Session["iduser"];
             if (iduser == null)
             {
@@ -203,23 +186,41 @@ namespace DoctorSkin.Controllers
             return View(users);
         }
 
-        // POST: Users/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "iduser,name,birth,gender,phone,email,password,hide,block,ava")] Users users)
+        [HttpPut]
+        public JsonResult Edit(string iduser, string name, string phone, string birth, string gender)
         {
-            if (ModelState.IsValid)
+            var checkPhone = db.Users.Where(u => u.iduser != iduser && u.phone==phone).ToList();
+
+            Users user = db.Users.Where(s=>s.iduser==iduser).FirstOrDefault();
+            if (user != null)
             {
-                db.Entry(users).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (checkPhone.Count()==0)
+                {
+                    user.name = name;
+                    user.birth = Convert.ToDateTime(birth);
+                    user.gender = gender;
+                    user.phone = phone;
+
+                    db.Configuration.ValidateOnSaveEnabled = false;
+                    db.SaveChanges();
+                    return Json(new { code = 0, message = "Cập nhật thông tin thành công", data = user });
+                }
+                return Json(new { code = 1, message = "Số điện thoại đã được đăng ký", data=user});
             }
-            return View(users);
+            else if (user == null)
+            {
+                return Json(new { code = 1, message="Cập nhật thông tin thất bại"});
+            }
+            else  
+                return Json(new { code = 1, message = "Cập nhật thông tin thất bại" });
         }
 
-       
+        public ActionResult Purchase()
+        {
+            return View();
+        }
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

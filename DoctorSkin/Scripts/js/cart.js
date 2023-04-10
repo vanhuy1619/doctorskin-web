@@ -168,3 +168,67 @@ function deletePro(idp) {
         }
     })
 }
+
+//xử lý check
+function sum(data) {
+    return data.reduce((acc, item) => acc + Number(item.dongia) * Number(item.amount), 0);
+}
+
+function formatMoney(value) {
+    return Number(value).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+}
+
+let cart = []
+function checkItem() {
+    let listItem = document.querySelectorAll('.check-item')
+    listItem.forEach(ele => {
+        ele.onchange = function (e) {
+            if (ele.checked) {
+                cart.push({
+                    namep: ele.dataset.namep,
+                    imgp: ele.dataset.imgp,
+                    brandp: ele.dataset.brandp,
+                    idp: ele.dataset.idp,
+                    dongia: ele.dataset.price,
+                    amount: $(`.amount-item-${ele.dataset.idp}`).val()
+                })
+                console.log(cart)
+                $('#total').attr('value', sum(cart))
+                $('#total').text(formatMoney(sum(cart)))
+                $('.note').text(`Tổng thanh toán ( ${cart.length} sản phẩm)`)
+            }
+            else {
+                cart = cart.filter(item => item.idp !== ele.dataset.idp);
+                console.log(cart)
+                $('#total').attr('value', sum(cart))
+                $('#total').text(formatMoney(sum(cart)))
+                $('.note').text(`Tổng thanh toán ( ${cart.length} sản phẩm)`)
+            }
+        }
+    })
+
+    let amountItem = document.querySelectorAll('.amount-item')
+    amountItem.forEach(ele => {
+        ele.onchange = function (e) {
+            ele.setAttribute('value', ele.value)
+            let updatecart = cart.map(item => {
+                if (item.idp === ele.dataset.idp) {
+                    return { ...item, amount: ele.value };
+                } else {
+                    return item;
+                }
+            });
+            $(`.total-item-${ele.dataset.idp}`).attr('value', ele.value * Number($(`.dongia-${ele.dataset.idp}`).attr('value')))
+            $(`.total-item-${ele.dataset.idp}`).text(formatMoney($(`.total-item-${ele.dataset.idp}`).attr('value')))
+            $('#total').attr('value', sum(updatecart))
+            $('#total').text(formatMoney(sum(updatecart)))
+        }
+    })
+}
+checkItem()
+
+//thanh toán
+$('#thanhtoan').click(function () {
+    localStorage.setItem("dataCart", JSON.stringify(cart))
+    window.location.href = "/carts/payment";
+})

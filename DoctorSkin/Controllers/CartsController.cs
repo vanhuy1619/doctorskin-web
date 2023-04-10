@@ -21,9 +21,10 @@ namespace DoctorSkin.Controllers
             {
                 Response.Redirect("/dang-nhap");
             }
+            string iduser = (string)Session["iduser"];
             var v = (from a in db.Products
                      join b in db.Carts on a.idp equals b.idp
-                     where b.iduser.Equals("htye7go15")
+                     where b.iduser==iduser
                      select a).ToList();
 
             switch (filter)
@@ -36,6 +37,43 @@ namespace DoctorSkin.Controllers
                     break;
             }
             return View(v);
+        }
+
+        public ActionResult payMent()
+        {
+            if (Session["iduser"] == null)
+            {
+                Response.Redirect("/dang-nhap");
+            }
+
+            string iduser = (string)Session["iduser"];
+            if (iduser == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Users users = db.Users.Find(iduser);
+            if (users == null)
+            {
+                return HttpNotFound();
+            }
+            return View(users);
+        }
+
+       
+
+        [HttpPost]
+        public ActionResult addBill(List<Bills> Bills)
+        {
+            db.Bills.AddRange(Bills);
+            foreach(var i in Bills)
+            {
+                var item = db.Carts.Where(s => s.iduser == i.iduser && s.idp == i.idp).FirstOrDefault();
+                db.Carts.Remove(item);
+            }
+            db.SaveChanges();
+            db.Configuration.ValidateOnSaveEnabled = false;
+
+            return Json(new { code = 0, message = "Đặt hàng thành công" });
         }
 
         // GET: Carts/Details/5

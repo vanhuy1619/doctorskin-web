@@ -69,12 +69,12 @@
             datatype: "json",
             success: function (res) {
                 if (res.code === 0) {
-                    swal("good job!", "Đăng nhập thành công", "success")
+                    swal("Thành công!", "Đăng nhập thành công", "success")
                         .then(() => {
                             window.location.href = "/"
                         })
                 } else {
-                    swal("good job!", "Sai thông tin đăng nhập", "error")
+                    swal("Thất bại!", "Sai thông tin đăng nhập", "error")
                 }
             },
             error: function (err) {

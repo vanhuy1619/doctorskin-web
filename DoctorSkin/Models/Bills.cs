@@ -15,7 +15,8 @@ namespace DoctorSkin.Models
         public String totalmoney { set; get; }
         public String idbill { set; get; }
         public String iduser { set; get; }
-        public String yesfb { set; get; }
+        public string note { set; get; }
+        public string status { set; get; }
 
     }
 }

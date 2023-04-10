@@ -142,5 +142,21 @@ namespace DoctorSkin.Controllers
             
             return PartialView(v.ToList());
         }
+
+        public ActionResult getListProductSale ()
+        {
+            Random rnd = new Random();
+            var v = db.Products.Where(p => p.statep=="Sale").ToList();
+            return PartialView(v.OrderBy(x => rnd.Next()).Take(3).ToList());
+        }
+
+        public ActionResult getListProductTopRate()
+        {
+            Random rnd = new Random();
+            var v = (from a in db.Products orderby a.rated descending select a).ToList();
+            return PartialView(v.OrderBy(x => rnd.Next()).Take(3).ToList());
+        }
+
+
     }
 }

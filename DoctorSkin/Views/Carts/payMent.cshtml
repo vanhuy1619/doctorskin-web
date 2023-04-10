@@ -1,0 +1,210 @@
+﻿@model DoctorSkin.Models.Users
+
+<style>
+    .div-top-bot{
+        background:white;
+        margin-bottom:30px
+    }
+    .div-top-1 {
+        height: 3px;
+        width: 100%;
+        background-position-x: -30px;
+        background-size: 116px 3px;
+        background-image: repeating-linear-gradient(45deg,#6fa6d6,#6fa6d6 33px,transparent 0,transparent 41px,#f18d9b 0,#f18d9b 74px,transparent 0,transparent 82px);
+    }
+    .div-top-2{
+        padding:20px
+    }
+    .tt{
+        display:flex;
+        justify-content:space-between
+    }
+    .tt > div{
+        margin-bottom:15px
+    }
+</style>
+<section id="aa-promo" style="background-color: #f5f5f5; min-height: 700px; padding: 0rem 7%">
+    <div style="margin-top:30px">
+        <div class="div-top-bot">
+            <div class="div-top-1"></div>
+            <div class="div-top-2">
+                <div style="color: #ee4d2d">Địa chỉ nhận hàng</div>
+                <div style="display:flex;justify-content:space-between">
+                    <div style="font-weight:bold">@Model.name (@Model.phone)</div>
+                    <div>
+                        Chung Cư Bộ Ca, Đường Số 3, Phường An Phú, Thành Phố Thủ Đức, TP. Hồ Chí Minh
+                    </div>
+                    <div style="color: #4080ee">Thay đổi</div>
+                </div>
+            </div>
+        </div>
+        <div class="div-top-bot">
+            <div class="row">
+                <div class="col-sm-12" style="padding:12px">
+                    <div class="col-md-6">
+                        <p>Sản phẩm</p>
+                    </div>
+                    <div class="col-md-2">
+                        <p>Đơn giá</p>
+                    </div>
+                    <div class="col-md-1">
+                        <p>Số lượng</p>
+                    </div>
+                    <div class="col-md-2" style="float:right">
+                        <p>Thành tiền</p>
+                    </div>
+                </div>
+                <div class="col-sm-12" style="margin-top:20px">
+                    <div id="table-data-payment" style="padding:12px">
+                        
+                    </div>
+                </div>
+            </div>
+            <div style="background-color: #fafdff; border-bottom: 1px dashed rgba(0,0,0,.09);font-size:14px !important ">
+                <div class="row" style="padding:18px 12px">
+                    <div class="col-md-5">
+                        <div style="display:flex;align-items:center;width:100%">
+                            <div style="margin-right:10px">Lời nhắn</div>
+                            <div><input id="note" style="width:100%" type="text" placeholder="Lưu ý cho người bán" /></div>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div style="border-left: 1px dashed rgba(0,0,0,.09); display:flex;justify-content:space-around">
+                            <div style="color: #00bfa5">Đơn vị vận chuyển</div>
+                            <div>
+                                <p style="text-align:left">Giao hàng nhanh</p>
+                                <p style="opacity:0.8;text-align:left">Thời gian giao hàng từ 3-4 ngày</p>
+                            </div>
+                            <div>Miễn phí vận chuyển</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="div-top-bot">
+            <div style="display:flex;justify-content:space-between;padding:12px">
+                <div>Phương thức thanh toán</div>
+                <div>Thanh toán khi nhận hàng</div>
+            </div>
+            <div style="background: #fffefb; box-shadow: 0 1px 1px 0 rgba(0,0,0,.05); border-top: 1px solid #f1f0ed; padding: 12px">
+                <div class="row">
+                    <div class="col-md-8"></div>
+                    <div class="col-md-4">
+                        <div class="tt">
+                            <div>Tổng tiền hàng</div>
+                            <div>100.000đ</div>
+                        </div>
+                        <div class="tt">
+                            <div>Phí vận chuyển</div>
+                            <div>0đ</div>
+                        </div>
+                        <div class="tt">
+                            <div>Tổng thanh toán</div>
+                            <div style="color: #ee4d2d;font-size:25px">100.000đ</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4" style="float: right;">
+                        <button style="background-color: #f05d40;padding:10px 40px;border:none;font-size:20px; color:white" id="dathang">Đặt hàng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    const dataCart = JSON.parse(localStorage.getItem("dataCart"));
+    let html = dataCart.map(item => {
+        return  `<div class="row" id="div-pr-${item.idp}" >
+                            <div class="row" style="margin-bottom:15px">
+                                <div class="col-md-4" style="display: flex;justify-content: space-between;">
+                                    <div class="" style="padding: 0 8px;">
+                                        <a class="aa-cartbox-img" href="#">
+                                            <img style="width: 100px;height: 100px;object-fit: cover;" src="${item.imgp}" alt="img" />
+                                        </a>
+                                    </div>
+                                    <div>
+                                        <a href="#" style="-webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; display: -webkit-box;font-size:14px">${item.namep}</a>
+                                        <img style="height: 18px;object-fit: contain;" src="${item.imgp}" alt="" />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div style="opacity: 0.7;">
+                                        <div>Thương hiệu:</div>
+                                        <div>${item.brandp}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div>
+                                        <p class="money dongia-${item.idp}" value="${item.dongia}">${item.dongia}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div>
+                                        <div class="amount-item amount-item-${item.idp}" data-idp="${item.idp}" style="width: 100%; value="${item.amount}">${item.amount}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2" style='float:right'>
+                                    <div>
+                                        <p class="money total-item-${item.idp}" value="${item.amount*item.dongia}" style="color: #ee4d2d">${item.amount*item.dongia}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`
+    })
+    document.getElementById('table-data-payment').innerHTML = html.join('')
+
+    const str = "01234567890123456789877458100032156";
+    let randomString = "";
+
+    for (let i = 0; i < 10; i++) {
+        const randomIndex = Math.floor(Math.random() * str.length);
+        randomString += str.charAt(randomIndex);
+    }
+
+
+    //thanh toán
+    $('#dathang').click(function () {
+
+        let updatedArray = dataCart.map(obj => ({ ...obj, "totalmoney": Number(obj.dongia) * Number(obj.amount), "idbill": randomString, "iduser": iduser,"note": $('#note').val(),"status":"Chờ xác nhận"}));
+
+        updatedArray = updatedArray.map(function (obj) {
+            delete obj.brandp;
+            delete obj.imgp;
+            delete obj.namep;
+            delete obj.dongia;
+            return obj
+        });
+
+        updatedArray = updatedArray.map(function (obj) {
+            obj.quantity = obj.amount;
+            delete obj.amount;
+            return obj;
+        });
+
+        console.log(updatedArray)
+
+
+        $.ajax({
+            type: "post",
+            url: "/carts/addBill",
+            data: JSON.stringify({
+                Bills: updatedArray
+            }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                swal("Thành công!", "Đặt hàng thành công", "success")
+                    .then(() => {
+                        window.localStorage.clear()
+                        window.location.href = "/"
+                    })
+            },
+            error: function (error) {
+                console.log("error saving data: " + error.responsetext);
+            }
+        });
+    })
+</script>

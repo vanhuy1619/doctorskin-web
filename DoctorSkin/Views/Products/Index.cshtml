@@ -1,5 +1,9 @@
 ﻿<link href="~/Content/assets/css/nouislider.css" rel="stylesheet" />
-
+<style>
+    .active-brand{
+        color:blue;
+    }
+</style>
 <!-- catg header banner section -->
 <section id="aa-catg-head-banner">
     <img src="https://i.pinimg.com/originals/8d/8b/62/8d8b624ca6ff542c127264c9636cab3c.png" style="width:100%;object-fit:cover" alt="fashion img">
@@ -80,83 +84,25 @@
                     </div>
                     <!-- single sidebar -->
                     <div class="aa-sidebar-widget">
-                        <h3>Recently Views</h3>
+                        <h3>Sản phẩm giảm giá</h3>
                         <div class="aa-recently-views">
                             <ul>
-                                <li>
-                                    <a href="#" class="aa-cartbox-img"><img alt="img" src="img/woman-small-2.jpg"></a>
-                                    <div class="aa-cartbox-info">
-                                        <h4><a href="#">Product Name</a></h4>
-                                        <p>1 x $250</p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a href="#" class="aa-cartbox-img"><img alt="img" src="img/woman-small-1.jpg"></a>
-                                    <div class="aa-cartbox-info">
-                                        <h4><a href="#">Product Name</a></h4>
-                                        <p>1 x $250</p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a href="#" class="aa-cartbox-img"><img alt="img" src="img/woman-small-2.jpg"></a>
-                                    <div class="aa-cartbox-info">
-                                        <h4><a href="#">Product Name</a></h4>
-                                        <p>1 x $250</p>
-                                    </div>
-                                </li>
+                                @{ Html.RenderAction("getListProductSale", "Default");}
                             </ul>
                         </div>
                     </div>
                     <!-- single sidebar -->
                     <div class="aa-sidebar-widget">
-                        <h3>Top Rated Products</h3>
+                        <h3>Top san phẩm ưu thích</h3>
                         <div class="aa-recently-views">
                             <ul>
-                                <li>
-                                    <a href="#" class="aa-cartbox-img"><img alt="img" src="img/woman-small-2.jpg"></a>
-                                    <div class="aa-cartbox-info">
-                                        <h4><a href="#">Product Name</a></h4>
-                                        <p>1 x $250</p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a href="#" class="aa-cartbox-img"><img alt="img" src="img/woman-small-1.jpg"></a>
-                                    <div class="aa-cartbox-info">
-                                        <h4><a href="#">Product Name</a></h4>
-                                        <p>1 x $250</p>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a href="#" class="aa-cartbox-img"><img alt="img" src="img/woman-small-2.jpg"></a>
-                                    <div class="aa-cartbox-info">
-                                        <h4><a href="#">Product Name</a></h4>
-                                        <p>1 x $250</p>
-                                    </div>
-                                </li>
+                                @{ Html.RenderAction("getListProductTopRate", "Default");}
                             </ul>
                         </div>
                     </div>
                 </aside>
             </div>
 
-        </div>
-    </div>
-</section>
-<!-- / product category -->
-<!-- Subscribe section -->
-<section id="aa-subscribe">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="aa-subscribe-area">
-                    <h3>Subscribe our newsletter </h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex, velit!</p>
-                    <form action="" class="aa-subscribe-form">
-                        <input type="email" name="" id="" placeholder="Enter your Email">
-                        <input type="submit" value="Subscribe">
-                    </form>
-                </div>
-            </div>
         </div>
     </div>
 </section>
@@ -175,4 +121,11 @@
     function handleSelect(elm) {
         window.location = "?sortOrder=" + elm.value;
     }
+
+    let url = window.location.pathname
+    const myOpts = Array.from(document.querySelectorAll('.choose-brand'));
+    myOpts.map(ele => {
+        if (ele.getAttribute('href') == url)
+            ele.classList.add('active-brand');
+    });
 </script>

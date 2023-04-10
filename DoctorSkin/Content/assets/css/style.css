@@ -1869,7 +1869,7 @@ img {
   height: 20px;
   margin-bottom: 10px;
   margin-right: 10px;
-  width: 30px;
+  width: 100%;
 }
 #aa-product-category .aa-sidebar .aa-sidebar-widget .aa-color-tag .aa-color-red {
   background-color: #FF0000;
@@ -2034,7 +2034,7 @@ img {
 }
 #aa-product-category .aa-product-catg-content .aa-product-catg-body .aa-product-catg li {
   margin: 0 0 20px 30px;
-  width: 29.916%;
+  width: 29.30%;
 }
 #aa-product-category .aa-product-catg-content .aa-product-catg-body .aa-product-catg li .aa-product-descrip {
   display: none;

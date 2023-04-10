@@ -24,5 +24,7 @@ namespace DoctorSkin.Models
         public int idbrand { set; get; }
         public String metap { set; get; }
         public String avilability { set; get; }
+
+        public String rated { set; get; }
     }
 }

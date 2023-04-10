@@ -31,7 +31,7 @@ html{
     --border:.2rem solid rgba(0,0,0,.1);
     --outline:.1rem solid rgba(0,0,0,.1);
     --outline-hover:.2rem solid var(--black);
-    --btn-normal: #e8952f
+    --btn-normal: #366CC7
 }
 
 /* HEADER */

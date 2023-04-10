@@ -3,7 +3,7 @@
     DoctorSkin.Models.DoctorSkinEntities db = new DoctorSkin.Models.DoctorSkinEntities();
 }
 
-<section id="aa-promo" style="margin-top:20px;margin-bottom:40px">
+<section id="aa-promo" style="margin-top:20px;margin-bottom:180px">
     <div class="container">
         <div class="row">
             <div class="col-sm-12" style="background-color: #F5F5F5;padding:12px">
@@ -34,11 +34,11 @@
                             <div class="row" style="margin-bottom:15px">
                                 <div class="col-md-4" style="display: flex;justify-content: space-between;">
                                     <div>
-                                        <input type="checkbox"></input>
+                                        <input class="check-item" type="checkbox" data-namep="@item.namep" data-brandp="@db.Brands.Find(item.idbrand).namebrand" data-imgp="@item.img" data-idp="@item.idp" data-price="@item.newprice" data-amount="@amount" />
                                     </div>
                                     <div class="" style="padding: 0 8px;">
                                         <a class="aa-cartbox-img" href="#">
-                                            <img style="width: 100px;height: 100px;object-fit: cover;" src="@item.img" alt="img"/>
+                                            <img style="width: 100px;height: 100px;object-fit: cover;" src="@item.img" alt="img" />
                                         </a>
                                     </div>
                                     <div>
@@ -55,17 +55,17 @@
                                 </div>
                                 <div class="col-md-2">
                                     <div>
-                                        <p class="money" value="@item.newprice">@item.newprice</p>
+                                        <p class="money dongia-@item.idp" value="@item.newprice">@item.newprice</p>
                                     </div>
                                 </div>
                                 <div class="col-md-1">
                                     <div>
-                                        <input style="width: 100%;" type="number" value="@amount"/>
+                                        <input class="amount-item amount-item-@item.idp" data-idp="@item.idp" style="width: 100%;" type="number" min="1" value="@amount" />
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div>
-                                        <p class="money" value="@Math.Abs(amount*int.Parse(item.newprice))" style="color: #ee4d2d">@Math.Abs(amount*int.Parse(item.newprice))</p>
+                                        <p class="money total-item-@item.idp" value="@Math.Abs(amount*int.Parse(item.newprice))" style="color: #ee4d2d">@Math.Abs(amount * int.Parse(item.newprice))</p>
                                     </div>
                                 </div>
                                 <div class="col-md-1">
@@ -80,11 +80,33 @@
 
                     }
                 </div>
-                <!-- Cart Total view -->
 
             </div>
+
         </div>
-        
+
+        <div class="row">
+            <div style="position:fixed;background-color:white;width:1170px;z-index:999">
+                <div style="display:flex; justify-content:space-between;padding:10px;width:100%; align-items:center">
+                    <div style="display:flex; justify-content:space-around;">
+                        <div>
+                            <input type="checkbox" />
+                            <label>Chọn tất cả (@Model.Count() sản phẩm)</label>
+                        </div>
+                        <div style="margin-left:25px">Xóa</div>
+                    </div>
+                    <div style="display:flex; justify-content:space-between;align-items:center">
+                        <div class="note">Tổng thanh toán (0 sản phẩm)</div>
+                        <div id="total" style="padding: 0px 15px; color: rgb(238, 77, 45);font-size:20px" value="0">0</div>
+                        <div>
+                            <button id="thanhtoan" style="background-color: rgb(238, 77, 45); padding: 10px 20px; border: none; color: white; font-size: 18px; font-weight: 400">Mua hàng</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
-
+<script>
+    
+</script>
