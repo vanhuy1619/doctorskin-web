@@ -93,7 +93,7 @@
                     <div class="col-md-4">
                         <div class="tt">
                             <div>Tổng tiền hàng</div>
-                            <div>100.000đ</div>
+                            <div class="tongtien">100.000đ</div>
                         </div>
                         <div class="tt">
                             <div>Phí vận chuyển</div>
@@ -116,6 +116,7 @@
 <script>
     const dataCart = JSON.parse(localStorage.getItem("dataCart"));
     let html = dataCart.map(item => {
+
         return  `<div class="row" id="div-pr-${item.idp}" >
                             <div class="row" style="margin-bottom:15px">
                                 <div class="col-md-4" style="display: flex;justify-content: space-between;">
