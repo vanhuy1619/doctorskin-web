@@ -28,6 +28,9 @@
             <!-- start single product item -->
             @foreach (var i in Model)
             {
+                DoctorSkin.Models.DoctorSkinEntities db = new DoctorSkin.Models.DoctorSkinEntities();
+                string iduser = (string)Session["iduser"];
+                var checkWl = db.Wishlists.Where(s => s.idp == i.idp && s.iduser == iduser).FirstOrDefault();
                 <li>
                     <figure>
                         <a class="aa-product-img" href="/@ViewBag.meta/@i.metap/@i.idp"><img src="@i.img" style="width:100%;height:250px;object-fit:cover" alt="polo shirt img"></a>
@@ -39,7 +42,16 @@
                         </figcaption>
                     </figure>
                     <div class="aa-product-hvr-content">
-                        <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                        <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist" onclick="addWishlist(@i.idp)">
+                            @if (checkWl == null)
+                            {
+                                <span class="fa fa-heart-o" id="heart-@i.idp" value="false"></span>
+                            }
+                            else
+                            {
+                                <span class="fa fa-heart" style="color:red" id="heart-@i.idp" value="true"></span>
+                            }
+                        </a>
                         <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                         <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>
                     </div>

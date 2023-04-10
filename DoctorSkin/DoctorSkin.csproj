@@ -536,6 +536,7 @@
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ServicesDetailsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\WishlistsController.cs" />
     <Compile Include="Data\DoctorSkinContext.cs" />
     <Compile Include="Extension\RepositoriesCollection.cs" />
     <Compile Include="Global.asax.cs">
@@ -1477,6 +1478,7 @@
     <Content Include="Views\Carts\payMent.cshtml" />
     <Content Include="Views\Default\getListProductSale.cshtml" />
     <Content Include="Views\Default\getListProductTopRate.cshtml" />
+    <Content Include="Views\Wishlists\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

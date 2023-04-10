@@ -232,3 +232,65 @@ $('#thanhtoan').click(function () {
     localStorage.setItem("dataCart", JSON.stringify(cart))
     window.location.href = "/carts/payment";
 })
+
+//ADD WISHLIST
+//thêm vào giỏ hàng
+function addWishlist(idp) {
+    if (iduser == null) {
+        window.location.href = "/dang-nhap"
+    }
+    else {
+        let data = {
+            "iduser": iduser,
+            "idp": idp,
+        }
+
+        let heart = document.querySelector(`#heart-${idp}`)
+        console.log(heart.getAttribute('value'))
+        if (heart.getAttribute('value') == 'false') {
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: "https://localhost:44307/wishlists/Add",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                data: JSON.stringify(data),
+                success: function (res) {
+                    console.log(res)
+                    heart.classList.remove('fa-heart-o')
+                    heart.classList.add('fa-heart')
+                    heart.style.color = 'red'
+                    heart.setAttribute('value', true)
+                },
+                error: function (err) {
+                    console.log("Lỗi Api")
+                }
+            })
+        }
+        if (heart.getAttribute('value') == 'true') {
+            $.ajax({
+                type: "Delete",
+                dataType: "json",
+                url: "https://localhost:44307/wishlists/remove",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                data: JSON.stringify(data),
+                success: function (res) {
+                    console.log(res)
+                    heart.classList.remove('fa-heart')
+                    heart.classList.add('fa-heart-o')
+                    heart.style.color = ''
+                    heart.setAttribute('value', false)
+                },
+                error: function (err) {
+                    console.log("Lỗi Api")
+                }
+            })
+        }
+        
+    }
+}
