@@ -83,27 +83,70 @@
         })
     })
 
-    $("#forgot-form").submit(function (event) {
-        event.preventDefault();
-        event.stopPropagation();
-        const data = new FormData($("#forgot-form")[0])
-        console.log($("#forgot-form")[0]);
+    
+}
+
+//LẤY TOKEN QUA MAIL
+$("#forgot-form").submit(function (event) {
+    event.preventDefault();
+    event.stopPropagation();
+    const data = new FormData($("#forgot-form")[0])
+    console.log($("#forgot-form")[0]);
+    $.ajax({
+        type: "POST",
+        url: "/users/forgot",
+        data: data,
+        contentType: false,
+        processData: false,
+        success: function (res) {
+            if (res.code === 0) {
+                swal("Thành công!", "Vui lòng kiểm tra email của bạn", "success")
+            } else {
+                swal("Thất bại!", "Địa chỉ email chưa được sử dụng", "error")
+            }
+        },
+        error: function (err) {
+            console.log(err)
+        }
+    })
+})
+
+//CẬP NHẬT LẠI PASSWORD
+$("#reset-form").submit(function (event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if ($('#password').val() != $('#confirm_password').val()) {
+        swal("Fail!", "Mật khẩu nhập lại không trùng khớp", "error")
+    }
+    else {
+        const data = new FormData($("#reset-form")[0])
         $.ajax({
-            type: "POST",
-            url: "/users/forgot",
-            data: data,
-            contentType: false,
-            processData: false,
+            type: "PUT",
+            url: "/users/resetpass",
+            data: {
+                email: "vanhuy1619@gmail.com",
+                token: data.get("token"),
+                password: data.get("password")
+            },
+            contenType: "application/json",
+            datatype: "json",
+            processdata: false,
             success: function (res) {
                 if (res.code === 0) {
-                    swal("good job!", res.message, "success")
+                    swal("Good job!", res.message, "success")
+                        .then(() => {
+
+                        })
                 } else {
-                    swal("good job!", res.message, "success")
+                    console.log(res.data)
+                    swal("Fail!", res.message, "error")
                 }
             },
             error: function (err) {
                 console.log(err)
             }
         })
-    })
-}
+    }
+
+})

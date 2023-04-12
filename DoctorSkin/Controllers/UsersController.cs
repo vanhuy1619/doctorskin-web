@@ -83,7 +83,9 @@ namespace DoctorSkin.Controllers
                     string token = getToken();
 
                     string subject = "Chúng tôi đã khôi phục thành công Tài khoản DoctorSkin của bạn.";
-                    string body = "<p>Mã xác thực tồn tại trọng 3 phút là: <b>"+token+ "</b><br></p>Truy cập vào đường link này để cập nhật lại mật khẩu <a href='https://localhost:44307/users/reset'>here</a>";
+                    string url = "https://localhost:44307/users/reset?email=" + email;
+                    string body = "<p>Mã xác thực tồn tại trong 3 phút là: <b>" + token + "</b><br></p>" +
+                                  "<p>Truy cập vào đường link này để cập nhật lại mật khẩu <a href='" + url + "'>Tại đây</a></p>";
 
                     MailMessage message = new MailMessage();
                     message.From = new MailAddress("daylataikhoanguiemail@gmail.com");
@@ -122,9 +124,50 @@ namespace DoctorSkin.Controllers
             }
         }
 
-        public ActionResult Reset()
+        public ActionResult Reset(string email)
         {
+            //int now = int.Parse(createAt());
+            //var item = db.Forgots.FirstOrDefault(s => s.email == email && s.token == token);
             return View();
+        }
+
+        [HttpPut]
+        public ActionResult ResetPass(string email, string token, string password)
+        {
+            string message = "";
+            int code = 0;
+            int now = int.Parse(createAt());
+            var item = db.Forgots.FirstOrDefault(s => s.email == email && s.token == token);
+            if(item!=null)
+            {
+                if (now - int.Parse(item.createAt) < 180)
+                {
+                    Users u = db.Users.FirstOrDefault(s => s.email == email);
+
+                    string salt = BCrypt.Net.BCrypt.GenerateSalt();
+                    string hash = BCrypt.Net.BCrypt.HashPassword(password, salt);
+
+                    u.password = hash;
+
+                    db.Configuration.ValidateOnSaveEnabled = false;
+                    db.Forgots.Remove(item);
+                    db.SaveChanges();
+
+                    code = 0;
+                    message = "Cập nhật mật khẩu thành công. Vui lòng quay lại trang đăng nhập";
+                }
+                else
+                {
+                    code = 1;
+                    message = "Mã xác thực đã hết hạn, Vui lòng lấy lại mã xác thực mới.";
+                }
+            }    
+            else
+            {
+                code = 1;
+                message = "Mã xác thực không hợp lệ";
+            }
+            return Json(new { code = code, message = message });
         }
 
         // GET: Users/Create
@@ -250,7 +293,7 @@ namespace DoctorSkin.Controllers
 
             Session.Abandon();
 
-            return RedirectToAction("/");
+            return Redirect("/");
         }
 
 
