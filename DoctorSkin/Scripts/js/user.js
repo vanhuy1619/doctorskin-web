@@ -116,6 +116,7 @@ $("#reset-form").submit(function (event) {
     event.preventDefault();
     event.stopPropagation();
 
+    let email = window.location.search.split("=")[1]
     if ($('#password').val() != $('#confirm_password').val()) {
         swal("Fail!", "Mật khẩu nhập lại không trùng khớp", "error")
     }
@@ -125,7 +126,7 @@ $("#reset-form").submit(function (event) {
             type: "PUT",
             url: "/users/resetpass",
             data: {
-                email: "vanhuy1619@gmail.com",
+                email: email,
                 token: data.get("token"),
                 password: data.get("password")
             },

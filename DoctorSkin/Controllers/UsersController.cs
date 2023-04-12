@@ -124,12 +124,22 @@ namespace DoctorSkin.Controllers
             }
         }
 
+        [HttpGet]
         public ActionResult Reset(string email)
         {
-            //int now = int.Parse(createAt());
-            //var item = db.Forgots.FirstOrDefault(s => s.email == email && s.token == token);
-            return View();
+            int now = int.Parse(createAt());
+            var item = db.Forgots.Where(s => s.email == email)
+                                 .OrderByDescending(s => s.stt)
+                                 .FirstOrDefault();
+
+            if (item != null && now - int.Parse(item.createAt) <= 180)
+            {
+                return View();
+            }
+            return Redirect("/");
+
         }
+
 
         [HttpPut]
         public ActionResult ResetPass(string email, string token, string password)
