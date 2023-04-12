@@ -553,6 +553,7 @@
     <Compile Include="Models\Carts.cs" />
     <Compile Include="Models\Categories.cs" />
     <Compile Include="Models\Doctors.cs" />
+    <Compile Include="Models\Forgots.cs" />
     <Compile Include="Models\ListViewModel.cs" />
     <Compile Include="Models\Medias.cs" />
     <Compile Include="Models\Products.cs" />
@@ -573,6 +574,7 @@
     <Content Include="Content\assets\css\index.css" />
     <Content Include="Content\assets\css\loading.css" />
     <Content Include="Content\assets\css\profile.css" />
+    <Content Include="Content\assets\css\seller.css" />
     <Content Include="Content\assets\css\style1.css" />
     <Content Include="Content\assets\img\loading.svg" />
     <Content Include="Content\ckeditor\adapters\jquery.js" />
@@ -1424,6 +1426,7 @@
     <Content Include="Scripts\js\sequence.js" />
     <Content Include="Scripts\js\slick.js" />
     <Content Include="Scripts\js\user.js" />
+    <Content Include="Scripts\js\wishlist.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -1472,13 +1475,15 @@
     <Content Include="Views\Default\getListRepFeedbacks.cshtml" />
     <Content Include="Views\Carts\Index.cshtml" />
     <Content Include="Views\Users\Create.cshtml" />
-    <Content Include="Views\Users\ResetPass.cshtml" />
+    <Content Include="Views\Users\Forgot.cshtml" />
     <Content Include="Views\Users\Profile.cshtml" />
     <Content Include="Views\Users\Purchase.cshtml" />
     <Content Include="Views\Carts\payMent.cshtml" />
     <Content Include="Views\Default\getListProductSale.cshtml" />
     <Content Include="Views\Default\getListProductTopRate.cshtml" />
     <Content Include="Views\Wishlists\Index.cshtml" />
+    <Content Include="Views\Default\getBrand.cshtml" />
+    <Content Include="Views\Users\Reset.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

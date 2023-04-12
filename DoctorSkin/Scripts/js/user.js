@@ -82,4 +82,28 @@
             }
         })
     })
+
+    $("#forgot-form").submit(function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        const data = new FormData($("#forgot-form")[0])
+        console.log($("#forgot-form")[0]);
+        $.ajax({
+            type: "POST",
+            url: "/users/forgot",
+            data: data,
+            contentType: false,
+            processData: false,
+            success: function (res) {
+                if (res.code === 0) {
+                    swal("good job!", res.message, "success")
+                } else {
+                    swal("good job!", res.message, "success")
+                }
+            },
+            error: function (err) {
+                console.log(err)
+            }
+        })
+    })
 }

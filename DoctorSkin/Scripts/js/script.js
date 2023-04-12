@@ -7,7 +7,7 @@
                 ele.setAttribute("selected", true);
         });
     }
-    //selectSearch()
+    selectSearch()
 
     function formatMoney() {
         let money = document.querySelectorAll('.money')

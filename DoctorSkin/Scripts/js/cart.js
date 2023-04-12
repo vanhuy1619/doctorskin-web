@@ -233,7 +233,7 @@ $('#thanhtoan').click(function () {
     window.location.href = "/carts/payment";
 })
 
-//ADD WISHLIST
+//ADD & REMOVE WISHLIST
 //thêm vào giỏ hàng
 function addWishlist(idp) {
     if (iduser == null) {

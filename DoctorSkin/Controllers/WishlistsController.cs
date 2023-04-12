@@ -14,10 +14,40 @@ namespace DoctorSkin.Controllers
     {
         private DoctorSkinEntities db = new DoctorSkinEntities();
 
+
         // GET: Wishlists
-        public ActionResult Index()
+        public ActionResult Index(string filter)
         {
-            return View(db.Wishlists.ToList());
+            string iduser = (string)Session["iduser"];
+            if (string.IsNullOrEmpty(iduser))
+            {
+                Response.Redirect("/dang-nhap");
+            }
+
+            var v = db.Wishlists.Where(s => s.iduser == iduser).ToList();
+            switch (filter)
+            {
+                case "hethang":
+                    v = v.Where(c => db.Products.Find(c.idp).hide == true).ToList();
+                    break;
+                case "conhang":
+                    v = v.Where(c => db.Products.Find(c.idp).hide == false).ToList();
+                    break;
+                case "giamgia":
+                    v = v.Where(c => db.Products.Find(c.idp).statep == "Sale").ToList();
+                    break;
+                default:
+                    if (!string.IsNullOrEmpty(filter))
+                    {
+                        v = v.Where(c => db.Products.Find(c.idp).idbrand == int.Parse(filter)).ToList();
+                    }
+                    else
+                    {
+                        v = v.Where(c => db.Products.Find(c.idp).hide == false).ToList();
+                    }
+                    break;
+            }
+            return View(v);
         }
 
 

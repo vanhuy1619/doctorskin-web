@@ -103,6 +103,11 @@ namespace DoctorSkin.Controllers
             var v = db.Brands.Where(p=>p.idbrand!=1).ToList();
             return PartialView(v.OrderBy(x => rnd.Next()).Take(4).ToList());
         }
+        public ActionResult getBrand()
+        {
+            var v = db.Brands.ToList();
+            return PartialView(v);
+        }
 
         public ActionResult GetListFeedbackByProductID(int? idp, int? pagecmt)
         {

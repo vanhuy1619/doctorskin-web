@@ -92,7 +92,7 @@
                             <!-- / header top left -->
                             <div class="aa-header-top-right">
                                 <ul class="aa-head-top-nav-right">
-                                    <li class="hidden-xs"><a href="wishlist.html">Yêu thích</a></li>
+                                    <li class="hidden-xs"><a href="/wishlists">Yêu thích</a></li>
                                     @{
                                         DoctorSkin.Models.DoctorSkinEntities db = new DoctorSkin.Models.DoctorSkinEntities();
                                         string iduser = (string)Session["iduser"];
@@ -318,11 +318,13 @@
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title" id="exampleModalLabel">Đăng ký tư vấn và khám bệnh</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                <div class="modal-header" style="display:flex;align-items:center">
+                    <div style="font-size:25px" class="modal-title" id="exampleModalLabel">Đăng ký tư vấn và khám bệnh</div>
+                    <div style="flex:auto">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span style="font-size:25px" aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
                 </div>
                 <div class="modal-body">
                     <form action="bookings/booking" method="post" id="booking-form">

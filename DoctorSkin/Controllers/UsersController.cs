@@ -22,6 +22,8 @@ using System.Security.Permissions;
 using System.Web.Services;
 using System.Security.Cryptography;
 using System.Text;
+using System.Web.Helpers;
+using System.Net.Mail;
 
 namespace DoctorSkin.Controllers
 {
@@ -31,10 +33,96 @@ namespace DoctorSkin.Controllers
         private DoctorSkinEntities db = new DoctorSkinEntities();
         private Config config = new Config();
 
+        bool checkEmail(string email)
+        {
+            var user = db.Users.FirstOrDefault(s=>s.email==email);
+            if (user != null)
+                return true;
+            return
+                false;
+        }
 
-        //[Route("forgot-pass")]
-        //[Route("user/forgot-pass")]
-        public ActionResult ResetPass()
+        public string createAt()
+        {
+            DateTime now = DateTime.UtcNow;
+            long secondsSinceEpoch = (long)(now - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
+
+            string finalString = secondsSinceEpoch.ToString();
+            return finalString;
+        }
+
+        public string getToken()
+        {
+            var chars = "0123456789012365412587489632145698741230";
+            var stringChars = new char[6];
+            var random = new Random();
+
+            for (int i = 0; i < stringChars.Length; i++)
+            {
+                stringChars[i] = chars[random.Next(chars.Length)];
+            }
+
+            var finalString = new String(stringChars);
+            return finalString;
+        }
+
+
+        [HttpGet]
+        public ActionResult Forgot()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Forgot(string email)
+        {
+            try
+            {
+                if(checkEmail(email)==true)
+                {
+                    string token = getToken();
+
+                    string subject = "Chúng tôi đã khôi phục thành công Tài khoản DoctorSkin của bạn.";
+                    string body = "<p>Mã xác thực tồn tại trọng 3 phút là: <b>"+token+ "</b><br></p>Truy cập vào đường link này để cập nhật lại mật khẩu <a href='https://localhost:44307/users/reset'>here</a>";
+
+                    MailMessage message = new MailMessage();
+                    message.From = new MailAddress("daylataikhoanguiemail@gmail.com");
+                    message.To.Add(new MailAddress(email));
+                    message.Subject = subject;
+                    message.Body = body;
+                    message.IsBodyHtml = true;
+
+                    SmtpClient smtpClient = new SmtpClient();
+                    smtpClient.Host = "smtp.gmail.com";
+                    smtpClient.Port = 587;
+                    smtpClient.EnableSsl = true;
+                    smtpClient.UseDefaultCredentials = false;
+                    smtpClient.Credentials = new NetworkCredential("daylataikhoanguiemail@gmail.com", "eqkebvuqrpjcaizd");
+
+                    Forgots forgot = new Forgots();
+                    forgot.email = email;
+                    forgot.token = token;
+                    forgot.createAt = createAt();
+
+                    db.Forgots.Add(forgot);
+                    db.SaveChanges();
+                    smtpClient.Send(message);
+
+                    return Json(new { code = 0, message = "Gửi email thành công" });
+                }
+                else
+                {
+                    return Json(new { code = 1, message = "Gửi email thất bại" });
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                return Json(new { code = 1, message = "Gửi email thất bại" });
+            }
+        }
+
+        public ActionResult Reset()
         {
             return View();
         }
@@ -162,7 +250,7 @@ namespace DoctorSkin.Controllers
 
             Session.Abandon();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("/");
         }
 
 
