@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace DoctorSkin.config
 {
-    public class MyJob : IJob
+    public class MyJob
     {
         public string createAt()
         {
@@ -23,25 +23,15 @@ namespace DoctorSkin.config
             return finalString;
         }
 
-        public void Execute(IJobExecutionContext context)
+        public void DeleteOldData()
         {
             int now = int.Parse(createAt());
-            // Lấy danh sách các bản ghi cũ hơn 3 phút
             using (var db = new DoctorSkinEntities())
             {
-                var oldRecords = db.Forgots
-                    .Where(r => now - int.Parse(r.createAt) > 3)
-                    .ToList();
-
-                // Xóa các bản ghi cũ hơn 3 phút
-                db.Forgots.RemoveRange(oldRecords);
+                var dataToDelete = db.Forgots.Where(x => now - int.Parse(x.createAt) < 3).ToList();
+                db.Forgots.RemoveRange(dataToDelete);
                 db.SaveChanges();
             }
-        }
-
-        Task IJob.Execute(IJobExecutionContext context)
-        {
-            throw new NotImplementedException();
         }
     }
 

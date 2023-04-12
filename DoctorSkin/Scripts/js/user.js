@@ -136,7 +136,7 @@ $("#reset-form").submit(function (event) {
                 if (res.code === 0) {
                     swal("Good job!", res.message, "success")
                         .then(() => {
-
+                            location.href = "/dang-nhap";
                         })
                 } else {
                     console.log(res.data)
