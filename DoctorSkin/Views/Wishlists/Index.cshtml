@@ -105,7 +105,7 @@
                                     <span class="home-product-item__price-new">@decimal.Parse(item.newprice).ToString("#,##0đ")</span>
                                 </div>
                                 <div class="product-item-footer">
-                                    <div class="heart" onclick="clickHeart(@i.idp)" >
+                                    <div class="heart" onclick="clickHeart(@i.idp)">
                                         @*<span class="fa fa-heart-o"></span>*@
                                         <span style="font-size:22px" class="fa fa-heart heart-icon--ok" id="heart-@i.idp" value="true"></span>
                                     </div>
@@ -143,8 +143,11 @@
     </div>
 </section>
 
+
+<script src="~/Scripts/js/wishlist.js"></script>
 <script>
     function clickHeart(idp) {
+        console.log(iduser)
         if (iduser == null) {
             window.location.href = "/dang-nhap"
         }
@@ -204,4 +207,3 @@
         }
     }
 </script>
-<script src="~/Scripts/js/wishlist.js"></script>

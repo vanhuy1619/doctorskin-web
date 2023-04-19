@@ -79,6 +79,18 @@ namespace DoctorSkin
                  new[] { "DoctorSkin.Controllers" }
              );
 
+            //ĐƠN HÀNG
+            routes.MapRoute(
+                 name: "Purchase",
+                 url: "{type}",
+                 new { controller = "Users", action = "Purchase", idp = UrlParameter.Optional },
+                 new RouteValueDictionary
+                 {
+                     { "type","don-hang" }
+                 },
+                 new[] { "DoctorSkin.Controllers" }
+             );
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

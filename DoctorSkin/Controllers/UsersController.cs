@@ -99,7 +99,7 @@ namespace DoctorSkin.Controllers
                     smtpClient.Port = 587;
                     smtpClient.EnableSsl = true;
                     smtpClient.UseDefaultCredentials = false;
-                    smtpClient.Credentials = new NetworkCredential("daylataikhoanguiemail@gmail.com", "eqkebvuqrpjcaizd");
+                    smtpClient.Credentials = new NetworkCredential("daylataikhoanguiemail@gmail.com", "upfmzrqgdnlbatzi");
 
                     Forgots forgot = new Forgots();
                     forgot.email = email;
@@ -324,6 +324,7 @@ namespace DoctorSkin.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.Title = "Thông tin cá nhân";
             return View(users);
         }
 
@@ -356,9 +357,33 @@ namespace DoctorSkin.Controllers
                 return Json(new { code = 1, message = "Cập nhật thông tin thất bại" });
         }
 
-        public ActionResult Purchase()
+        public ActionResult Purchase(string type)
         {
-            return View();
+            if (Session["iduser"] == null)
+            {
+                Response.Redirect("/dang-nhap");
+            }
+
+            string iduser = (string)Session["iduser"];
+            if (iduser == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Users users = db.Users.Find(iduser);
+            if (users == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.Title = "Đơn hàng của bạn";
+
+            var bills = db.Bills.Where(s => s.iduser == iduser).ToList();
+            switch (type)
+            {
+                case "choxacnhan":
+                    bills = bills.Where(s => s.status == "Chờ xác nhận").ToList();
+                    break;
+            }
+            return View(users);
         }
 
 

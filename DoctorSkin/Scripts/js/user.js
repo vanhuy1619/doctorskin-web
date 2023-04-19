@@ -102,7 +102,7 @@ $("#forgot-form").submit(function (event) {
             if (res.code === 0) {
                 swal("Thành công!", "Vui lòng kiểm tra email của bạn", "success")
             } else {
-                swal("Thất bại!", "Địa chỉ email chưa được sử dụng", "error")
+                swal("Thất bại!", res.message, "error")
             }
         },
         error: function (err) {
