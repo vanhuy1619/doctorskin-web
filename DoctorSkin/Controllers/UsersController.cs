@@ -300,7 +300,7 @@ namespace DoctorSkin.Controllers
                 authCookie.Expires = DateTime.Now.AddDays(-1);
                 Response.Cookies.Add(authCookie);
             }
-
+            FormsAuthentication.SignOut();
             Session.Abandon();
 
             return Redirect("/");
