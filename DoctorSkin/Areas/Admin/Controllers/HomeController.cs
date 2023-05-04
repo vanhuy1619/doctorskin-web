@@ -13,19 +13,12 @@ namespace DoctorSkin.Areas.Admin.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
-            if (User.IsInRole(RoleName.Admin))
-            {
-                return View();
-            }
-            else
-            {
-                return RedirectToAction("Unauthorized", "Error");
-            }
-        }
-
-        public ActionResult Login()
-        {
             return View();
         }
+
+        //public ActionResult Login()
+        //{
+        //    return View();
+        //}
     }
 }

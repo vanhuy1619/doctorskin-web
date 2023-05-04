@@ -10,12 +10,14 @@ using DoctorSkin.Models;
 
 namespace DoctorSkin.Controllers
 {
+    [Authorize]
     public class WishlistsController : Controller
     {
         private DoctorSkinEntities db = new DoctorSkinEntities();
 
 
         // GET: Wishlists
+        [Authorize(Roles = "Admin")]
         public ActionResult Index(string filter)
         {
             string iduser = (string)Session["iduser"];

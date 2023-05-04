@@ -268,7 +268,7 @@ namespace DoctorSkin.Controllers
         }
 
         [HttpPost]
-        public JsonResult Login(string email, string phone, string password)
+        public ActionResult Login(string email, string phone, string password)
         {
             var data = db.Users.Where(s => s.email.Equals(email) || s.phone.Equals(phone)).FirstOrDefault();
 
@@ -282,7 +282,8 @@ namespace DoctorSkin.Controllers
                 authCookie.Expires = DateTime.Now.AddDays(10);
                 Response.Cookies.Add(authCookie);
 
-                FormsAuthentication.SetAuthCookie(data.iduser, false);
+                FormsAuthentication.SetAuthCookie("Admin", false);
+                //FormsAuthentication.SetAuthCookie(data.iduser, false);
                 return Json(new { code = 0, message = "Đăng nhập thành công" });
             }
             else

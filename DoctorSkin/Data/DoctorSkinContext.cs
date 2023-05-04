@@ -10,6 +10,7 @@
 namespace DoctorSkin.Models
 {
     using DoctorSkin.Models;
+    using DoctorSkin.Models.Role;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
@@ -44,6 +45,7 @@ namespace DoctorSkin.Models
         public virtual DbSet<Brands> Brands { get; set; }
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<RepFeedbacks> RepFeedbacks { get; set; }
+
         public System.Data.Entity.DbSet<DoctorSkin.Models.ServicesDetails> ServicesDetails { get; set; }
 
         public System.Data.Entity.DbSet<DoctorSkin.Models.ViewModel.ProductsViewModel> ProductsViewModels { get; set; }
@@ -58,5 +60,9 @@ namespace DoctorSkin.Models
         public System.Data.Entity.DbSet<DoctorSkin.Models.Forgots> Forgots { get; set; }
 
         public System.Data.Entity.DbSet<DoctorSkin.Models.Vouchers> Vouchers { get; set; }
+
+        public System.Data.Entity.DbSet<DoctorSkin.Models.Role.Roles> Roles { get; set; }
+        public System.Data.Entity.DbSet<DoctorSkin.Models.Role.RoleMasters> RoleMasters { get; set; }
+        public System.Data.Entity.DbSet<DoctorSkin.Models.Role.UserRolesMappings> UserRolesMappings { get; set; }
     }
 }
