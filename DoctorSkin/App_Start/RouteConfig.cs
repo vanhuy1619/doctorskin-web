@@ -20,9 +20,7 @@ namespace DoctorSkin
                 {
                     {"type","san-pham" }
                 },
-                new[] { "DoctorSkin.Controllers"});
-
-           
+                namespaces: new[] { "DoctorSkin.Controllers"});
 
             routes.MapRoute("BlogByType", "{type}/{meta}",
                 new { Controller = "BlogByType", action = "Index", meta = UrlParameter.Optional },
@@ -30,7 +28,7 @@ namespace DoctorSkin
                 {
                     {"type","blog" }
                 },
-                new[] { "DoctorSkin.Controllers" });
+                namespaces: new[] { "DoctorSkin.Controllers" });
 
             routes.MapRoute("Doctors", "{type}",
                 new { Controller = "Doctors", action = "Index"},
@@ -38,7 +36,7 @@ namespace DoctorSkin
                 {
                     {"type","doi-ngu-bac-si" }
                 },
-                new[] { "DoctorSkin.Controllers" });
+                namespaces: new[] { "DoctorSkin.Controllers" });
 
             routes.MapRoute("Blog", "{type}",
                 new { Controller = "Blog", action = "Index"},
@@ -46,7 +44,7 @@ namespace DoctorSkin
                 {
                     {"type","kien-thuc" }
                 },
-                new[] { "DoctorSkin.Controllers" });
+                namespaces: new[] { "DoctorSkin.Controllers" });
 
             routes.MapRoute("ServicesDetails", "{type}/{meta}",
                 new { Controller = "ServicesDetails", action = "Index", meta = UrlParameter.Optional },
@@ -54,7 +52,7 @@ namespace DoctorSkin
                 {
                     {"type","dich-vu" }
                 },
-                new[] { "DoctorSkin.Controllers" });
+                namespaces: new[] { "DoctorSkin.Controllers" });
 
             routes.MapRoute(
                  name: "Product Detail",
@@ -64,7 +62,7 @@ namespace DoctorSkin
                  {
                      { "type","san-pham" }
                  },
-                 new[] { "DoctorSkin.Controllers" }
+                 namespaces: new[] { "DoctorSkin.Controllers" }
              );
 
             //Đăng nhập & đăng ký
@@ -76,7 +74,7 @@ namespace DoctorSkin
                  {
                      { "type","dang-nhap" }
                  },
-                 new[] { "DoctorSkin.Controllers" }
+                 namespaces: new[] { "DoctorSkin.Controllers" }
              );
 
             //ĐƠN HÀNG
@@ -88,32 +86,36 @@ namespace DoctorSkin
                  {
                      { "type","don-hang" }
                  },
-                 new[] { "DoctorSkin.Controllers" }
+                 namespaces: new[] { "DoctorSkin.Controllers" }
              );
 
+            //VOUCHER
             routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-            );
+                 name: "Vouchers",
+                 url: "{type}",
+                 new { controller = "Vouchers", action = "Index", idp = UrlParameter.Optional },
+                 new RouteValueDictionary
+                 {
+                     { "type","uu-dai" }
+                 },
+                 namespaces: new[] { "DoctorSkin.Controllers" }
+             );
 
+            
             routes.MapRoute("Carts", "{type}",
                 new { Controller = "Carts", action = "Index"},
                 new RouteValueDictionary
                 {
                     {"type","cart" }
                 },
-                new[] { "DoctorSkin.Controllers" });
+                namespaces: new[] { "DoctorSkin.Controllers" });
 
-            
-
-            //routes.MapRoute(name: "Forgot Pass", url: "{controller}/{type}",
-            //     new { Controller = "Users", action = "ResetPass" },
-            //     new RouteValueDictionary
-            //     {
-            //        {"type","forgot-pass" }
-            //     },
-            //     new[] { "DoctorSkin.Controllers" });
+            routes.MapRoute(
+                name: "Default",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
+                namespaces: new[] { "DoctorSkin.Controllers" }
+            );
         }
 
     }

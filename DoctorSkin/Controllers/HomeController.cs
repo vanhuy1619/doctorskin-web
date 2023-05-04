@@ -22,12 +22,6 @@ namespace DoctorSkin.Controllers
             return View();
         }
 
-        //public ActionResult getProducts()
-        //{
-        //    var v = from t in db.Products where t.hide==false select t;
-        //    return PartialView(v.ToList());
-        //}
-
         public ActionResult getCategories()
         {
             var v = from t in db.Categories where t.hide == false select t;

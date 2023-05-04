@@ -63,7 +63,7 @@
                                     </div>
                                     <div class="col-md-2">
                                         <div>
-                                            <p class="money dongia-@item.idp" value="@item.newprice">@item.newprice</p>
+                                            <p class="money dongia-@item.idp" value="@item.newprice">@decimal.Parse(@item.newprice).ToString("#,##0đ")</p>
                                         </div>
                                     </div>
                                     <div class="col-md-1">
@@ -73,7 +73,7 @@
                                     </div>
                                     <div class="col-md-2">
                                         <div>
-                                            <p class="money total-item-@item.idp" value="@Math.Abs(amount*int.Parse(item.newprice))" style="color: #ee4d2d">@Math.Abs(amount * int.Parse(item.newprice))</p>
+                                            <p class="money total-item-@item.idp" value="@Math.Abs(amount*int.Parse(item.newprice))" style="color: #ee4d2d">@decimal.Parse(@Math.Abs(amount * int.Parse(item.newprice)).ToString()).ToString("#,##0đ")</p>
                                         </div>
                                     </div>
                                     <div class="col-md-1">

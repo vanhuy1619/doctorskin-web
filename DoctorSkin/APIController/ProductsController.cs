@@ -16,6 +16,7 @@ namespace DoctorSkin.Controllers.APIController
     {
         private DoctorSkinEntities db = new DoctorSkinEntities();
 
+
         // GET: api/APIProducts
         public IQueryable<Products> GetProducts()
         {

@@ -81,7 +81,7 @@
                     var itembr = db.Brands.Find(item.idbrand);
                     double sale = 100 - Math.Round(double.Parse(item.newprice) / double.Parse(item.oldprice) * 100, 0);
                     <div class="col-md-3 col-sm-4">
-                        <a class="home-product-item" style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;margin-bottom:20px">
+                        <a href="/san-pham/@item.metap/@i.idp" class="home-product-item" style="box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;margin-bottom:20px">
                             <div class="home-product-item-img"
                                  style="background-image: url(@item.img); width: 100%">
                             </div>

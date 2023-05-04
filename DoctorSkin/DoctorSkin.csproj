@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="..\packages\Swashbuckle.AspNetCore.6.5.0\build\Swashbuckle.AspNetCore.props" Condition="Exists('..\packages\Swashbuckle.AspNetCore.6.5.0\build\Swashbuckle.AspNetCore.props')" />
   <Import Project="..\packages\Microsoft.Extensions.FileProviders.Embedded.2.1.0\build\netstandard2.0\Microsoft.Extensions.FileProviders.Embedded.props" Condition="Exists('..\packages\Microsoft.Extensions.FileProviders.Embedded.2.1.0\build\netstandard2.0\Microsoft.Extensions.FileProviders.Embedded.props')" />
   <Import Project="..\packages\Microsoft.Extensions.ApiDescription.Server.6.0.5\build\Microsoft.Extensions.ApiDescription.Server.props" Condition="Exists('..\packages\Microsoft.Extensions.ApiDescription.Server.6.0.5\build\Microsoft.Extensions.ApiDescription.Server.props')" />
-  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -547,8 +547,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebAPIConfig.cs" />
-    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="APIController\ProductsController.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="config\Config.cs" />
     <Compile Include="config\HttpContext.cs" />
     <Compile Include="config\MyJob.cs" />
@@ -558,10 +559,12 @@
     <Compile Include="Controllers\CartsController.cs" />
     <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\DoctorsController.cs" />
+    <Compile Include="Controllers\FeedbacksController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ServicesDetailsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\VouchersController.cs" />
     <Compile Include="Controllers\WishlistsController.cs" />
     <Compile Include="Data\DoctorSkinContext.cs" />
     <Compile Include="Extension\RepositoriesCollection.cs" />
@@ -585,6 +588,7 @@
     <Compile Include="Models\Products.cs" />
     <Compile Include="Models\Feedbacks.cs" />
     <Compile Include="Models\RepFeedbacks.cs" />
+    <Compile Include="Models\Role\RoleName.cs" />
     <Compile Include="Models\Services.cs" />
     <Compile Include="Models\ServicesDetails.cs" />
     <Compile Include="Models\Users.cs" />
@@ -593,13 +597,20 @@
     <Compile Include="Models\Wishlists.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
+    <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Content\css\index.css" />
+    <Content Include="Areas\Content\css\list.css" />
+    <Content Include="Areas\Content\css\message.css" />
+    <Content Include="Areas\Content\css\style.css" />
+    <Content Include="Content\assets\css\cardvoucher.css" />
     <Content Include="Content\assets\css\bootstrap.css" />
     <Content Include="Content\assets\css\font-awesome.css" />
     <Content Include="Content\assets\css\index.css" />
     <Content Include="Content\assets\css\loading.css" />
     <Content Include="Content\assets\css\profile.css" />
+    <Content Include="Content\assets\css\progress.css" />
     <Content Include="Content\assets\css\seller.css" />
     <Content Include="Content\assets\css\style1.css" />
     <Content Include="Content\assets\img\loading.svg" />
@@ -1292,6 +1303,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="logo.ico" />
+    <Compile Include="Models\Vouchers.cs" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\assets\scss\base\_base.scss" />
@@ -1341,7 +1353,6 @@
     <Content Include="Content\ckeditor\samples\toolbarconfigurator\lib\codemirror\LICENSE" />
     <Content Include="Content\ckeditor\SECURITY.md" />
     <Content Include="Content\ckeditor\skins\moono-lisa\readme.md" />
-    <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="fonts\fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fonts\fontawesome-webfont.woff" />
@@ -1351,6 +1362,10 @@
     <Content Include="fonts\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\Shared\AdminLayout.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Login.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />
@@ -1447,6 +1462,7 @@
     <Content Include="Scripts\js\nouislider.js" />
     <Content Include="Scripts\js\cart.js" />
     <Content Include="Scripts\js\profile.js" />
+    <Content Include="Scripts\js\purchase.js" />
     <Content Include="Scripts\js\script.js" />
     <Content Include="Scripts\js\sequence-theme.modern-slide-in.js" />
     <Content Include="Scripts\js\sequence.js" />
@@ -1510,13 +1526,23 @@
     <Content Include="Views\Wishlists\Index.cshtml" />
     <Content Include="Views\Default\getBrand.cshtml" />
     <Content Include="Views\Users\Reset.cshtml" />
-    <Content Include="Views\Shared\_NavbarProfile.cshtml" />
+    <Content Include="Views\Users\NavBar.cshtml" />
+    <Content Include="Views\Users\Choxacnhan.cshtml" />
+    <Content Include="Views\Users\Daxacnhan.cshtml" />
+    <Content Include="Views\Users\Dahuy.cshtml" />
+    <Content Include="Views\Users\Dagiao.cshtml" />
+    <Content Include="Views\Users\getProductByBill.cshtml" />
+    <Content Include="Views\Vouchers\Create.cshtml" />
+    <Content Include="Views\Vouchers\Delete.cshtml" />
+    <Content Include="Views\Vouchers\Details.cshtml" />
+    <Content Include="Views\Vouchers\Edit.cshtml" />
+    <Content Include="Views\Vouchers\Index.cshtml" />
+    <Content Include="Views\Default\relatedProducts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Controllers\" />
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="Areas\Content\scripts\" />
     <Folder Include="Content\assets\img\css\" />
   </ItemGroup>
   <ItemGroup>
@@ -1565,17 +1591,17 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
-    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
-    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
     <Error Condition="!Exists('..\packages\Microsoft.Extensions.ApiDescription.Server.6.0.5\build\Microsoft.Extensions.ApiDescription.Server.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Extensions.ApiDescription.Server.6.0.5\build\Microsoft.Extensions.ApiDescription.Server.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.Extensions.ApiDescription.Server.6.0.5\build\Microsoft.Extensions.ApiDescription.Server.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Extensions.ApiDescription.Server.6.0.5\build\Microsoft.Extensions.ApiDescription.Server.targets'))" />
     <Error Condition="!Exists('..\packages\Microsoft.Extensions.FileProviders.Embedded.2.1.0\build\netstandard2.0\Microsoft.Extensions.FileProviders.Embedded.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Extensions.FileProviders.Embedded.2.1.0\build\netstandard2.0\Microsoft.Extensions.FileProviders.Embedded.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.Extensions.FileProviders.Embedded.2.1.0\build\netstandard2.0\Microsoft.Extensions.FileProviders.Embedded.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Extensions.FileProviders.Embedded.2.1.0\build\netstandard2.0\Microsoft.Extensions.FileProviders.Embedded.targets'))" />
     <Error Condition="!Exists('..\packages\Swashbuckle.AspNetCore.6.5.0\build\Swashbuckle.AspNetCore.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Swashbuckle.AspNetCore.6.5.0\build\Swashbuckle.AspNetCore.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
   </Target>
-  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
   <Import Project="..\packages\Microsoft.Extensions.ApiDescription.Server.6.0.5\build\Microsoft.Extensions.ApiDescription.Server.targets" Condition="Exists('..\packages\Microsoft.Extensions.ApiDescription.Server.6.0.5\build\Microsoft.Extensions.ApiDescription.Server.targets')" />
   <Import Project="..\packages\Microsoft.Extensions.FileProviders.Embedded.2.1.0\build\netstandard2.0\Microsoft.Extensions.FileProviders.Embedded.targets" Condition="Exists('..\packages\Microsoft.Extensions.FileProviders.Embedded.2.1.0\build\netstandard2.0\Microsoft.Extensions.FileProviders.Embedded.targets')" />
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -10,9 +10,11 @@ namespace DoctorSkin.Models.ViewModel
     {
         [Key]
         public int sttfb { set; get; }
-        public String cmt { set; get; }
+        public string cmt { set; get; }
         public Nullable<System.DateTime> datefb { set; get; }
-        public String nameu { set; get; }
-        public String avau { set; get; }
+        public string nameu { set; get; }
+        public string avau { set; get; }
+
+        public string listImg { set; get; }
     }
 }

@@ -122,7 +122,8 @@ namespace DoctorSkin.Controllers
                         cmt = a.cmt,
                         datefb = a.datefb,
                         nameu = b.name,
-                        avau = b.ava
+                        avau = b.ava,
+                        listImg = a.imagefb
                     };
             var products = query.ToList().Select(r => new UserFeedBackViewModel
             {
@@ -130,7 +131,8 @@ namespace DoctorSkin.Controllers
                 cmt = r.cmt,
                 datefb = r.datefb,
                 nameu = r.nameu,
-                avau = r.avau
+                avau = r.avau,
+                listImg = r.listImg
             }).ToList();
             int pageSize = 1;
             int pageNumber = (pagecmt ?? 1);
@@ -159,6 +161,14 @@ namespace DoctorSkin.Controllers
         {
             Random rnd = new Random();
             var v = (from a in db.Products orderby a.rated descending select a).ToList();
+            return PartialView(v.OrderBy(x => rnd.Next()).Take(3).ToList());
+        }
+
+        public ActionResult relatedProducts(int typep)
+        {
+            ViewBag.meta = "san-pham";
+            Random rnd = new Random();
+            var v = (from a in db.Products where a.typep == typep select a).ToList();
             return PartialView(v.OrderBy(x => rnd.Next()).Take(3).ToList());
         }
 

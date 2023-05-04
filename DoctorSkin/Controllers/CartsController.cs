@@ -62,15 +62,28 @@ namespace DoctorSkin.Controllers
        
 
         [HttpPost]
-        public ActionResult addBill(List<Bills> Bills)
+        public ActionResult addBill(List<Bills> Bills, string totalmoney, string idvoucher)
         {
+            DateTime currentDateTime = DateTime.Now;
+
+            //tại mỗi Bills thêm field totalmoney
+            foreach (var i in Bills)
+            {
+                i.datesuccess = DateTime.Parse(currentDateTime.ToString("yyyy-MM-dd HH:mm:ss"));
+                i.totalbill = totalmoney;
+                db.Bills.Add(i);
+            }
             db.Bills.AddRange(Bills);
             foreach(var i in Bills)
             {
                 var item = db.Carts.Where(s => s.iduser == i.iduser && s.idp == i.idp).FirstOrDefault();
                 db.Carts.Remove(item);
             }
+            var voucher = db.Vouchers.FirstOrDefault(s => s.idvoucher == idvoucher);
+            voucher.dasudung = voucher.dasudung + 1;
+
             db.SaveChanges();
+
             db.Configuration.ValidateOnSaveEnabled = false;
 
             return Json(new { code = 0, message = "Đặt hàng thành công" });

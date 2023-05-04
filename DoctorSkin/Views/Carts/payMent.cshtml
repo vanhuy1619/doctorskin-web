@@ -1,10 +1,11 @@
 ﻿@model DoctorSkin.Models.Users
-
+<link href="~/Content/assets/css/progress.css" rel="stylesheet" />
 <style>
-    .div-top-bot{
-        background:white;
-        margin-bottom:30px
+    .div-top-bot {
+        background: white;
+        margin-bottom: 30px
     }
+
     .div-top-1 {
         height: 3px;
         width: 100%;
@@ -12,16 +13,31 @@
         background-size: 116px 3px;
         background-image: repeating-linear-gradient(45deg,#6fa6d6,#6fa6d6 33px,transparent 0,transparent 41px,#f18d9b 0,#f18d9b 74px,transparent 0,transparent 82px);
     }
-    .div-top-2{
-        padding:20px
+
+    .div-top-2 {
+        padding: 20px
     }
-    .tt{
-        display:flex;
-        justify-content:space-between
+
+    .tt {
+        display: flex;
+        justify-content: space-between
     }
-    .tt > div{
-        margin-bottom:15px
+
+        .tt > div {
+            margin-bottom: 15px
+        }
+
+    .mainvoucher {
+        padding: 12px 23px;
+        margin: 0 0 6px;
+        display: flex;
+        align-items: center;
+        background: #fffefb;
+        border: 1px solid rgba(224, 168, 0, .4);
+        border-radius: 2px;
+        justify-content: space-between;
     }
+
 </style>
 <section id="aa-promo" style="background-color: #f5f5f5; min-height: 700px; padding: 0rem 7%">
     <div style="margin-top:30px">
@@ -56,7 +72,7 @@
                 </div>
                 <div class="col-sm-12" style="margin-top:20px">
                     <div id="table-data-payment" style="padding:12px">
-                        
+
                     </div>
                 </div>
             </div>
@@ -82,6 +98,51 @@
             </div>
         </div>
 
+        <!-- ƯU ĐÃI -->
+        <div class="iteminfo" style="background-color:white">
+            <div style="display:inline-flex;align-items:center">
+                <div style="width: 6px;height: 38px; background-color: #ff5b00;border-radius: 6px">
+                </div>
+                <div class="pay-title">
+                    <p style="margin-bottom:0;font-size: 18px;font-weight: 400;">Loại ưu đãi</p>
+                </div>
+            </div>
+            <div style="padding: 8px">
+                <div class="thongtinhotel form-input-info">
+                    <form style="width:100%;font-size: 18px;">
+                        <div class="form-group inputvoucher">
+                            <label for="">Nhập mã ưu đãi</label>
+                            <input style="height: 40px;font-size:18px" type="text" class="form-control txtvoucher"
+                                   id="inputvoucher" placeholder="Mã ưu đãi của bạn">
+                            <button type="button" class="btnvoucher">Xác nhận</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- VOUCHER -->
+                <div style="padding: 14px 0px; display: none;" id="voucherform" name="idvoucher">
+                    <div class="containervoucher">
+                        <div class="mainvoucher">
+                            <div>
+                                <div>Áp mã giảm giá thành công</div>
+                            </div>
+                            <div>
+                                <b class="sale-value">-320.000đ <span>&times;</span></b>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*{{!-- LỖI --}}*@
+                <div class="voucher-error" style="margin-top: 15px; display: none;">
+                    <div class="mainvoucher">
+                        <div>
+                            <div>Mã giảm giá không hợp lệ</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- VOUCHER -->
+            </div>
+        </div>
+
         <div class="div-top-bot">
             <div style="display:flex;justify-content:space-between;padding:12px">
                 <div>Phương thức thanh toán</div>
@@ -101,7 +162,7 @@
                         </div>
                         <div class="tt">
                             <div>Tổng thanh toán</div>
-                            <div style="color: #ee4d2d;font-size:25px">100.000đ</div>
+                            <div class="total" style="color: #ee4d2d;font-size:25px">100.000đ</div>
                         </div>
                     </div>
                     <div class="col-md-4" style="float: right;">
@@ -114,7 +175,8 @@
 </section>
 
 <script>
-    const dataCart = JSON.parse(localStorage.getItem("dataCart"));
+    let totalValue = document.querySelector('.total')
+    const dataCart = JSON.parse(localStorage.getItem("dataCart")) || [];
     let html = dataCart.map(item => {
 
         return  `<div class="row" id="div-pr-${item.idp}" >
@@ -149,7 +211,7 @@
                                 </div>
                                 <div class="col-md-2" style='float:right'>
                                     <div>
-                                        <p class="money total-item-${item.idp}" value="${item.amount*item.dongia}" style="color: #ee4d2d">${item.amount*item.dongia}</p>
+                                        <p class="money" value="${item.amount*item.dongia}" style="color: #ee4d2d">${item.amount*item.dongia}</p>
                                     </div>
                                 </div>
                             </div>
@@ -166,10 +228,90 @@
     }
 
 
+    
+    //Xử lý voucher
+    function setPrice(price) {
+        let result = "";
+        var price1 = Number(price.substring(0, price.indexOf(' ')))
+        result = new Intl.NumberFormat({ style: 'currency', currency: 'JPY' }).format(price1) + " VND"
+        return result;
+    }
+
+    // Tính tổng giá tiền của tất cả các sản phẩm
+    let totalPrice = dataCart.reduce((total, item) => {
+        let price = parseFloat(item.dongia) * parseInt(item.amount);
+        return total + price;
+    }, 0);
+
+    // totalPrice là tổng giá tiền của tất cả các sản phẩm
+    totalValue.setAttribute('value', totalPrice)
+    totalValue.innerText = setPrice(totalValue.getAttribute('value') + ' VND')
+    document.querySelector('.tongtien').innerText = setPrice(totalValue.getAttribute('value') + ' VND')
+
+    totalValue.setAttribute("valueori", totalValue.getAttribute("value"))
+    let inputVoucher = document.querySelector('.txtvoucher')
+    inputVoucher.onchange = function () {
+        totalValue.setAttribute('value', totalValue.getAttribute('valueori'))
+    }
+    let resultVoucher = null
+    document.querySelector('.btnvoucher').onclick = function () {
+        console.log("ok btn");
+        $.ajax({
+            type: "GET",
+            url: "/vouchers/getVoucherByID?idvoucher=" + inputVoucher.value,
+            success: function (res) {
+                if (res.code == 0)
+                {
+                    console.log(res.voucher)
+                    const now = new Date();
+                    const fromDate = new Date(res.voucher.datefrom);
+                    const toDate = new Date(res.voucher.dateto);
+
+                    if (res.code == 0 && now >= fromDate && now <= toDate && res.voucher.quantity > 0) {
+                        resultVoucher = {
+                            "idvoucher": res.voucher.idvoucher,
+                            "valuevc": res.voucher.valuevc
+                        }
+
+                        document.querySelector('.voucher-error').style.display = "none"
+                        let dis, saleoff
+                        document.getElementById('voucherform').style.display = "block"
+                        if (res.voucher.valuevc.includes('%')) {
+                            dis = res.voucher.valuevc.replace('%', '') / 100;
+                            saleoff = totalValue.getAttribute('valueori') * (1 - dis)
+                            console.log(saleoff);
+                            $('.sale-value').text("-" + setPrice(totalValue.getAttribute('valueori') * dis + " VND"));
+                        }
+                        else {
+                            dis = res.voucher.valuevc;
+                            saleoff = totalValue.getAttribute('valueori') - dis
+                            console.log(saleoff);
+                            $('.sale-value').text("-" + setPrice(dis + " VND"));
+                        }
+                        totalValue.setAttribute('value', saleoff)
+                        totalValue.innerText = setPrice(totalValue.getAttribute('value') + " VND")
+                    }
+                }
+                else {
+                    document.querySelector('.voucher-error').style.display = "block"
+                    document.getElementById('voucherform').style.display = "none"
+                    totalValue.setAttribute('value', totalValue.getAttribute('valueori'));
+                    totalValue.innerText = setPrice(totalValue.getAttribute('valueori') + " VND")
+                }
+            },
+            error: function (e) {
+                document.querySelector('.voucher-error').style.display = "block"
+                document.getElementById('voucherform').style.display = "none"
+                totalValue.setAttribute('value', totalValue.getAttribute('valueori'));
+                totalValue.innerText = setPrice(totalValue.getAttribute('valueori') + " VND")
+            }
+        });
+    }
+
     //thanh toán
     $('#dathang').click(function () {
 
-        let updatedArray = dataCart.map(obj => ({ ...obj, "totalmoney": Number(obj.dongia) * Number(obj.amount), "idbill": randomString, "iduser": iduser,"note": $('#note').val(),"status":"Chờ xác nhận"}));
+        let updatedArray = dataCart.map(obj => ({ ...obj, "totalmoney": Number(obj.dongia) * Number(obj.amount), "idbill": randomString, "iduser": iduser, "note": $('#note').val(), "status": "Chờ xác nhận", "idvoucher": resultVoucher.idvoucher }));
 
         updatedArray = updatedArray.map(function (obj) {
             delete obj.brandp;
@@ -192,11 +334,14 @@
             type: "post",
             url: "/carts/addBill",
             data: JSON.stringify({
-                Bills: updatedArray
+                Bills: updatedArray,
+                totalmoney: totalValue.getAttribute('value'),
+                idvoucher: resultVoucher.idvoucher
             }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (data) {
+                localStorage.removeItem("dataCart")
                 swal("Thành công!", "Đặt hàng thành công", "success")
                     .then(() => {
                         window.localStorage.clear()
@@ -208,4 +353,5 @@
             }
         });
     })
+
 </script>

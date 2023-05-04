@@ -12,11 +12,23 @@ namespace DoctorSkin.Models
         public int sttbill { set; get; }
         public int idp { set; get; }
         public int quantity { set; get; }
-        public String totalmoney { set; get; }
-        public String idbill { set; get; }
-        public String iduser { set; get; }
+        public string totalbill { set; get; }
+        public string totalmoney { set; get; }
+        public string idbill { set; get; }
+        public string iduser { set; get; }
         public string note { set; get; }
         public string status { set; get; }
+        public bool yesfb { set; get; }
+        public Nullable<System.DateTime> datesuccess { set; get; }
+            // Constructor
+        public Bills()
+        {
+            yesfb = false;
+        }
+
+        public string idvoucher { set; get; }
 
     }
+
+
 }

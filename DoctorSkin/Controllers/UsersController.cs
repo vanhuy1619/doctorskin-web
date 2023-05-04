@@ -12,7 +12,6 @@ using Azure.Core;
 using CloudinaryDotNet.Actions;
 using Microsoft.Ajax.Utilities;
 using CloudinaryDotNet;
-using CloudinaryDotNet.Actions;
 using System.Web.UI.WebControls;
 using System.IO;
 using System.Threading.Tasks;
@@ -357,6 +356,22 @@ namespace DoctorSkin.Controllers
                 return Json(new { code = 1, message = "Cập nhật thông tin thất bại" });
         }
 
+        public ActionResult NavBar()
+        {
+            if (Session["iduser"] == null)
+            {
+                Response.Redirect("/dang-nhap");
+            }
+
+            string iduser = (string)Session["iduser"];
+            if (iduser == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Users users = db.Users.Find(iduser);
+            return PartialView(users);
+        }
+
         public ActionResult Purchase(string type)
         {
             if (Session["iduser"] == null)
@@ -383,10 +398,106 @@ namespace DoctorSkin.Controllers
                     bills = bills.Where(s => s.status == "Chờ xác nhận").ToList();
                     break;
             }
-            return View(users);
+            return View(bills);
         }
 
+        public ActionResult Choxacnhan()
+        {
+            if (Session["iduser"] == null)
+            {
+                Response.Redirect("/dang-nhap");
+            }
 
+            string iduser = (string)Session["iduser"];
+            if (iduser == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var bills = db.Bills.Where(s => s.iduser == iduser && s.status == "Chờ xác nhận")
+                        .GroupBy(s => s.idbill)
+                        .Select(g => g.FirstOrDefault())
+                        .ToList();
+            return PartialView(bills);
+        }
+
+        public ActionResult Daxacnhan()
+        {
+            if (Session["iduser"] == null)
+            {
+                Response.Redirect("/dang-nhap");
+            }
+
+            string iduser = (string)Session["iduser"];
+            if (iduser == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var bills = db.Bills.Where(s => s.iduser == iduser && s.status == "Vận chuyển").ToList();
+            return PartialView(bills);
+        }
+
+        public ActionResult Dahuy()
+        {
+            if (Session["iduser"] == null)
+            {
+                Response.Redirect("/dang-nhap");
+            }
+
+            string iduser = (string)Session["iduser"];
+            if (iduser == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var bills = db.Bills.Where(s => s.iduser == iduser && s.status == "Đã hủy").ToList();
+            return PartialView(bills);
+        }
+
+        public ActionResult Dagiao()
+        {
+            if (Session["iduser"] == null)
+            {
+                Response.Redirect("/dang-nhap");
+            }
+
+            string iduser = (string)Session["iduser"];
+            if (iduser == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var bills = db.Bills.Where(s => s.iduser == iduser && s.status == "Thành công").ToList();
+            return PartialView(bills);
+        }
+
+        [HttpGet]
+        public ActionResult getFeedbackByIdProduct(string iduser, string idbill, int idp)
+        {
+            if (Session["iduser"] == null)
+            {
+                return Redirect("dang-nhap");
+            }
+
+            var user = db.Users.FirstOrDefault(s => s.iduser == iduser);
+            if (user == null)
+                return Json(new { code = 1, message = "Lỗi" });
+            var fb = db.Feedbacks.FirstOrDefault(s => s.iduser == iduser && s.idbill == idbill && s.idp == idp);
+           return Json(new { code = 0, data = fb }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult getProductByBill(string status, string idbill)
+        {
+            if (Session["iduser"] == null)
+            {
+                Response.Redirect("/dang-nhap");
+            }
+
+            string iduser = (string)Session["iduser"];
+            if (iduser == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var bills = db.Bills.Where(s => s.iduser == iduser && s.status == status && s.idbill == idbill).ToList();
+            return PartialView(bills);
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
