@@ -590,7 +590,7 @@
     <Compile Include="Models\Feedbacks.cs" />
     <Compile Include="Models\RepFeedbacks.cs" />
     <Compile Include="Models\Role\RoleMasters.cs" />
-    <Compile Include="Models\Role\Roles.cs" />
+    <Compile Include="Models\Role\UserRoles.cs" />
     <Compile Include="Models\Role\UserRolesMappings.cs" />
     <Compile Include="Models\Services.cs" />
     <Compile Include="Models\ServicesDetails.cs" />
@@ -1367,7 +1367,6 @@
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\Shared\AdminLayout.cshtml" />
     <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Home\Login.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />

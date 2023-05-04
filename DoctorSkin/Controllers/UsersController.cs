@@ -23,6 +23,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web.Helpers;
 using System.Net.Mail;
+using DoctorSkin.Models.Role;
 
 namespace DoctorSkin.Controllers
 {
@@ -241,6 +242,20 @@ namespace DoctorSkin.Controllers
                 users.iduser = randomID();
                 users.point = 0;
                 db.Users.Add(users);
+
+                //Thêm vào bảng UserRoles
+                var roleUser = new UserRoles();
+                roleUser.email = users.email;
+                roleUser.rolename = "User";
+                db.Roles.Add(roleUser);
+
+                //Thêm vào bảng Mapping
+                var roleMapping = new UserRolesMappings();
+                roleMapping.email = users.email;
+                roleMapping.idrole = 2;
+                db.UserRolesMappings.Add(roleMapping);
+
+
                 db.SaveChanges();
 
                 return Json(new { code = 0, message = "Đăng ký thành công" });
@@ -282,7 +297,8 @@ namespace DoctorSkin.Controllers
                 authCookie.Expires = DateTime.Now.AddDays(10);
                 Response.Cookies.Add(authCookie);
 
-                FormsAuthentication.SetAuthCookie("Admin", false);
+                var roleUser = db.Roles.FirstOrDefault(s => s.email == email).rolename;
+                FormsAuthentication.SetAuthCookie(roleUser, false);
                 //FormsAuthentication.SetAuthCookie(data.iduser, false);
                 return Json(new { code = 0, message = "Đăng nhập thành công" });
             }

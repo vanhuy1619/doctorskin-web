@@ -6,7 +6,7 @@ using System.Web;
 
 namespace DoctorSkin.Models.Role
 {
-    public class Roles
+    public class UserRoles
     {
         [Key]
         public int stt { set; get; }

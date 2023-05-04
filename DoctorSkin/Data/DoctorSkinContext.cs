@@ -61,7 +61,7 @@ namespace DoctorSkin.Models
 
         public System.Data.Entity.DbSet<DoctorSkin.Models.Vouchers> Vouchers { get; set; }
 
-        public System.Data.Entity.DbSet<DoctorSkin.Models.Role.Roles> Roles { get; set; }
+        public System.Data.Entity.DbSet<DoctorSkin.Models.Role.UserRoles> Roles { get; set; }
         public System.Data.Entity.DbSet<DoctorSkin.Models.Role.RoleMasters> RoleMasters { get; set; }
         public System.Data.Entity.DbSet<DoctorSkin.Models.Role.UserRolesMappings> UserRolesMappings { get; set; }
     }
