@@ -522,3 +522,5 @@ D:\.NET\doctorskin-web\DoctorSkin\bin\tr-TR\Hangfire.Core.resources.dll
 D:\.NET\doctorskin-web\DoctorSkin\bin\zh\Hangfire.Core.resources.dll
 D:\.NET\doctorskin-web\DoctorSkin\bin\zh-TW\Hangfire.Core.resources.dll
 D:\.NET\doctorskin-web\DoctorSkin\bin\System.Net.Http.Formatting.xml
+D:\.NET\doctorskin-web\DoctorSkin\bin\CKFinder.dll
+D:\.NET\doctorskin-web\DoctorSkin\bin\CKFinder.pdb
