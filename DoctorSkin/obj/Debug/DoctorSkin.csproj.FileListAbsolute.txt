@@ -447,7 +447,6 @@ D:\.NET\doctorskin-web\DoctorSkin\bin\System.Buffers.xml
 D:\.NET\doctorskin-web\DoctorSkin\bin\System.Diagnostics.DiagnosticSource.xml
 D:\.NET\doctorskin-web\DoctorSkin\bin\System.IdentityModel.Tokens.Jwt.xml
 D:\.NET\doctorskin-web\DoctorSkin\bin\System.Memory.xml
-D:\.NET\doctorskin-web\DoctorSkin\bin\System.Net.Http.Formatting.xml
 D:\.NET\doctorskin-web\DoctorSkin\bin\System.Numerics.Vectors.xml
 D:\.NET\doctorskin-web\DoctorSkin\bin\System.Runtime.CompilerServices.Unsafe.xml
 D:\.NET\doctorskin-web\DoctorSkin\bin\System.Security.AccessControl.xml
@@ -522,3 +521,4 @@ D:\.NET\doctorskin-web\DoctorSkin\bin\sv\Hangfire.Core.resources.dll
 D:\.NET\doctorskin-web\DoctorSkin\bin\tr-TR\Hangfire.Core.resources.dll
 D:\.NET\doctorskin-web\DoctorSkin\bin\zh\Hangfire.Core.resources.dll
 D:\.NET\doctorskin-web\DoctorSkin\bin\zh-TW\Hangfire.Core.resources.dll
+D:\.NET\doctorskin-web\DoctorSkin\bin\System.Net.Http.Formatting.xml

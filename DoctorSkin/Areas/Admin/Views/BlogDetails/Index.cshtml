@@ -1,0 +1,71 @@
+﻿@model IEnumerable<DoctorSkin.Models.BlogDetails>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.idbt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.shortcontent)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.date_up)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cardimg)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.hideblog)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.idbt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.shortcontent)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.date_up)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cardimg)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.hideblog)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.idb }) |
+                @Html.ActionLink("Details", "Details", new { id=item.idb }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.idb })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>

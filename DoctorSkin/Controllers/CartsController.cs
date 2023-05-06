@@ -69,7 +69,7 @@ namespace DoctorSkin.Controllers
             //tại mỗi Bills thêm field totalmoney
             foreach (var i in Bills)
             {
-                i.datesuccess = DateTime.Parse(currentDateTime.ToString("yyyy-MM-dd HH:mm:ss"));
+                i.datebuy = DateTime.Parse(currentDateTime.ToString("yyyy-MM-dd HH:mm:ss"));
                 i.totalbill = totalmoney;
                 db.Bills.Add(i);
             }

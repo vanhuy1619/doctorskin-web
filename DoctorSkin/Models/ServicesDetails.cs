@@ -15,5 +15,7 @@ namespace DoctorSkin.Models
         public bool hide_sd { set; get; }
         public String price_sd { set; get; }
         public int id_dt { set; get; }
+
+        public int amount { set; get; }
     }
 }

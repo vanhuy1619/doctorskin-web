@@ -236,7 +236,9 @@ namespace DoctorSkin.Controllers
 
                 db.Configuration.ValidateOnSaveEnabled = false;
 
+                DateTime currentDateTime = DateTime.Now;
 
+                users.dateregist = DateTime.Parse(currentDateTime.ToString("yyyy-MM-dd HH:mm:ss"));
                 users.password = hash;
                 users.ava = uploadResult?.SecureUri.ToString();
                 users.iduser = randomID();
@@ -449,7 +451,10 @@ namespace DoctorSkin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var bills = db.Bills.Where(s => s.iduser == iduser && s.status == "Vận chuyển").ToList();
+            var bills = db.Bills.Where(s => s.iduser == iduser && s.status == "Vận chuyển")
+                        .GroupBy(s => s.idbill)
+                        .Select(g => g.FirstOrDefault())
+                        .ToList();
             return PartialView(bills);
         }
 
@@ -465,7 +470,10 @@ namespace DoctorSkin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var bills = db.Bills.Where(s => s.iduser == iduser && s.status == "Đã hủy").ToList();
+            var bills = db.Bills.Where(s => s.iduser == iduser && s.status == "Đã hủy")
+                        .GroupBy(s => s.idbill)
+                        .Select(g => g.FirstOrDefault())
+                        .ToList();
             return PartialView(bills);
         }
 
@@ -481,7 +489,10 @@ namespace DoctorSkin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var bills = db.Bills.Where(s => s.iduser == iduser && s.status == "Thành công").ToList();
+            var bills = db.Bills.Where(s => s.iduser == iduser && s.status == "Thành công")
+                        .GroupBy(s => s.idbill)
+                        .Select(g => g.FirstOrDefault())
+                        .ToList();
             return PartialView(bills);
         }
 

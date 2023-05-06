@@ -19,7 +19,7 @@ namespace DoctorSkin.Models
         public string note { set; get; }
         public string status { set; get; }
         public bool yesfb { set; get; }
-        public Nullable<System.DateTime> datesuccess { set; get; }
+        public Nullable<System.DateTime> datebuy { set; get; }
             // Constructor
         public Bills()
         {
@@ -27,7 +27,6 @@ namespace DoctorSkin.Models
         }
 
         public string idvoucher { set; get; }
-
     }
 
 

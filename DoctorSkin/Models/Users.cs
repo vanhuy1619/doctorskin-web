@@ -48,5 +48,8 @@ namespace DoctorSkin.Models
 
         public int point { set; get; }
 
+        public Nullable<System.DateTime> dateregist { set; get; }
+
+
     }
 }
