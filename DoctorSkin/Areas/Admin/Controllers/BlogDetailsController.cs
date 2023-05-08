@@ -20,8 +20,7 @@ namespace DoctorSkin.Areas.Admin.Controllers
     public class BlogDetailsController : Controller
     {
         private DoctorSkinEntities db = new DoctorSkinEntities();
-
-
+        SlugifyConfig slugify = new SlugifyConfig();
         public ActionResult Index()
         {
             return View(db.BlogDetails.ToList());
@@ -142,15 +141,8 @@ namespace DoctorSkin.Areas.Admin.Controllers
                 }
 
 
-                string originalString = blogDetails.title;
-                string normalizedString = originalString.Normalize(NormalizationForm.FormD);
-                string metaLink = string.Join("", normalizedString
-                    .Where(c => char.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark))
-                    .ToLowerInvariant()
-                    .Replace(" ", "-");
-
                 // Cập nhật trường title
-                existingBlogDetails.metablog = metaLink;
+                existingBlogDetails.metablog = slugify.slugify(blogDetails.title);
                 existingBlogDetails.title = blogDetails.title;
                 existingBlogDetails.shortcontent = blogDetails.shortcontent;
                 existingBlogDetails.hideblog = blogDetails.hideblog;

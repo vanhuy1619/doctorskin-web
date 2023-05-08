@@ -570,6 +570,7 @@
     <Compile Include="config\Config.cs" />
     <Compile Include="config\HttpContext.cs" />
     <Compile Include="config\MyJob.cs" />
+    <Compile Include="config\SlugifyConfig.cs" />
     <Compile Include="config\UploadCloud.cs" />
     <Compile Include="config\UsersRoleProvider.cs" />
     <Compile Include="Controllers\BlogByTypeController.cs" />
