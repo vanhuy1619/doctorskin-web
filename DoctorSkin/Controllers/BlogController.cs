@@ -21,7 +21,7 @@ namespace DoctorSkin.Controllers
 
         public ActionResult getListBlog(int? page)
         {
-            int pageSize = 2;
+            int pageSize = 9;
             int pageNumber = (page ?? 1);
             var v = from t in db.BlogDetails where t.hideblog == false select t;
             return PartialView(v.ToList().ToPagedList(pageNumber,pageSize));

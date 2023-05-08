@@ -1,4 +1,6 @@
-﻿@model List<DoctorSkin.Models.BlogDetails>
+﻿@model PagedList.IPagedList<DoctorSkin.Models.BlogDetails>
+@using PagedList.Mvc;
+
 @foreach (var i in Model)
 {
     <div class="">
@@ -26,3 +28,6 @@
         </article>
     </div>
 }
+<div class="aa-blog-archive-pagination">
+    @Html.PagedListPager(Model, page => Url.Action("Index", "BlogByType", new { page }))
+</div>

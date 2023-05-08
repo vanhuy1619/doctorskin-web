@@ -22,6 +22,14 @@ namespace DoctorSkin
                 },
                 namespaces: new[] { "DoctorSkin.Controllers"});
 
+            routes.MapRoute(name: "AllProducts", url: "{type}",
+                new { Controller = "Products", action = "getAllProduct" },
+                new RouteValueDictionary
+                {
+                    {"type","tat-ca-san-pham" }
+                },
+                namespaces: new[] { "DoctorSkin.Controllers" });
+
             routes.MapRoute("BlogByType", "{type}/{meta}",
                 new { Controller = "BlogByType", action = "Index", meta = UrlParameter.Optional },
                 new RouteValueDictionary

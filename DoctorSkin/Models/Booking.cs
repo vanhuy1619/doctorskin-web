@@ -23,5 +23,9 @@ namespace DoctorSkin.Models
         [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}")]
         public string email { set; get; }
         public string require { set; get; }
+
+        public Nullable<System.DateTime> timebooking { set; get; }
+
+        public Boolean completed { set; get; }
     }
 }

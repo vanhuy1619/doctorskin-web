@@ -20,7 +20,6 @@ namespace DoctorSkin.Models
         public bool hideblog { set; get; }
 
         public string contentblog { set; get; }
-        public int watched { set; get; }
 
         public string metablog { set; get; }
     }

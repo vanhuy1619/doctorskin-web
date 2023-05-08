@@ -70,14 +70,17 @@ namespace DoctorSkin.Controllers
             return PartialView(v.ToList());
         }
 
-        public ActionResult getListBlogByType(int idbt)
+        public ActionResult getListBlogByType(int idbt, int? page)
         {
             //ViewBag.meta = "san-pham";
             var v = from t in db.BlogDetails
                     where t.idbt == idbt && t.hideblog == false
                     orderby t.date_up descending
                     select t;
-            return PartialView(v.ToList());
+            int pageSize = 9;
+            int pageNumber = (page ?? 1);
+            return PartialView(v.ToPagedList(pageNumber, pageSize));
+
         }
 
         public ActionResult getListDetailByService(int id_dt)

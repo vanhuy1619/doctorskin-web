@@ -43,34 +43,34 @@ namespace DoctorSkin
             dataCleanupService.DeleteOldData();
         }
 
-        protected void Application_Error()
-        {
-            Exception exception = Server.GetLastError();
-            Response.Clear();
+        //protected void Application_Error()
+        //{
+        //    Exception exception = Server.GetLastError();
+        //    Response.Clear();
 
-            HttpException httpException = exception as HttpException;
-            RouteData routeData = new RouteData();
+        //    HttpException httpException = exception as HttpException;
+        //    RouteData routeData = new RouteData();
 
-            routeData.Values["controller"] = "Error";
-            routeData.Values["action"] = "Index";
+        //    routeData.Values["controller"] = "Error";
+        //    routeData.Values["action"] = "Index";
 
-            if (httpException != null)
-            {
-                routeData.Values["statuscode"] = httpException.GetHttpCode();
-            }
-            else
-            {
-                routeData.Values["statuscode"] = 500;
-            }
+        //    if (httpException != null)
+        //    {
+        //        routeData.Values["statuscode"] = httpException.GetHttpCode();
+        //    }
+        //    else
+        //    {
+        //        routeData.Values["statuscode"] = 500;
+        //    }
 
-            Server.ClearError();
+        //    Server.ClearError();
 
-            Response.TrySkipIisCustomErrors = true;
+        //    Response.TrySkipIisCustomErrors = true;
 
-            IController errorController = new ErrorController();
-            errorController.Execute(new RequestContext(
-                new HttpContextWrapper(Context), routeData));
-        }
+        //    IController errorController = new ErrorController();
+        //    errorController.Execute(new RequestContext(
+        //        new HttpContextWrapper(Context), routeData));
+        //}
 
 
     }

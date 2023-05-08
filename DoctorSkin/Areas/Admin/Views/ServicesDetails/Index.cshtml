@@ -77,7 +77,7 @@
         text-align: left;
     }
 
-    .active {
+    .actives {
         color: #ee4d2d !important;
         background: none;
         border: 1px solid #ee4d2d;
@@ -199,6 +199,17 @@
     })();*/
 
     document.getElementById('item-dichvu').classList.add("active")
+
+    let url = window.location.pathname + window.location.search
+    $('.choose-filter').each(function () {
+        if ($(this).find('a').attr('href') === url) {
+            $(this).addClass('actives');
+            $(this).find('a').css('color', '#ee4d2d');
+        } else {
+            $(this).removeClass('actives');
+            $(this).find('a').css('color', '');
+        }
+    });
 
     //XÓA DỊCH VỤ
     function updateToggleFood() {

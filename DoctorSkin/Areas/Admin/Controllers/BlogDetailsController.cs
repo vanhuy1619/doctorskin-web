@@ -2,26 +2,31 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using DoctorSkin.config;
 using DoctorSkin.Models;
 
 namespace DoctorSkin.Areas.Admin.Controllers
 {
     [Authorize]
+    [Authorize(Roles = "Admin")]
     public class BlogDetailsController : Controller
     {
         private DoctorSkinEntities db = new DoctorSkinEntities();
 
-        // GET: Admin/BlogDetails
+
         public ActionResult Index()
         {
             return View(db.BlogDetails.ToList());
         }
 
-        // GET: Admin/BlogDetails/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -42,19 +47,58 @@ namespace DoctorSkin.Areas.Admin.Controllers
             return View();
         }
 
-        // POST: Admin/BlogDetails/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateInput(false)]
-        public ActionResult Create([Bind(Include = "idb,idbt,title,shortcontent,date_up,cardimg,hideblog")] BlogDetails blogDetails)
+        public ActionResult Create([Bind(Include = "idb,idbt,title,shortcontent,date_up,cardimg,hideblog,contentblog,metablog")] BlogDetails blogDetails, HttpPostedFileBase cardimg)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.BlogDetails.Add(blogDetails);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                var path = "";
+                var filename = "";
+                if (ModelState.IsValid)
+                {
+                    if (cardimg != null)
+                    {
+                        //filename = Guid.NewGuid().ToString() + img.FileName;
+                        filename = DateTime.Now.ToString("dd-MM-yy-hh-mm-ss-") + cardimg.FileName;
+                        path = Path.Combine(Server.MapPath("~/Content/upload/img"), filename);
+                        cardimg.SaveAs(path);
+
+                        UploadCloud uploadCloud = new UploadCloud();
+
+                        blogDetails.cardimg = uploadCloud.uploadImage(cardimg);
+                    }
+                    else
+                    {
+                        blogDetails.cardimg = "https://media.istockphoto.com/id/1277506610/vector/tiny-dermatologist-examining-dry-face-skin.jpg?s=612x612&w=0&k=20&c=5lglsJPKwTXaJONri4Ev2-g0SZkbPF2dP04T3Q6cSV0=";
+                    }
+
+                    string originalString = blogDetails.title;
+                    string normalizedString = originalString.Normalize(NormalizationForm.FormD);
+                    string metaLink = string.Join("", normalizedString
+                        .Where(c => char.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark))
+                        .ToLowerInvariant()
+                        .Replace(" ", "-");
+
+                    blogDetails.hideblog = false;
+                    blogDetails.metablog = metaLink;
+
+                    DateTime currentDateTime = DateTime.Now;
+                    blogDetails.date_up = DateTime.Parse(currentDateTime.ToString("yyyy-MM-dd HH:mm:ss"));
+
+                    db.BlogDetails.Add(blogDetails);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (DbEntityValidationException e)
+            {
+                throw e;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
 
             return View(blogDetails);
@@ -75,46 +119,81 @@ namespace DoctorSkin.Areas.Admin.Controllers
             return View(blogDetails);
         }
 
-        // POST: Admin/BlogDetails/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "idb,idbt,title,shortcontent,date_up,cardimg,hideblog")] BlogDetails blogDetails)
+        [ValidateInput(false)]
+        public ActionResult Edit([Bind(Include = "idb,idbt,title,shortcontent,date_up,cardimg,hideblog,contentblog,metablog")] BlogDetails blogDetails, HttpPostedFileBase cardimg)
         {
-            if (ModelState.IsValid)
+            var path = "";
+            var filename = "";
+            var existingBlogDetails = db.BlogDetails.FirstOrDefault(s=>s.idb == blogDetails.idb);
+
+            if (existingBlogDetails != null)
             {
-                db.Entry(blogDetails).State = EntityState.Modified;
+                if (cardimg != null)
+                {
+                    filename = DateTime.Now.ToString("dd-MM-yy-hh-mm-ss-") + cardimg.FileName;
+                    path = Path.Combine(Server.MapPath("~/Content/upload/img"), filename);
+                    cardimg.SaveAs(path);
+
+                    UploadCloud uploadCloud = new UploadCloud();
+
+                    existingBlogDetails.cardimg = uploadCloud.uploadImage(cardimg);
+                }
+
+
+                string originalString = blogDetails.title;
+                string normalizedString = originalString.Normalize(NormalizationForm.FormD);
+                string metaLink = string.Join("", normalizedString
+                    .Where(c => char.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark))
+                    .ToLowerInvariant()
+                    .Replace(" ", "-");
+
+                // Cập nhật trường title
+                existingBlogDetails.metablog = metaLink;
+                existingBlogDetails.title = blogDetails.title;
+                existingBlogDetails.shortcontent = blogDetails.shortcontent;
+                existingBlogDetails.hideblog = blogDetails.hideblog;
+                existingBlogDetails.idbt = blogDetails.idbt;
+                existingBlogDetails.contentblog = blogDetails.contentblog;
+
+                db.Entry(existingBlogDetails).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             return View(blogDetails);
         }
 
-        // GET: Admin/BlogDetails/Delete/5
-        public ActionResult Delete(int? id)
+
+        [HttpDelete]
+        public ActionResult delete(int idb)
         {
-            if (id == null)
+            var blog = db.BlogDetails.FirstOrDefault(s => s.idb == idb);
+            if (blog != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                db.BlogDetails.Remove(blog);
+                db.SaveChanges();
+                return Json(new { code = 0, message = "Thành công" });
             }
-            BlogDetails blogDetails = db.BlogDetails.Find(id);
-            if (blogDetails == null)
-            {
-                return HttpNotFound();
-            }
-            return View(blogDetails);
+            else
+                return Json(new { code = 1, message = "Failed" });
         }
 
-        // POST: Admin/BlogDetails/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        [HttpPut]
+        public ActionResult hideBlog(int idb, bool hideblog)
         {
-            BlogDetails blogDetails = db.BlogDetails.Find(id);
-            db.BlogDetails.Remove(blogDetails);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            var blog = db.BlogDetails.FirstOrDefault(s => s.idb == idb);
+            if (blog != null)
+            {
+                blog.hideblog = hideblog;
+
+                db.SaveChanges();
+                return Json(new { code = 0, message = "Thành công" });
+            }
+            else
+                return Json(new { code = 1, message = "Failed" });
+
         }
 
         protected override void Dispose(bool disposing)

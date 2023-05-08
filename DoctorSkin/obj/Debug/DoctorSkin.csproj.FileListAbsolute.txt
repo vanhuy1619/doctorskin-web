@@ -524,3 +524,7 @@ D:\.NET\doctorskin-web\DoctorSkin\bin\zh-TW\Hangfire.Core.resources.dll
 D:\.NET\doctorskin-web\DoctorSkin\bin\System.Net.Http.Formatting.xml
 D:\.NET\doctorskin-web\DoctorSkin\bin\CKFinder.dll
 D:\.NET\doctorskin-web\DoctorSkin\bin\CKFinder.pdb
+D:\.NET\doctorskin-web\DoctorSkin\bin\Slugify.dll
+D:\.NET\doctorskin-web\DoctorSkin\bin\Slugify.Core.dll
+D:\.NET\doctorskin-web\DoctorSkin\bin\System.Text.Encoding.CodePages.dll
+D:\.NET\doctorskin-web\DoctorSkin\bin\System.Text.Encoding.CodePages.xml
