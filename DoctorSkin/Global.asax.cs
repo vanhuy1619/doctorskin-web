@@ -1,4 +1,5 @@
 ﻿using DoctorSkin.config;
+using DoctorSkin.Controllers;
 using DoctorSkin.Mappings;
 using System;
 using System.Collections.Generic;
@@ -41,5 +42,36 @@ namespace DoctorSkin
             var dataCleanupService = new MyJob();
             dataCleanupService.DeleteOldData();
         }
+
+        protected void Application_Error()
+        {
+            Exception exception = Server.GetLastError();
+            Response.Clear();
+
+            HttpException httpException = exception as HttpException;
+            RouteData routeData = new RouteData();
+
+            routeData.Values["controller"] = "Error";
+            routeData.Values["action"] = "Index";
+
+            if (httpException != null)
+            {
+                routeData.Values["statuscode"] = httpException.GetHttpCode();
+            }
+            else
+            {
+                routeData.Values["statuscode"] = 500;
+            }
+
+            Server.ClearError();
+
+            Response.TrySkipIisCustomErrors = true;
+
+            IController errorController = new ErrorController();
+            errorController.Execute(new RequestContext(
+                new HttpContextWrapper(Context), routeData));
+        }
+
+
     }
 }

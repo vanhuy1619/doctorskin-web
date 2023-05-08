@@ -30,6 +30,14 @@ namespace DoctorSkin
                 },
                 namespaces: new[] { "DoctorSkin.Controllers" });
 
+            routes.MapRoute("BlogDetails", "{type}/{metablog}",
+                new { Controller = "Blog", action = "blogDetail", metablog = UrlParameter.Optional },
+                 new RouteValueDictionary
+                {
+                    {"type","bai-viet" }
+                },
+                namespaces: new[] { "DoctorSkin.Controllers" });
+
             routes.MapRoute("Doctors", "{type}",
                 new { Controller = "Doctors", action = "Index"},
                 new RouteValueDictionary

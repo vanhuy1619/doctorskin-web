@@ -18,5 +18,10 @@ namespace DoctorSkin.Models
         public String cardimg { set; get; }
 
         public bool hideblog { set; get; }
+
+        public string contentblog { set; get; }
+        public int watched { set; get; }
+
+        public string metablog { set; get; }
     }
 }
