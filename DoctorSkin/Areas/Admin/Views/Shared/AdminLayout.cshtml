@@ -57,6 +57,11 @@
                 /* font-weight: 700; */
                 font-size: 14px;
             }
+            .btn-create {
+                color: #fff;
+                background-color: #ee4d2d;
+                border-color: #ee4d2d;
+            }
         </style>
     </head>
 
@@ -82,25 +87,25 @@
                 </li>
                 <li>
                     <a class="x" href="/admin/products" id="item-sanpham">
-                        <i class='bx bx-box'></i>
+                        <i class='bx bx-store-alt'></i>
                         <span class="links_name">Sản phẩm</span>
                     </a>
                 </li>
                 <li>
-                    <a class="x" href="/admin/dathang" id="item-donhang">
-                        <i class='bx bx-list-ul'></i>
+                    <a class="x" href="/admin/bills" id="item-donhang">
+                        <i class='bx bx-cart'></i>
                         <span class="links_name">Đơn hàng</span>
                     </a>
                 </li>
                 <li>
                     <a class="x" href="/admin/BlogDetails" id="item-tintuc">
-                        <i class='bx bx-pie-chart-alt-2'></i>
+                        <i class='bx bx-news'></i>
                         <span class="links_name">Tin tức</span>
                     </a>
                 </li>
                 <li>
                     <a class="x" href="/admin/nhanvien" id="item-nhanvien">
-                        <i class='bx bx-coin-stack'></i>
+                        <i class='bx bx-user-voice'></i>
                         <span class="links_name">Nhân viên</span>
                     </a>
                 </li>
@@ -141,7 +146,7 @@
                     </a>
                     <script>
                         $(".log_out").on("click", () => {
-                            Swal.fire({
+                            swal({
                                 title: 'Bạn có chắc muốn đăng xuất?',
                                 icon: 'warning',
                                 showCancelButton: true,
@@ -167,7 +172,7 @@
             <nav>
                 <div class="sidebar-button">
                     <i class='bx bx-menu sidebarBtn'></i>
-                    <span class="dashboard">Dashboard</span>
+                    <span class="dashboard" style="font-size:24px !important">Dashboard</span>
                 </div>
                 <div class="search-box">
                     <input id="search_field" type="text" placeholder="Tìm kiếm..." name="key">

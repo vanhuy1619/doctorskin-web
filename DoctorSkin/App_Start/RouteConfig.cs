@@ -126,6 +126,14 @@ namespace DoctorSkin
                 },
                 namespaces: new[] { "DoctorSkin.Controllers" });
 
+            routes.MapRoute("ProductsByBrand", "{type}/{meta}",
+                new { Controller = "Products", action = "getProductsByBrand", meta = UrlParameter.Optional },
+                new RouteValueDictionary
+                {
+                    {"type","thuong-hieu" }
+                },
+                namespaces: new[] { "DoctorSkin.Controllers" });
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

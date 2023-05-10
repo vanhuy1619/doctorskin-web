@@ -442,3 +442,9 @@ nav .profile-details i{
     width: calc(100% - 60px);
   }
 }
+
+.btn-create {
+    color: #fff;
+    background-color: #ee4d2d;
+    border-color: #ee4d2d;
+}

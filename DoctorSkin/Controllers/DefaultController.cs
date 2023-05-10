@@ -175,6 +175,32 @@ namespace DoctorSkin.Controllers
             return PartialView(v.OrderBy(x => rnd.Next()).Take(3).ToList());
         }
 
+        [HttpGet]
+        public ActionResult getListProductByBrand(int? idbrand, string sortOrder, int? page)
+        {
+            ViewBag.meta = "san-pham";
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "new" : "";
+            ViewBag.Type = null;
+            var v = (from t in db.Products
+                     where t.idbrand == idbrand && t.hide == false
+                     select t).ToList();
+            switch (sortOrder)
+            {
+                case "new":
+                    v = v.OrderByDescending(p => p.date_up).ToList();
+                    break;
+                case "price_desc":
+                    v = v.OrderByDescending(p => p.newprice).ToList();
+                    break;
+                default:
+                    v = v.OrderBy(p => p.newprice).ToList();
+                    break;
+            }
+            int pageSize = 21;
+            int pageNumber = (page ?? 1);
+            return PartialView(v.ToPagedList(pageNumber, pageSize));
+        }
+
 
     }
 }

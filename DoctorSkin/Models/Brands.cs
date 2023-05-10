@@ -12,5 +12,7 @@ namespace DoctorSkin.Models
         public int idbrand { set; get; }
         public String namebrand { set; get; }
         public bool hidebrand { set; get; }
+
+        public string meta { set; get; }
     }
 }

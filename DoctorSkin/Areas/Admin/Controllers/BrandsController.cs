@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using DoctorSkin.config;
 using DoctorSkin.Models;
 
 namespace DoctorSkin.Areas.Admin.Controllers
@@ -13,6 +14,7 @@ namespace DoctorSkin.Areas.Admin.Controllers
     public class BrandsController : Controller
     {
         private DoctorSkinEntities db = new DoctorSkinEntities();
+        SlugifyConfig slugifyConfig = new SlugifyConfig();
 
         // GET: Admin/Brands
         public ActionResult Index()
@@ -46,6 +48,7 @@ namespace DoctorSkin.Areas.Admin.Controllers
                 var newBrand = new Brands();
                 newBrand.namebrand = namebrand;
                 newBrand.hidebrand = false;
+                newBrand.meta = slugifyConfig.slugify(namebrand);
 
                 db.Brands.Add(newBrand);
                 db.SaveChanges();

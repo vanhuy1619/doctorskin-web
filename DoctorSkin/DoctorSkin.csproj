@@ -562,6 +562,7 @@
     <Compile Include="App_Start\WebAPIConfig.cs" />
     <Compile Include="APIController\ProductsController.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\BillsController.cs" />
     <Compile Include="Areas\Admin\Controllers\BlogDetailsController.cs" />
     <Compile Include="Areas\Admin\Controllers\BookingsController.cs" />
     <Compile Include="Areas\Admin\Controllers\BrandsController.cs" />
@@ -570,6 +571,7 @@
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ServicesDetailsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\VouchersController.cs" />
     <Compile Include="config\Config.cs" />
     <Compile Include="config\GetImages.cs" />
     <Compile Include="config\HttpContext.cs" />
@@ -2090,6 +2092,19 @@
     <Content Include="Areas\Admin\Views\Brands\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Brands\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Brands\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Bills\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Bills\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Bills\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Bills\Choxacnhan.cshtml" />
+    <Content Include="Areas\Admin\Views\Bills\Daxacnhan.cshtml" />
+    <Content Include="Areas\Admin\Views\Bills\Dahuy.cshtml" />
+    <Content Include="Areas\Admin\Views\Bills\Dagiao.cshtml" />
+    <Content Include="Areas\Admin\Views\Bills\getProductByBill.cshtml" />
+    <Content Include="Areas\Admin\Views\Vouchers\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Vouchers\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Vouchers\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Vouchers\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Vouchers\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />
@@ -2265,6 +2280,8 @@
     <Content Include="Views\Blog\blogDetail.cshtml" />
     <Content Include="Views\Products\getAllProduct.cshtml" />
     <Content Include="Views\Products\getAllProductView.cshtml" />
+    <Content Include="Views\Products\getProductsByBrand.cshtml" />
+    <Content Include="Views\Default\getListProductByBrand.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

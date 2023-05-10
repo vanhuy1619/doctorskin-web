@@ -1,7 +1,7 @@
 ﻿<link href="~/Content/assets/css/nouislider.css" rel="stylesheet" />
 <style>
-    .active-brand{
-        color:blue;
+    .active-brand {
+        color: blue;
     }
 </style>
 <!-- catg header banner section -->
@@ -24,7 +24,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-9 col-md-9 col-sm-8 col-md-push-3">
-                @Html.Action("getListProduct", "Default", new { typep = Model.typep })
+                @Html.Action("getListProductByBrand", "Default", new { idbrand = Model.idbrand })
             </div>
             <div class="col-lg-3 col-md-3 col-sm-4 col-md-pull-9">
                 <aside class="aa-sidebar">
@@ -51,8 +51,8 @@
                     <!-- single sidebar -->
                     <!--<div class="aa-sidebar-widget">
                         <h3>Sản phẩm theo giá</h3>-->
-                        <!-- price range -->
-                        <!--<div class="aa-sidebar-price-range">
+                    <!-- price range -->
+                    <!--<div class="aa-sidebar-price-range">
                             <form action="">
                                 <div id="skipstep" class="noUi-target noUi-ltr noUi-horizontal noUi-background">
                                 </div>
@@ -123,14 +123,8 @@
     }
 
     let url = window.location.pathname
-    const myOptsBrand = Array.from(document.querySelectorAll('.choose-brand'));
-    myOptsBrand.map(ele => {
-        if (ele.getAttribute('href') == url)
-            ele.classList.add('active-brand');
-    });
-
-    const myOptsType = Array.from(document.querySelectorAll('.choose-type'));
-    myOptsType.map(ele => {
+    const myOpts = Array.from(document.querySelectorAll('.choose-brand'));
+    myOpts.map(ele => {
         if (ele.getAttribute('href') == url)
             ele.classList.add('active-brand');
     });

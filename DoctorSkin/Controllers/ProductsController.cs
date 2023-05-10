@@ -73,5 +73,14 @@ namespace DoctorSkin.Controllers
             int pageNumber = (page ?? 1);
             return PartialView(v.ToPagedList(pageNumber, pageSize));
         }
+
+        //Chia sản phẩn theo brand
+        public ActionResult getProductsByBrand(string meta)
+        {
+            ViewBag.meta = meta;
+            ViewBag.title = (from t in db.Brands where t.meta == meta select t.meta).FirstOrDefault();
+            var v = from t in db.Brands where t.meta == meta select t;
+            return View(v.FirstOrDefault());
+        }
     }
 }

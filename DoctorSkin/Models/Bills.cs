@@ -27,6 +27,9 @@ namespace DoctorSkin.Models
         }
 
         public string idvoucher { set; get; }
+        public string whycancel { set; get; }
+
+        public Nullable<System.DateTime> datesuccess { set; get; }
     }
 
 
