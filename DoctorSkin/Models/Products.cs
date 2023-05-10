@@ -12,7 +12,7 @@ namespace DoctorSkin.Models
         [Key]
         public int idp { set; get; }
         public String namep { set; get; }
-        public int typep { set; get; }
+        public int? typep { set; get; }
         public String newprice { set; get; }
         public String oldprice { set; get; }
         public String descr { set; get; }
@@ -26,5 +26,8 @@ namespace DoctorSkin.Models
         public String avilability { set; get; }
 
         public String rated { set; get; }
+
+        public string listimg { set; get; }
+
     }
 }

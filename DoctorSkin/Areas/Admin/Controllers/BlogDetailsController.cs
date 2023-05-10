@@ -40,7 +40,6 @@ namespace DoctorSkin.Areas.Admin.Controllers
             return View(blogDetails);
         }
 
-        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
@@ -73,15 +72,9 @@ namespace DoctorSkin.Areas.Admin.Controllers
                         blogDetails.cardimg = "https://media.istockphoto.com/id/1277506610/vector/tiny-dermatologist-examining-dry-face-skin.jpg?s=612x612&w=0&k=20&c=5lglsJPKwTXaJONri4Ev2-g0SZkbPF2dP04T3Q6cSV0=";
                     }
 
-                    string originalString = blogDetails.title;
-                    string normalizedString = originalString.Normalize(NormalizationForm.FormD);
-                    string metaLink = string.Join("", normalizedString
-                        .Where(c => char.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark))
-                        .ToLowerInvariant()
-                        .Replace(" ", "-");
 
                     blogDetails.hideblog = false;
-                    blogDetails.metablog = metaLink;
+                    blogDetails.metablog = slugify.slugify(blogDetails.title);
 
                     DateTime currentDateTime = DateTime.Now;
                     blogDetails.date_up = DateTime.Parse(currentDateTime.ToString("yyyy-MM-dd HH:mm:ss"));
@@ -103,7 +96,6 @@ namespace DoctorSkin.Areas.Admin.Controllers
             return View(blogDetails);
         }
 
-        // GET: Admin/BlogDetails/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)

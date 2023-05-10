@@ -2,7 +2,14 @@
 @{
     DoctorSkin.Models.DoctorSkinEntities db = new DoctorSkin.Models.DoctorSkinEntities();
     var brand = db.Brands.FirstOrDefault(s => s.idbrand == Model.idbrand);
+    string[] listimg = Model.listimg.Split(',');
 }
+
+<style>
+    h2{
+        color:black !important;
+    }
+</style>
 <section id="aa-product-details">
     <div class="container">
         <div class="row">
@@ -15,18 +22,15 @@
                                 <div class="aa-product-view-slider">
                                     <div id="demo-1" class="simpleLens-gallery-container">
                                         <div class="simpleLens-container">
-                                            <div class="simpleLens-big-image-container"><a data-lens-image="img/view-slider/large/polo-shirt-1.png" class="simpleLens-lens-image"><img src="img/view-slider/medium/polo-shirt-1.png" class="simpleLens-big-image"></a></div>
+                                            <div class="simpleLens-big-image-container"><a data-lens-image="@listimg[0]" class="simpleLens-lens-image"><img src="@listimg[0]" class="simpleLens-big-image"></a></div>
                                         </div>
                                         <div class="simpleLens-thumbnails-container">
-                                            <a data-big-image="img/view-slider/medium/polo-shirt-1.png" data-lens-image="img/view-slider/large/polo-shirt-1.png" class="simpleLens-thumbnail-wrapper" href="#">
-                                                <img src="img/view-slider/thumbnail/polo-shirt-1.png">
-                                            </a>
-                                            <a data-big-image="img/view-slider/medium/polo-shirt-3.png" data-lens-image="img/view-slider/large/polo-shirt-3.png" class="simpleLens-thumbnail-wrapper" href="#">
-                                                <img src="img/view-slider/thumbnail/polo-shirt-3.png">
-                                            </a>
-                                            <a data-big-image="img/view-slider/medium/polo-shirt-4.png" data-lens-image="img/view-slider/large/polo-shirt-4.png" class="simpleLens-thumbnail-wrapper" href="#">
-                                                <img src="img/view-slider/thumbnail/polo-shirt-4.png">
-                                            </a>
+                                            @foreach (var i in listimg)
+                                            {
+                                                <a data-big-image="@i" data-lens-image="@i" class="simpleLens-thumbnail-wrapper">
+                                                    <img style="width:70px;height:70px;object-fit:contain" src="@i">
+                                                </a>
+                                            }
                                         </div>
                                     </div>
                                 </div>
@@ -65,14 +69,14 @@
                     </div>
                     <div class="aa-product-details-bottom">
                         <ul class="nav nav-tabs" id="myTab2">
-                            <li><a href="#description" data-toggle="tab">Thông tin sản phẩm</a></li>
+                            <li class="active"><a href="#description" data-toggle="tab" aria-expanded="true">Thông tin sản phẩm</a></li>
                             <li><a href="#review" data-toggle="tab">Đánh giá</a></li>
                         </ul>
 
                         <!-- Tab panes -->
                         <div class="tab-content">
                             <div class="tab-pane fade in active" id="description">
-                                @Model.descr
+                                @Html.Raw(Model.descr)
                             </div>
                             <div class="tab-pane fade " id="review">
                                 <div class="aa-product-review-area">
