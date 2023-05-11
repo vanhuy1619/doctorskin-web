@@ -9,6 +9,7 @@ namespace DoctorSkin.Models
 	public class Vouchers
 	{
 		[Key]
+		public int stt { set; get; }
 		public string idvoucher { set; get; }
 		public string namevc { set; get; }
 		public string valuevc { set; get; }

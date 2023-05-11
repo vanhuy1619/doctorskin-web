@@ -13,19 +13,19 @@ namespace DoctorSkin.Models
         public int idp { set; get; }
         public String namep { set; get; }
         public int? typep { set; get; }
-        public String newprice { set; get; }
-        public String oldprice { set; get; }
-        public String descr { set; get; }
+        public string newprice { set; get; }
+        public string oldprice { set; get; }
+        public string descr { set; get; }
         public Nullable<System.DateTime> date_up { get; set; }
         public Boolean hide { set; get; }
-        public String statep { set; get; }
-        public String img { set; get; }
+        public string statep { set; get; }
+        public string img { set; get; }
         //public String nameshort { set; get; }
         public int idbrand { set; get; }
-        public String metap { set; get; }
-        public String avilability { set; get; }
+        public string metap { set; get; }
+        public string avilability { set; get; }
 
-        public String rated { set; get; }
+        public string rated { set; get; }
 
         public string listimg { set; get; }
 

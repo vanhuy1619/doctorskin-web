@@ -10,6 +10,8 @@ using DoctorSkin.Models;
 
 namespace DoctorSkin.Areas.Admin.Controllers
 {
+    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class VouchersController : Controller
     {
         private DoctorSkinEntities db = new DoctorSkinEntities();
@@ -20,99 +22,78 @@ namespace DoctorSkin.Areas.Admin.Controllers
             return View(db.Vouchers.ToList());
         }
 
-        // GET: Admin/Vouchers/Details/5
-        public ActionResult Details(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Vouchers vouchers = db.Vouchers.Find(id);
-            if (vouchers == null)
-            {
-                return HttpNotFound();
-            }
-            return View(vouchers);
-        }
-
-        // GET: Admin/Vouchers/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Admin/Vouchers/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "idvoucher,namevc,valuevc,quantity,dasudung,datefrom,dateto,hidevc")] Vouchers vouchers)
+        public ActionResult Create(Vouchers vouchers)
         {
             if (ModelState.IsValid)
             {
-                db.Vouchers.Add(vouchers);
+                if (!db.Vouchers.Any(s => s.idvoucher == vouchers.idvoucher))
+                {
+                    db.Vouchers.Add(vouchers);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ModelState.AddModelError("idvoucher", "The idvoucher already exists.");
+                }
+            }
+            else
+            {
+                var errorMessages = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
+                ViewBag.ErrorMessages = errorMessages;
+            }
+
+            return RedirectToAction(("Index"));
+        }
+
+
+
+        [HttpPut]
+        public ActionResult Edit(string idvoucher, string namevc, string valuevc, int quantity, string datefrom, string dateto)
+        {
+            var item = db.Vouchers.FirstOrDefault(s => s.idvoucher == idvoucher);
+
+            item.idvoucher = idvoucher;
+            item.namevc = namevc;
+            item.valuevc = valuevc;
+            item.quantity = quantity;
+            item.datefrom = datefrom;
+            item.dateto = dateto;
+
+            if (item != null)
+            {
+                db.Configuration.ValidateOnSaveEnabled = false;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return Json(new { code = 0, message = "Thành công" });
             }
+            else
+                return Json(new { code = 1, message = "Failed" });
 
-            return View(vouchers);
         }
 
-        // GET: Admin/Vouchers/Edit/5
-        public ActionResult Edit(string id)
+        [HttpDelete]
+        public ActionResult Delete(string idvoucher)
         {
-            if (id == null)
+            var vc = db.Vouchers.FirstOrDefault(s => s.idvoucher == idvoucher);
+            if (vc != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Vouchers vouchers = db.Vouchers.Find(id);
-            if (vouchers == null)
-            {
-                return HttpNotFound();
-            }
-            return View(vouchers);
-        }
-
-        // POST: Admin/Vouchers/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "idvoucher,namevc,valuevc,quantity,dasudung,datefrom,dateto,hidevc")] Vouchers vouchers)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(vouchers).State = EntityState.Modified;
+                db.Vouchers.Remove(vc);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return Json(new { code = 0, message = "Thành công" });
             }
-            return View(vouchers);
+            else
+                return Json(new { code = 1, message = "Failed" });
         }
 
-        // GET: Admin/Vouchers/Delete/5
-        public ActionResult Delete(string id)
+        [HttpGet]
+        public ActionResult getVoucherByID(string idvoucher)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Vouchers vouchers = db.Vouchers.Find(id);
-            if (vouchers == null)
-            {
-                return HttpNotFound();
-            }
-            return View(vouchers);
-        }
-
-        // POST: Admin/Vouchers/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
-        {
-            Vouchers vouchers = db.Vouchers.Find(id);
-            db.Vouchers.Remove(vouchers);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            var vc = db.Vouchers.FirstOrDefault(s => s.idvoucher == idvoucher);
+            if (vc != null)
+                return Json(new { code = 0, data = vc }, JsonRequestBehavior.AllowGet);
+            else
+                return Json(new { code = 1, message = "Failed" });
         }
 
         protected override void Dispose(bool disposing)

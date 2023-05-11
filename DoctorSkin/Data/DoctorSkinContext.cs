@@ -64,5 +64,10 @@ namespace DoctorSkin.Models
         public System.Data.Entity.DbSet<DoctorSkin.Models.Role.UserRoles> Roles { get; set; }
         public System.Data.Entity.DbSet<DoctorSkin.Models.Role.RoleMasters> RoleMasters { get; set; }
         public System.Data.Entity.DbSet<DoctorSkin.Models.Role.UserRolesMappings> UserRolesMappings { get; set; }
+
+        public System.Data.Entity.DbSet<DoctorSkin.Models.Medicines> Medicines { get; set; }
+
+        public System.Data.Entity.DbSet<DoctorSkin.Models.ViewModel.MedicinesModel> MedicinesModels { get; set; }
+        public System.Data.Entity.DbSet<DoctorSkin.Models.Patients> Patients { get; set; }
     }
 }

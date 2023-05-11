@@ -7,11 +7,10 @@
     <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title> Trang chủ </title>
+        <title>@ViewBag.title</title>
 
         <link rel="shortcut icon" href="//o2skin.vn/wp-content/uploads/2021/09/favicon.ico" type="image/x-icon">
 
-        <title>O2 SKIN</title>
         <link href="~/Areas/Content/css/style.css" rel="stylesheet" />
         <link href="~/Areas/Content/css/message.css" rel="stylesheet" />
 
@@ -36,6 +35,11 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <!-- Thư viện SweetAlert -->
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <style>
             #bell {
                 position: relative;
@@ -57,6 +61,7 @@
                 /* font-weight: 700; */
                 font-size: 14px;
             }
+
             .btn-create {
                 color: #fff;
                 background-color: #ee4d2d;
@@ -128,19 +133,19 @@
             </a>
         </li>*@
                 <li>
-                    <a class="x" href="/admin/voucher" id="item-voucher">
-                        <i class='bx bx-heart'></i>
+                    <a class="x" href="/admin/vouchers" id="item-voucher">
+                        <i class='bx bx-gift'></i>
                         <span class="links_name">Voucher</span>
                     </a>
                 </li>
                 <li>
                     <a class="x" href="#">
-                        <i class='bx bx-cog'></i>
-                        <span class="links_name">Cài đặt</span>
+                        <i class='bx bx-notepad'></i>
+                        <span class="links_name">Khám bệnh</span>
                     </a>
                 </li>
                 <li class="log_out">
-                    <a class="x" href="#">
+                    <a>
                         <i class='bx bx-log-out'></i>
                         <span class="links_name">Đăng xuất</span>
                     </a>
@@ -157,6 +162,7 @@
                             }).then((result) => {
                                 if (result.isConfirmed) {
                                     $.post("/users/logout", () => {
+                                        window.localStorage.clear()
                                         window.location.href = "/admin";
                                     });
                                 }
@@ -448,8 +454,6 @@
         <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
         <script src='https://cdnjs.cloudflare.com/ajax/libs/simplePagination.js/1.6/jquery.simplePagination.js'></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     </body>
 

@@ -568,10 +568,12 @@
     <Compile Include="Areas\Admin\Controllers\BrandsController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoriesController.cs" />
     <Compile Include="Areas\Admin\Controllers\DefaultController.cs" />
+    <Compile Include="Areas\Admin\Controllers\DoctorsController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
     <Compile Include="Areas\Admin\Controllers\ServicesDetailsController.cs" />
     <Compile Include="Areas\Admin\Controllers\VouchersController.cs" />
+    <Content Include="Areas\Content\css\chart.css" />
     <Compile Include="config\Config.cs" />
     <Compile Include="config\GetImages.cs" />
     <Compile Include="config\HttpContext.cs" />
@@ -612,6 +614,8 @@
     <Compile Include="Models\Forgots.cs" />
     <Compile Include="Models\ListViewModel.cs" />
     <Compile Include="Models\Medias.cs" />
+    <Compile Include="Models\Medicines.cs" />
+    <Compile Include="Models\Patients.cs" />
     <Compile Include="Models\Products.cs" />
     <Compile Include="Models\Feedbacks.cs" />
     <Compile Include="Models\RepFeedbacks.cs" />
@@ -621,6 +625,7 @@
     <Compile Include="Models\Services.cs" />
     <Compile Include="Models\ServicesDetails.cs" />
     <Compile Include="Models\Users.cs" />
+    <Compile Include="Models\ViewModel\MedicinesModel.cs" />
     <Compile Include="Models\ViewModel\ProductsViewModel.cs" />
     <Compile Include="Models\ViewModel\UserFeedBackViewModel.cs" />
     <Compile Include="Models\Wishlists.cs" />
@@ -2073,8 +2078,6 @@
     <Content Include="Areas\Admin\Views\BlogDetails\Create.cshtml" />
     <Content Include="Areas\Admin\Views\BlogDetails\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\BlogDetails\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Bookings\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Bookings\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Bookings\Index.cshtml" />
     <Content Include="Content\DataTables\css\semanticui.scss" />
     <Content Include="Content\DataTables\css\mixins.scss" />
@@ -2100,11 +2103,13 @@
     <Content Include="Areas\Admin\Views\Bills\Dahuy.cshtml" />
     <Content Include="Areas\Admin\Views\Bills\Dagiao.cshtml" />
     <Content Include="Areas\Admin\Views\Bills\getProductByBill.cshtml" />
-    <Content Include="Areas\Admin\Views\Vouchers\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Vouchers\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Vouchers\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Vouchers\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Vouchers\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Doctors\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Doctors\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Doctors\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Doctors\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Doctors\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Doctors\listMedicine.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />
