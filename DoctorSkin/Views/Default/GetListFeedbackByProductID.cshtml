@@ -2,14 +2,15 @@
 @using PagedList.Mvc;
 
 <style>
-    .pagination-container{
-        display:flex;
-        justify-content:center;
-        margin:0 auto
+    .pagination-container {
+        display: flex;
+        justify-content: center;
+        margin: 0 auto
     }
 </style>
 @foreach (var i in Model)
 {
+    bool flag = false;
     string[] values = i.listImg.Split(',');
     <li>
         <div class="media">
@@ -21,11 +22,18 @@
             <div class="media-body">
                 <h4 class="media-heading"><strong>@i.nameu</strong> - <span>@i.datefb</span></h4>
                 <div class="aa-product-rating">
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star-o"></span>
+                    @if (flag == false)
+                    {
+                        for (var j = 0; j < i.staru; j++)
+                        {
+                            <span class="fa fa-star"></span>
+                        }
+                        for (var j = 0; j < (5 - i.staru); j++)
+                        {
+                            <span class="fa fa-star-o"></span>
+                        }
+                    }
+                    @{ flag = true;}
                 </div>
                 <p>@i.cmt</p>
                 @if (i.listImg != "")
@@ -43,9 +51,10 @@
                     @Html.Action("getListRepFeedbacks", "Default", new { sttfb = i.sttfb })
                 </div>
             </div>
-         </div>
+        </div>
     </li>
 }
 <div style="display:flex">
     @Html.PagedListPager(Model, pagecmt => Url.Action("Details", "Products", new { pagecmt }))
 </div>
+

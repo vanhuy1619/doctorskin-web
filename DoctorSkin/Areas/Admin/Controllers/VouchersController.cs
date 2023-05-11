@@ -50,7 +50,7 @@ namespace DoctorSkin.Areas.Admin.Controllers
 
 
         [HttpPut]
-        public ActionResult Edit(string idvoucher, string namevc, string valuevc, int quantity, string datefrom, string dateto)
+        public ActionResult Edit(string idvoucher, string namevc, string valuevc, int quantity, string datefrom, string dateto, bool hidevc)
         {
             var item = db.Vouchers.FirstOrDefault(s => s.idvoucher == idvoucher);
 
@@ -60,6 +60,7 @@ namespace DoctorSkin.Areas.Admin.Controllers
             item.quantity = quantity;
             item.datefrom = datefrom;
             item.dateto = dateto;
+            item.hidevc = hidevc;
 
             if (item != null)
             {

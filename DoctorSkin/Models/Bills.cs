@@ -30,6 +30,8 @@ namespace DoctorSkin.Models
         public string whycancel { set; get; }
 
         public Nullable<System.DateTime> datesuccess { set; get; }
+
+        public string exception { set; get; }
     }
 
 

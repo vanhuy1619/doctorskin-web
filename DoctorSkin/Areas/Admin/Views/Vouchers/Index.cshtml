@@ -90,7 +90,7 @@
                                         @item.datefrom - @item.dateto
                                     </td>
                                     <td>
-                                        <input data-idb="@item.idvoucher" class="blog-checkbox" type="checkbox" @(item.hidevc ? "checked" : "")>
+                                        <input disabled type="checkbox" @(item.hidevc ? "checked" : "")>
                                     </td>
                                     <td>
                                         <a data-toggle="modal" data-target="#edit" onclick="edit('@item.idvoucher')">Chỉnh sửa</a>
@@ -189,6 +189,11 @@
                         <label for="namesv" class="col-form-label">Mã voucher</label>
                         <input disabled placeholder="Nhập mã voucher" required type="text" class="form-control" id="idvoucheredit"
                                name="idvoucher">
+                    </div>
+                    <div class="form-group">
+                        <label for="namesv" class="col-form-label">Vô hiệu</label>
+                        <input type="checkbox" class="form-control" id="hidevcedit" style="width:fit-content"
+                               name="hidevc">
                     </div>
                     <div class="form-group">
                         <label for="descriptionsv" class="col-form-label">Tên voucher</label>
@@ -329,6 +334,8 @@
                 $('#quantityedit').val(res.data.quantity)
                 $('#datefromedit').val(res.data.datefrom)
                 $('#datetoedit').val(res.data.dateto)
+                if (res.data.hidevc == true)
+                    $('#hidevcedit').prop('checked', true)
             },
             error: function (xhr, status, error) {
                 console.log("Lỗi")
@@ -344,6 +351,7 @@
             idvoucher: $('#idvoucheredit').val(),
             namevc: $('#namevcedit').val(),
             valuevc: $('#valuevcedit').val(),
+            hidevc: $('#hidevcedit').prop('checked'),
             quantity: $('#quantityedit').val(),
             datefrom: $('#datefromedit').val(),
             dateto: $('#datetoedit').val()

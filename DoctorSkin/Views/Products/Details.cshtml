@@ -3,6 +3,7 @@
     DoctorSkin.Models.DoctorSkinEntities db = new DoctorSkin.Models.DoctorSkinEntities();
     var brand = db.Brands.FirstOrDefault(s => s.idbrand == Model.idbrand);
     string[] listimg = Model.listimg.Split(',');
+    int countFB = db.Feedbacks.Where(s => s.idp == Model.idp).ToList().Count();
 }
 
 <style>
@@ -80,18 +81,8 @@
                             </div>
                             <div class="tab-pane fade " id="review">
                                 <div class="aa-product-review-area">
-                                    <div>
-                                        <div style="font-size:18px">@ViewBag.countfb đánh giá cho sản phẩm này</div>
-                                        <div>
-                                            <div class="aa-product-catg-head-left">
-                                                <label for="">Sắp xếp</label>
-                                                <select name="sortOrder" onchange="handleSelect(this)">
-                                                    <option value="new">Mới nhất</option>
-                                                    <option value="price_increase">Giá từ thấp đến cao</option>
-                                                    <option value="price_desc">Giá từ cao đến thấp</option>
-                                                </select>
-                                            </div>
-                                        </div>
+                                    <div style="background-color: #fffbf8; min-height: 5rem; border: 1px solid #f9ede5; margin-bottom: 1rem; display: flex; align-items: center; border-radius: 2px; box-sizing: border-box; padding: 1.875rem;">
+                                        <div style="font-size:18px"><strong>@countFB</strong> <i style="font-size:16px">đánh giá cho sản phẩm này</i></div>
                                     </div>
 
                                     <ul class="aa-review-nav">

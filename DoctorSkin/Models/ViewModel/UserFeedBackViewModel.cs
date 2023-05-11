@@ -15,6 +15,8 @@ namespace DoctorSkin.Models.ViewModel
         public string nameu { set; get; }
         public string avau { set; get; }
 
+        public int staru { set; get; }
+
         public string listImg { set; get; }
     }
 }

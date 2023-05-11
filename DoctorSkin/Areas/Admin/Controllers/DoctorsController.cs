@@ -53,6 +53,28 @@ namespace DoctorSkin.Areas.Admin.Controllers
                 patients.doctor = (string)Session["iduser"];
                 db.Patients.Add(patients);
                 db.SaveChanges();
+
+                int stt = patients.stt;
+                List<dynamic> itemList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<dynamic>>(patients.prescription);
+                foreach(var i in itemList)
+                {
+                    if(i.type == 2)
+                    {
+                        Bills newBill = new Bills();
+                        newBill.idbill = stt + "[patients]";
+                        newBill.idp = i.id;
+                        newBill.quantity = i.soluong;
+                        newBill.totalmoney = i.total;
+                        newBill.datebuy = patients.date;
+                        newBill.datesuccess = patients.date;
+                        newBill.totalbill = patients.pay;
+                        newBill.status = "Thành công";
+                        newBill.exception = "Tạo bởi bác sĩ";
+
+                        db.Bills.Add(newBill);
+                    }    
+                }
+                db.SaveChanges();
                 return Json(new { code = 0, message = "Lưu thông tin thành công" });
             }
 
@@ -63,6 +85,12 @@ namespace DoctorSkin.Areas.Admin.Controllers
 
             // Return the errors as JSON
             return Json(new { code =1, Errors = errors });
+        }
+
+        public ActionResult reExamination(string phone)
+        {
+            var patient = db.Patients.Where(s => s.phone == phone).ToList();
+            return View(patient);
         }
 
 

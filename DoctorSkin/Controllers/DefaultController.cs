@@ -114,19 +114,20 @@ namespace DoctorSkin.Controllers
 
         public ActionResult GetListFeedbackByProductID(int? idp, int? pagecmt)
         {
-            
+
             var query = from a in db.Feedbacks
                         join b in db.Users on a.iduser equals b.iduser
                         where a.idp == idp
                         orderby a.datefb descending
                         select new
                         {
-                        sttfb = a.sttfb,
-                        cmt = a.cmt,
-                        datefb = a.datefb,
-                        nameu = b.name,
-                        avau = b.ava,
-                        listImg = a.imagefb
+                            sttfb = a.sttfb,
+                            cmt = a.cmt,
+                            datefb = a.datefb,
+                            nameu = b.name,
+                            avau = b.ava,
+                            listImg = a.imagefb,
+                            staru = a.star
                     };
             var products = query.ToList().Select(r => new UserFeedBackViewModel
             {
@@ -135,9 +136,10 @@ namespace DoctorSkin.Controllers
                 datefb = r.datefb,
                 nameu = r.nameu,
                 avau = r.avau,
-                listImg = r.listImg
+                listImg = r.listImg,
+                staru = r.staru
             }).ToList();
-            int pageSize = 1;
+            int pageSize = 20;
             int pageNumber = (pagecmt ?? 1);
             ViewBag.listfb = products.Count();
             return PartialView(products.ToPagedList(pageNumber, pageSize));

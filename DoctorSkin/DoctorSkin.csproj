@@ -2110,6 +2110,7 @@
     <Content Include="Areas\Admin\Views\Doctors\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Doctors\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Doctors\listMedicine.cshtml" />
+    <Content Include="Areas\Admin\Views\Doctors\reExamination.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />
@@ -2276,10 +2277,6 @@
     <Content Include="Views\Users\Dahuy.cshtml" />
     <Content Include="Views\Users\Dagiao.cshtml" />
     <Content Include="Views\Users\getProductByBill.cshtml" />
-    <Content Include="Views\Vouchers\Create.cshtml" />
-    <Content Include="Views\Vouchers\Delete.cshtml" />
-    <Content Include="Views\Vouchers\Details.cshtml" />
-    <Content Include="Views\Vouchers\Edit.cshtml" />
     <Content Include="Views\Vouchers\Index.cshtml" />
     <Content Include="Views\Default\relatedProducts.cshtml" />
     <Content Include="Views\Blog\blogDetail.cshtml" />

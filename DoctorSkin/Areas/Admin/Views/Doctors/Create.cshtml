@@ -124,6 +124,8 @@
 <script src="~/Scripts/DataTables/jquery.dataTables.js"></script>
 <script src="https://cdn.datatables.net/1.11.2/js/jquery.dataTables.min.js"></script>
 <script>
+    document.getElementById('item-khambenh').classList.add("active")
+
     document.addEventListener('DOMContentLoaded', function () {
         const dataTableExample = document.querySelector('#dataTables-example');
         if (dataTableExample) {
@@ -184,6 +186,8 @@
         let price = $(ele).data('price')
         let newitem = {
             stt: $(ele).data('stt'),
+            id: $(ele).data('id'),
+            type: Number($(ele).data('type')),
             name: name,
             dongia: price,
             soluong: 1,
