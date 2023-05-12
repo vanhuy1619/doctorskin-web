@@ -85,6 +85,36 @@ namespace DoctorSkin.Areas.Admin.Controllers
             var service = db.ServicesDetails.ToList();
             ViewBag.service = service;
 
+            //Sản phẩm
+            var products = db.Products.ToList();
+            ViewBag.products = products;
+
+            //Brand
+            var categories = db.Categories.ToList();
+            ViewBag.brands = categories;
+
+            //Feedback
+            var feedbacks = db.Feedbacks.ToList();
+            ViewBag.feedbacks = feedbacks;
+
+            //Top Service
+            var topServices = db.ServicesDetails.OrderByDescending(s => s.amount).Take(5).ToList();
+            var topBillByProducts = db.Bills
+                            .GroupBy(s => s.idp)
+                            .Select(g => new { idp = g.Key, totalQuantity = g.Sum(s => s.quantity) })
+                            .OrderByDescending(g => g.totalQuantity)
+                            .Take(5)
+                            .ToList();
+
+            var topProductIds = topBillByProducts.Select(b => b.idp).ToList();
+
+            var topProducts = db.Products
+                .Where(p => topProductIds.Contains(p.idp))
+                .ToList();
+
+            ViewBag.topServices = topServices;
+            ViewBag.topProducts = topProducts;
+
             return View();
         }
     }

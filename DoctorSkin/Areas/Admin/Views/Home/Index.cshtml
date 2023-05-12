@@ -101,17 +101,42 @@
         </div>
     </div>
 
-    <div class="top-sales box">
+    <div class="top-sales box" style="height:520px;overflow:auto">
         <div class="title">Dịch vụ và sản phẩm bán chạy</div>
         <ul class="top-sales-details" id="TopService">
-
+            @foreach (var i in ViewBag.topServices)
+            {
+                <li>
+                    <div style="display:flex;align-items:center">
+                        <div>
+                            <img style="width:90px;object-fit:contain; border-radius:8px" src="@i.img_sd" />
+                        </div>
+                        <div style="margin-left:8px">
+                            <span>@i.name_sd</span>
+                        </div>
+                    </div>
+                </li>
+            }
+            @foreach (var i in ViewBag.topProducts)
+            {
+                <li>
+                    <div style="display:flex;align-items:center">
+                        <div>
+                            <img style="width:90px;object-fit:contain; border-radius:8px" src="@i.img" />
+                        </div>
+                        <div style="margin-left:8px">
+                            <span>@i.namep</span>
+                        </div>
+                    </div>
+                </li>
+            }
         </ul>
     </div>
 </div>
 
 <div class="sales-boxes" style="margin-top: 20px">
     <div class="recent-sales box">
-        <div class="title">THỐNG KÊ LƯỢNG ĐẶT PHÒNG Ở KHÁCH SẠN</div>
+        <div class="title">THỐNG KÊ SỐ SẢN PHẨM BÁN RA</div>
         <div class="sales-details">
             <div id="chart2" style="width:100%"></div>
         </div>
@@ -194,6 +219,7 @@
         </div>
     </div>
 </div>
+
 {{!-- handler modal rep message --}}
 <script>
     document.getElementById('item-home').classList.add("active")
@@ -301,62 +327,7 @@
         return ele.amount*ele.price_sd
         });
     console.log(dataServices)
-        @*const filteredBookingsService = bookings.filter(booking => booking.statusBooking === 2 || booking.statusBooking === 3 && booking.totalService!=0);
-        let dataServiceFromBookings = filteredBookingsService.map(booking => {
-          if (booking.services.length > 0) {
-            return booking.services;
-          }
-        }).filter(item => item !== undefined);
 
-        const results = dataServiceFromBookings.reduce((acc, item) => {
-          item.forEach(product => {
-            const foundProduct = acc.find(p => p.name === product.name);
-            if (foundProduct) {
-              foundProduct.amount += product.amount;
-            } else {
-              acc.push({stt:product.stt, name: product.name, amount: product.amount });
-            }
-          });
-          return acc;
-        }, []);
-        // Sắp xếp mảng theo số lượng sản phẩm bán được giảm dần theo top 10
-        const topProducts = results
-          .sort((a, b) => b.amount - a.amount)
-          .slice(0, 6);
-        const services = @Html.Raw(Json.Encode(ViewBag.service));
-
-        for (let i = 0; i < topProducts.length; i++) {
-          const product = topProducts[i];
-          const service = services.find(s => s.stt === product.stt);
-          if (service) {
-            product.img = service.imgsv;
-            product.price = service.pricesv
-          }
-        }
-        //console.log(topProducts);
-        const topSales = $('#TopService.top-sales-details');
-        for (let i = 0; i < topProducts.length; i++) {
-          const product = topProducts[i];
-          const li = $('<li></li>');
-          const a = $('<a></a>');
-          const img = $('<img>');
-          const span1 = $('<span></span>');
-          const span2 = $('<span></span>');
-
-          img.attr('src', product.img);
-          img.attr('alt', 'ảnh');
-          span1.addClass('product');
-          span1.text(product.name);
-          span2.addClass('price lht-price-detail');
-          span2.css('font-weight', '700');
-          span2.text(product.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }));
-
-          a.append(img);
-          a.append(span1);
-          li.append(a);
-          li.append(span2);
-          topSales.append(li);
-        }*@
 
         var options = {
             series: [{
@@ -430,163 +401,200 @@
         var chart = new ApexCharts(document.querySelector("#chart"), options);
         chart.render();
 
-//        // Thống kê room ở chart 2
-//        const rooms = {{{json rooms}}}
-//        //console.log(rooms)
-//        //console.log(bookings)
-//        const roomBookings = {};
-//        for (let i = 0; i < rooms.length; i++) {
-//          const roomType = rooms[i].type_room;
-//          let bookingCount = 0;
-//          if (roomType in roomBookings) {bookingCount=roomBookings[roomType]}
-//          for (let j = 0; j < bookings.length; j++) {
-//            const booking = bookings[j];
-//            if (booking.idroom == rooms[i].number_room) {
-//              bookingCount++;
-//            }
-//          }
-//          roomBookings[roomType] = bookingCount;
-//        }
+    //Loại sản phẩm
+    const categories = @Html.Raw(Json.Encode(ViewBag.brands));
 
-//        const roomTypes = Object.keys(roomBookings);
-//        const bookingCounts = Object.values(roomBookings);
-//        var options2 = {
-//            series: bookingCounts,
-//            chart: {
-//                width: 380,
-//                type: 'pie',
-//            },
-//            labels: roomTypes,
-//            responsive: [{
-//                breakpoint: 480,
-//                options: {
-//                    chart: {
-//                        width: 200
-//                    },
-//                    legend: {
-//                        position: 'bottom'
-//                    }
-//                }
-//            }]
-//        };
-//        var chart2 = new ApexCharts(document.querySelector("#chart2"), options2);
-//        chart2.render();
+    // thống kê sản phẩm ở chart 2
+    const products = @Html.Raw(Json.Encode(ViewBag.products));
+    //console.log(products)
+    const productbuy = {};
+    for (let i = 0; i < products.length; i++)
+    {
+        //type sản phẩm
+        const producttype = products[i].typep;
+        
+        let buycount = 0;
+        if (producttype in productbuy)
+        {
+            buycount = productbuy[producttype]
+        }
+        for (let j = 0; j < billsAll.length; j++)
+        {
+            const booking = billsAll[j];
+            if (booking.idp == products[i].idp)
+            {
+                buycount = buycount+booking.quantity;
+            }
+         }
+        productbuy[producttype] = buycount;
+    }
 
-//// thống kê feedback ở chart 3
-//        const feedbacks = {{{json feedbacks}}};
-//        console.log(feedbacks)
-//        // Tạo các đối tượng để lưu trữ dữ liệu theo phòng và theo ngày
-//        const roomData = {};
-//        const dateData = {};
-//        // Lặp qua từng phản hồi để lưu trữ dữ liệu theo phòng và theo ngày
-//        for (let i = 0; i < feedbacks.length; i++) {
-//          const feedback = feedbacks[i];
-//          const room = feedback.idroom;
-//          const date = new Date(feedback.timeFb).toLocaleDateString();
+    var updatedObject = {};
+    categories.forEach(function (obj) {
+        var id = obj.typep;
+        var value = productbuy[id];
 
-//          // Lưu trữ dữ liệu theo phòng
-//          if (!roomData[room] &&room!=null) {
-//            roomData[room] = { name: `Phòng ${room}`, data: [] };
-//          }else if(!roomData[room] &&room==null){
-//            roomData[room] = {name: "Website",data: []}
-//          }
-//          roomData[room].data.push(feedback.starFb);
+        if (value !== undefined) {
+            updatedObject[obj.namec] = value;
+        }
+    });
 
-//          // Lưu trữ dữ liệu theo ngày
-//          if (!dateData[date]) {
-//            dateData[date] = { x: date, data: {} };
-//          }
-//          if (!dateData[date].data[room] &&room!=null) {
-//            dateData[date].data[room] = { name: `Phòng ${room}`, data: [] };
-//          } else if (!dateData[date].data[room] &&room==null){
-//            dateData[date].data[room] = { name: `Website`, data: [] };
-//          }
-//          dateData[date].data[room].data.push(feedback.starFb);
-//        }
-//        // Tạo danh sách các ngày để sử dụng trong biểu đồ
-//        const dates = Object.keys(dateData).sort();
-//        // Tạo một mảng dữ liệu ApexCharts từ các dữ liệu về phòng đã thu thập được
-//        const roomSeries = Object.values(roomData);
-//        // Tạo một mảng dữ liệu ApexCharts từ các dữ liệu về ngày đã thu thập được
-//        const dateSeries = Object.entries(dateData).map(([date, data]) => ({
-//          x: date,
-//          ...Object.values(data.data),
-//        }));
-//        console.log(roomSeries)
-//        console.log(dateSeries)
+    console.log(updatedObject)
 
-//          dateSeries.forEach((data, index)=>{
-//            const dataArrays = Object.values(data);
-//            console.log(dataArrays)
-//          })
+    const producttypes = Object.keys(updatedObject);
+    const buycounts = Object.values(updatedObject);
+        var options2 = {
+            series: buycounts,
+            chart: {
+                width: 380,
+                type: 'pie',
+            },
+            labels: producttypes,
+            responsive: [{
+                breakpoint: 480,
+                options: {
+                    chart: {
+                        width: 200
+                    },
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }]
+        };
+    var chart2 = new ApexCharts(document.querySelector("#chart2"), options2);
+    chart2.render();
 
-//        for (let i = 0; i < roomSeries.length; i++){
-//          roomSeries[i].data = []
-//          const newData = []
-//          dateSeries.forEach((data, index)=>{
-//            const dataArrays = Object.values(data);
-//            for (let j = 0; j < dataArrays.length-1; j++){
-//              if (dataArrays[j].name == roomSeries[i].name){
-//                newData.push(dataArrays[j].data[0])
-//              } else if (dataArrays[j].name != roomSeries[i].name && j==dataArrays.length-2){
-//                newData.push(null)
-//              }
-//            }
-//          })
-//          roomSeries[i].data = newData
-//        }
-//        console.log(roomSeries)
-//        // Cấu hình
-//        const options3 = {
-//          chart: {
-//            height: 350,
-//            type: "line",
-//          },
-//          stroke: {
-//            width: 2,
-//            curve: "smooth",
-//          },
-//          series: roomSeries,
-//          xaxis: {
-//            categories: dates,
-//          },
-//          yaxis: {
-//            title: {
-//              text: "Đánh giá (sao)",
-//            },
-//            min: 1,
-//            max: 5,
-//          },
-//          tooltip: {
-//            shared: true,
-//            intersect: false,
-//            y: {
-//              formatter: function (y) {
-//                if (typeof y !== "undefined") {
-//                  return y + " sao";
-//                }
-//                return 0 + " sao";
-//              },
-//            },
-//          },
-//          dataLabels: {
-//            enabled: true,
-//          },
-//          markers: {
-//            size: 5,
-//            strokeColors: '#fff',
-//            strokeWidth: 2,
-//          },
-//          legend: {
-//            offsetY: 7,
-//          },
-//          grid: {
-//            padding: {
-//              bottom: 20,
-//            },
-//          },
-//        };
+// thống kê feedback ở chart 3
+        const feedbacks = @Html.Raw(Json.Encode(ViewBag.feedbacks))
+        //console.log(feedbacks)
 
-//        var chart3 = new ApexCharts(document.querySelector("#chart3"), options3);
-//        chart3.render();
+        // Tạo các đối tượng để lưu trữ dữ liệu theo sản phẩm và theo ngày đánh giá
+        const roomData = {};
+        const dateData = {};
+        // Lặp qua từng phản hồi để lưu trữ dữ liệu theo sản phẩm và theo ngày đanh giá
+        for (let i = 0; i < feedbacks.length; i++) {
+          const feedback = feedbacks[i];
+            const room = feedback.idp;
+
+            var dateformat = new Date(parseInt(feedback.datefb.substr(6)));
+            const date = dateformat.toISOString().substring(0, 16);
+
+          // Lưu trữ dữ liệu theo phòng
+            if (!roomData[room] && room != null)
+            {
+                roomData[room] = { name: `${room}`, data: [] };
+            }
+
+          roomData[room].data.push(feedback.starFb);
+
+          // Lưu trữ dữ liệu theo ngày
+            if (!dateData[date])
+            {
+            dateData[date] = { x: date, data: {} };
+          }
+            if (!dateData[date].data[room] && room != null)
+            {
+            dateData[date].data[room] = { name: `${room}`, data: [] };
+          } 
+          dateData[date].data[room].data.push(feedback.star);
+        }
+        // Tạo danh sách các ngày để sử dụng trong biểu đồ
+        const dates = Object.keys(dateData).sort();
+        // Tạo một mảng dữ liệu ApexCharts từ các dữ liệu về phòng đã thu thập được
+        const roomSeries = Object.values(roomData);
+        // Tạo một mảng dữ liệu ApexCharts từ các dữ liệu về ngày đã thu thập được
+        const dateSeries = Object.entries(dateData).map(([date, data]) => ({
+          x: date,
+          ...Object.values(data.data),
+        }));
+        //console.log(roomSeries)
+        //console.log(dateSeries)
+
+          dateSeries.forEach((data, index)=>{
+            const dataArrays = Object.values(data);
+            //console.log(dataArrays)
+          })
+
+        for (let i = 0; i < roomSeries.length; i++){
+          roomSeries[i].data = []
+          const newData = []
+          dateSeries.forEach((data, index)=>{
+            const dataArrays = Object.values(data);
+            for (let j = 0; j < dataArrays.length-1; j++){
+              if (dataArrays[j].name == roomSeries[i].name){
+                newData.push(dataArrays[j].data[0])
+              } else if (dataArrays[j].name != roomSeries[i].name && j==dataArrays.length-2){
+                newData.push(null)
+              }
+            }
+          })
+          roomSeries[i].data = newData
+    }
+
+    roomSeries.forEach(function (element1) {
+        var matchingElement = products.find(function (element2) {
+            return element2.idp == element1.name;
+        });
+
+        if (matchingElement) {
+            element1.name = matchingElement.namep;
+        }
+    });
+
+    console.log(roomSeries)
+
+        // Cấu hình
+        const options3 = {
+          chart: {
+            height: 350,
+            type: "line",
+          },
+          stroke: {
+            width: 2,
+            curve: "smooth",
+          },
+            series: roomSeries,
+          xaxis: {
+            categories: dates,
+          },
+          yaxis: {
+            title: {
+              text: "Đánh giá (sao)",
+            },
+            min: 1,
+            max: 5,
+          },
+          tooltip: {
+            shared: true,
+            intersect: false,
+            y: {
+              formatter: function (y) {
+                if (typeof y !== "undefined") {
+                  return y + " sao";
+                }
+                return 0 + " sao";
+              },
+            },
+          },
+          dataLabels: {
+            enabled: true,
+          },
+          markers: {
+            size: 5,
+            strokeColors: '#fff',
+            strokeWidth: 2,
+          },
+          legend: {
+            offsetY: 7,
+          },
+          grid: {
+            padding: {
+              bottom: 20,
+            },
+          },
+        };
+
+        var chart3 = new ApexCharts(document.querySelector("#chart3"), options3);
+        chart3.render();
 </script>

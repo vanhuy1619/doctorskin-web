@@ -289,7 +289,7 @@ namespace DoctorSkin.Controllers
         {
             var data = db.Users.Where(s => s.email.Equals(email) || s.phone.Equals(phone)).FirstOrDefault();
 
-            if (data != null && BCrypt.Net.BCrypt.Verify(password, data.password) == true)
+            if (data != null && BCrypt.Net.BCrypt.Verify(password, data.password) == true && data.hide == false)
             {
                 Session["iduser"] = data.iduser;
                 Session.Timeout = 14400; //trong 4 ngày

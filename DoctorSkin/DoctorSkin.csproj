@@ -574,6 +574,8 @@
     <Compile Include="App_Start\WebAPIConfig.cs" />
     <Compile Include="APIController\ProductsController.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\BannersController.cs" />
+    <Compile Include="Areas\Admin\Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\FacebookController.cs" />
     <Compile Include="Areas\Admin\Controllers\BillsController.cs" />
     <Compile Include="Areas\Admin\Controllers\BlogDetailsController.cs" />
@@ -1756,6 +1758,7 @@
     <Compile Include="config\Realtime.cs" />
     <Content Include="Content\assets\css\cardvoucher.css" />
     <Content Include="Content\assets\css\bootstrap.css" />
+    <Content Include="Content\assets\css\chat.css" />
     <Content Include="Content\assets\css\font-awesome.css" />
     <Content Include="Content\assets\css\index.css" />
     <Content Include="Content\assets\css\loading.css" />
@@ -1763,6 +1766,7 @@
     <Content Include="Content\assets\css\progress.css" />
     <Content Include="Content\assets\css\seller.css" />
     <Content Include="Content\assets\css\style1.css" />
+    <Content Include="Content\assets\img\chatbox.svg" />
     <Content Include="Content\assets\img\loading.svg" />
     <Content Include="Content\DataTables\css\autoFill.bootstrap.css" />
     <Content Include="Content\DataTables\css\autoFill.bootstrap.min.css" />
@@ -2126,6 +2130,8 @@
     <Content Include="Areas\Admin\Views\Doctors\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Doctors\listMedicine.cshtml" />
     <Content Include="Areas\Admin\Views\Doctors\reExamination.cshtml" />
+    <Content Include="Areas\Admin\Views\Employees\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Banners\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />
@@ -2215,6 +2221,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\js\bootstrap.js" />
+    <Content Include="Scripts\js\chat.js" />
     <Content Include="Scripts\js\custom.js" />
     <Content Include="Scripts\js\jquery.simpleGallery.js" />
     <Content Include="Scripts\js\jquery.simpleLens.js" />
@@ -2305,7 +2312,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\Admin\Views\Auth\" />
     <Folder Include="Content\assets\img\css\" />
   </ItemGroup>
   <ItemGroup>

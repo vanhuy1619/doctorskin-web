@@ -37,12 +37,10 @@ namespace DoctorSkin.Models
         [Compare("password", ErrorMessage = "Mật khẩu không khớp.")]
         public string ConfirmPassword { get; set; }
 
-
-        public bool hide { set; get; } = false;
-        public bool block { set; get; } = false;
+        public bool hide { set; get; }
 
         [Required]
-        public String ava { set; get; }
+        public string ava { set; get; }
 
         public int total { set; get; }
 

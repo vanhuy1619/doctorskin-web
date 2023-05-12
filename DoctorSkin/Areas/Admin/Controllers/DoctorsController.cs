@@ -73,6 +73,14 @@ namespace DoctorSkin.Areas.Admin.Controllers
 
                         db.Bills.Add(newBill);
                     }    
+
+                    if(i.type == 3)
+                    {
+                        int idValue = int.Parse(i.id);
+                        var service = db.ServicesDetails.FirstOrDefault(s => s.id_sd == idValue);
+                        service.amount = service.amount + 1;
+                        db.SaveChanges();
+                    }    
                 }
                 db.SaveChanges();
                 return Json(new { code = 0, message = "Lưu thông tin thành công" });
@@ -169,7 +177,7 @@ namespace DoctorSkin.Areas.Admin.Controllers
                 price = p.newprice
             }).ToList();
 
-            var servicesList = medicines.Select((m, index) => new MedicinesModel
+            var medicineList = medicines.Select((m, index) => new MedicinesModel
             {
                 stt = index + 1,
                 id = m.id,
@@ -178,7 +186,7 @@ namespace DoctorSkin.Areas.Admin.Controllers
                 price = m.price
             }).ToList();
 
-            var medicineList = services.Select((m, index) => new MedicinesModel
+            var servicesList = services.Select((m, index) => new MedicinesModel
             {
                 stt = index + 1,
                 id = m.id_sd,
@@ -187,7 +195,7 @@ namespace DoctorSkin.Areas.Admin.Controllers
                 price = m.price_sd
             }).ToList();
 
-            var list = productList.Concat(medicineList).ToList();
+            var list = productList.Concat(medicineList).Concat(servicesList).ToList();
 
             return PartialView(list);
         }

@@ -50,8 +50,9 @@ namespace DoctorSkin.Areas.Admin.Controllers
                 phone = "LGfacebook",
                 password = null,
                 ConfirmPassword = null,
+                dateregist = DateTime.Parse(current.ToString("yyyy-MM-dd HH:mm:ss"))
 
-            };
+        };
 
             try
             {

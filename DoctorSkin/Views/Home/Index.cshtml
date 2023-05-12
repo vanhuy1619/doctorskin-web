@@ -1,6 +1,11 @@
 ﻿@{
     ViewBag.Title = "Trang chủ";
+    DoctorSkin.Models.DoctorSkinEntities db = new DoctorSkin.Models.DoctorSkinEntities();
+
+    var banners = db.Banners.ToList();
 }
+<link href="~/Content/assets/css/chat.css" rel="stylesheet" />
+
 <style>
     .card_home-title {
         height: 100px;
@@ -15,43 +20,17 @@
         <div id="sequence" class="seq">
             <div class="seq-screen">
                 <ul class="seq-canvas">
-                    <!-- single slide item -->
-                    <li>
-                        <div class="seq-model">
-                            <img data-seq src="~/Content/assets/img/slider/o21.png" alt="Men slide img" />
-                        </div>
-                        @*<div class="seq-title">
-                                <span data-seq>Save Up to 75% Off</span>
-                                <h2 data-seq>Men Collection</h2>
-                                <p data-seq>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, illum.</p>
-                                <a data-seq href="#" class="aa-shop-now-btn aa-secondary-btn">SHOP NOW</a>
-                            </div>*@
-                    </li>
-                    <!-- single slide item -->
-                    <li>
-                        <div class="seq-model">
-                            <img data-seq src="~/Content/assets/img/slider/o22.png" alt="Wristwatch slide img" />
-                        </div>
-                        @*<div class="seq-title">
-                                <span data-seq>Save Up to 40% Off</span>
-                                <h2 data-seq>Wristwatch Collection</h2>
-                                <p data-seq>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, illum.</p>
-                                <a data-seq href="#" class="aa-shop-now-btn aa-secondary-btn">SHOP NOW</a>
-                            </div>*@
-                    </li>
-                    <!-- single slide item -->
-                    <li>
-                        <div class="seq-model">
-                            <img data-seq src="~/Content/assets/img/slider/o23.png" alt="Women Jeans slide img" />
-                        </div>
-                        @*<div class="seq-title">
-                                <span data-seq>Save Up to 75% Off</span>
-                                <h2 data-seq>Jeans Collection</h2>
-                                <p data-seq>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, illum.</p>
-                                <a data-seq href="#" class="aa-shop-now-btn aa-secondary-btn">SHOP NOW</a>
-                            </div>*@
-                    </li>
-                    <!-- single slide item -->
+                    @foreach (var i in banners)
+                    {
+                        if (i.homepage == true)
+                        {
+                            <li>
+                                <div class="seq-model">
+                                    <img data-seq src="@i.link" alt="Men slide img" />
+                                </div>
+                            </li>
+                        }
+                    }
                 </ul>
             </div>
             <!-- slider navigation btn -->
@@ -65,7 +44,6 @@
 <!-- / slider -->
 
 <section>
-
 </section>
 
 
@@ -779,9 +757,9 @@
 
 <!-- BÁC SĨ -->
 <section id="aa-banner" style="margin-top:40px;
-padding-bottom: 10% !important; 
-background-image: url(https://o2skin.cdn.vccloud.vn/wp-content/uploads/2022/01/home-gap-go-bac-si-bg.png?id=6177) !important; 
-background-position: center !important; background-repeat: no-repeat !important; 
+padding-bottom: 10% !important;
+background-image: url(https://o2skin.cdn.vccloud.vn/wp-content/uploads/2022/01/home-gap-go-bac-si-bg.png?id=6177) !important;
+background-position: center !important; background-repeat: no-repeat !important;
 background-size: cover !important;">
     <div style="padding: 2rem 9%;margin: 20px 0px;" class="block-doctor">
         <div class="row" style="">
@@ -954,3 +932,47 @@ background-size: cover !important;">
     </div>
 </section>
 <!-- / Subscribe section -->
+
+
+<div class="chatboxdiv">
+    <img class="chatboxdiv-img" src="~/Content/assets/img/chatbox.svg" />
+</div>
+<div class="chat-content-div">
+    <div class="chat-content-div-main">
+        <div class="chatheader">
+            <div class="chatheader-logo">
+                @*<div>
+                    <img style="width: 36px;border-radius: 50%" src="/image/logochat.png" />
+                </div>*@
+                <div style="font-size: 16px;font-weight: 700;color: white;margin-left: 6px">O2 SKIN</div>
+            </div>
+            <div style="color: white;font-size: 20px" onclick="closemess()" class="close-mess">x</div>
+        </div>
+        <div class="main-message-div">
+            <div class="main-message">
+                <!--                        <p class="mess-send">Tôi</p>-->
+                <!--                        <p class="mess-send">Tôi</p>-->
+                <!--                        <p class="mess-to">Nhân viên chúng tôi sẽ phản hồi cho quý khách trong thời gian sớm nhất!</p>-->
+            </div>
+            <div class="emojiListdiv">
+                <ul id="emojiList" class="emoji-list">
+                </ul>
+            </div>
+        </div>
+        <div class="chat-form-div">
+            <div class="chat-form-div-footer">
+                <div>
+                    <input class="form-control" id="inputquestion" style="width: 80%;line-height: 35px;font-size: 16px; background-color: #F0F0F0;color: #4b4b4b" placeholder="Nhập tin nhắn" type="text" />
+                </div>
+                <div style="width: 20%;" class="chaticon">
+                    <i class="fa fa-smile-o" style="font-size: 22px" aria-hidden="true"></i>
+                    <i class="fa fa-paper-plane ml-2" id="iconsend" onclick="clicktosend('@Session["iduser"]')"style="font-size: 22px"></i>
+                </div>
+            </div>
+        </div>
+        <div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/js/chat.js"></script>

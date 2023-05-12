@@ -1,7 +1,36 @@
 ﻿
+@{
+    DoctorSkin.Models.DoctorSkinEntities db = new DoctorSkin.Models.DoctorSkinEntities();
+
+    var banners = db.Banners.ToList();
+}
+
 <!-- catg header banner section -->
-<section id="aa-catg-head-banner">
-    <img src="~/Content/assets/img/slider/blog.PNG" alt="fashion img">
+<section id="aa-slider">
+    <div class="aa-slider-area">
+        <div id="sequence" class="seq">
+            <div class="seq-screen">
+                <ul class="seq-canvas">
+                    @foreach (var i in banners)
+                    {
+                        if (i.blogpage == true)
+                        {
+                            <li>
+                                <div class="seq-model">
+                                    <img style="width:100%;object-fit:cover !important" data-seq src="@i.link" alt="Men slide img" />
+                                </div>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+            <!-- slider navigation btn -->
+            <fieldset class="seq-nav" aria-controls="sequence" aria-label="Slider buttons">
+                <a type="button" class="seq-prev" aria-label="Previous"><span class="fa fa-angle-left"></span></a>
+                <a type="button" class="seq-next" aria-label="Next"><span class="fa fa-angle-right"></span></a>
+            </fieldset>
+        </div>
+    </div>
 </section>
 <!-- / catg header banner section -->
 <!-- Blog Archive -->
@@ -23,17 +52,17 @@
                                     </ul>
                                 </div>
                                 @*<div class="aa-sidebar-widget">
-                                    <h3>Tags</h3>
-                                    <div class="tag-cloud">
-                                        <a href="#">Fashion</a>
-                                        <a href="#">Ecommerce</a>
-                                        <a href="#">Shop</a>
-                                        <a href="#">Hand Bag</a>
-                                        <a href="#">Laptop</a>
-                                        <a href="#">Head Phone</a>
-                                        <a href="#">Pen Drive</a>
-                                    </div>
-                                </div>*@
+                                        <h3>Tags</h3>
+                                        <div class="tag-cloud">
+                                            <a href="#">Fashion</a>
+                                            <a href="#">Ecommerce</a>
+                                            <a href="#">Shop</a>
+                                            <a href="#">Hand Bag</a>
+                                            <a href="#">Laptop</a>
+                                            <a href="#">Head Phone</a>
+                                            <a href="#">Pen Drive</a>
+                                        </div>
+                                    </div>*@
                                 <div class="aa-sidebar-widget">
                                     <h3>Bài viết mới nhất</h3>
                                     <div class="aa-recently-views">
@@ -52,4 +81,3 @@
     </div>
 </section>
 <!-- / Blog Archive -->
-

@@ -1,20 +1,56 @@
-﻿<link href="~/Content/assets/css/nouislider.css" rel="stylesheet" />
+﻿@{
+    DoctorSkin.Models.DoctorSkinEntities db = new DoctorSkin.Models.DoctorSkinEntities();
+
+    var banners = db.Banners.ToList();
+}
+<link href="~/Content/assets/css/nouislider.css" rel="stylesheet" />
 <style>
-    .active-brand{
-        color:blue;
+    .active-brand {
+        color: blue;
+    }
+
+    .seq {
+        height: 550px !important
     }
 </style>
 <!-- catg header banner section -->
-<section id="aa-catg-head-banner">
+<!--<section id="aa-catg-head-banner">
     <img src="https://i.pinimg.com/originals/8d/8b/62/8d8b624ca6ff542c127264c9636cab3c.png" style="width:100%;object-fit:cover" alt="fashion img">
     <div class="aa-catg-head-banner-area">
         <div class="container">
             <div class="aa-catg-head-banner-content">
                 <ol class="breadcrumb">
-                    <li>@*<a href="index.html">Home</a>*@</li>
-                    @*<li class="active">@ViewBag.title</li>*@
-                </ol>
+                    <li>-->
+@*<a href="index.html">Home</a>*@<!--</li>-->
+@*<li class="active">@ViewBag.title</li>*@
+<!--</ol>
             </div>
+        </div>
+    </div>
+</section>-->
+<section id="aa-slider">
+    <div class="aa-slider-area">
+        <div id="sequence" class="seq">
+            <div class="seq-screen">
+                <ul class="seq-canvas">
+                    @foreach (var i in banners)
+                    {
+                        if (i.productpage == true)
+                        {
+                            <li>
+                                <div class="seq-model">
+                                    <img style="width:100%;object-fit:cover !important" data-seq src="@i.link" alt="Men slide img" />
+                                </div>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+            <!-- slider navigation btn -->
+            <fieldset class="seq-nav" aria-controls="sequence" aria-label="Slider buttons">
+                <a type="button" class="seq-prev" aria-label="Previous"><span class="fa fa-angle-left"></span></a>
+                <a type="button" class="seq-next" aria-label="Next"><span class="fa fa-angle-right"></span></a>
+            </fieldset>
         </div>
     </div>
 </section>
@@ -51,8 +87,8 @@
                     <!-- single sidebar -->
                     <!--<div class="aa-sidebar-widget">
                         <h3>Sản phẩm theo giá</h3>-->
-                        <!-- price range -->
-                        <!--<div class="aa-sidebar-price-range">
+                    <!-- price range -->
+                    <!--<div class="aa-sidebar-price-range">
                             <form action="">
                                 <div id="skipstep" class="noUi-target noUi-ltr noUi-horizontal noUi-background">
                                 </div>

@@ -11,6 +11,10 @@ namespace DoctorSkin.Models
         [Key]
         public int stt { set; get; }
         public string link { set; get; }
-        public string pages { set; get; }
+        public bool homepage { set; get; }
+        public bool servicepage { set; get; }
+        public bool blogpage { set; get; }
+        public bool productpage { set; get; }
+
     }
 }
