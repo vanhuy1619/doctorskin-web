@@ -28,20 +28,20 @@ namespace DoctorSkin.Models
 
         [Required]
         [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}")]
-        public String email { set; get; }
+        public string email { set; get; }
 
         //[RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,15}$")]
-        public String password { set; get; }
+        public string password { get; set; }
 
-        [NotMapped]
-        [System.ComponentModel.DataAnnotations.Compare("Password")]
+        [NotMapped] //không ánh xạ vào data
+        [Compare("password", ErrorMessage = "Mật khẩu không khớp.")]
         public string ConfirmPassword { get; set; }
 
-        
+
         public bool hide { set; get; } = false;
         public bool block { set; get; } = false;
 
-        [StringLength(50, MinimumLength = 3)]
+        [Required]
         public String ava { set; get; }
 
         public int total { set; get; }

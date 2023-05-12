@@ -92,7 +92,7 @@
                                     <div class="col-12 col-md-6">
                                         <div class="form-group">
                                             <label for="">Điện thoại</label>
-                                            <input type="tel" name="phone" class="form-control thongtincanhanh-input" id="" aria-describedby="" placeholder="" value="@Model.phone" maxlength="10" required pattern="[0]{1}[0-9]{4}[0-9]{5}">
+                                            <input type="tel" name="phone" class="form-control thongtincanhanh-input" id="" aria-describedby="" placeholder="" value='@(Model.phone == "LGfacebook" ? "" : formatBirth(Model.birth.ToString()))' maxlength="10" required pattern="[0]{1}[0-9]{4}[0-9]{5}">
                                         </div>
                                     </div>
                                 </div>

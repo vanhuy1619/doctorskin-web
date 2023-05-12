@@ -574,6 +574,7 @@
     <Compile Include="App_Start\WebAPIConfig.cs" />
     <Compile Include="APIController\ProductsController.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Controllers\FacebookController.cs" />
     <Compile Include="Areas\Admin\Controllers\BillsController.cs" />
     <Compile Include="Areas\Admin\Controllers\BlogDetailsController.cs" />
     <Compile Include="Areas\Admin\Controllers\BookingsController.cs" />
@@ -2304,6 +2305,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Views\Auth\" />
     <Folder Include="Content\assets\img\css\" />
   </ItemGroup>
   <ItemGroup>

@@ -59,7 +59,7 @@
                     </div>
                 </div>
                 <input name="phone" placeholder="Số điện thoại" required />
-                <input name="birth" type="date" placeholder="Ngày sinh" />
+                <input name="birth" type="date" placeholder="Ngày sinh" required />
                 <input required id="password" name="password" type="password" placeholder="Mật khẩu" minlength="8" />
                 <input required id="confirm_password" type="password" placeholder="Nhập lại mật khẩu" minlength="8" />
                 <div class="custom-file">
@@ -73,12 +73,23 @@
         <div class="form-container sign-in-container">
             <form id="login-form" action="/users/login" method="post" enctype="multipart/form-data">
                 <h1 class="headerLogin">Đăng Nhập</h1>
-                <input id="email-login" name="email" type="text" placeholder="Email/Số điện thoại" required/>
-                <input id="password-login" name="password" type="password" placeholder="Mật khẩu" required/>
+                <input id="email-login" name="email" type="text" placeholder="Email/Số điện thoại" required />
+                <input id="password-login" name="password" type="password" placeholder="Mật khẩu" required />
                 <div class="passwordFind">
                     <a href="/users/forgot">Quên mật khẩu? </a>
                 </div>
                 <button type="submit" name="submitLogin">Đăng Nhập</button>
+
+                <div style="margin-top:20px">
+                    <div style="font-weight:700; font-size:18px">
+                        Đăng nhập bằng:
+                    </div>
+                    <div style="margin-top:10px">
+                        <a href="@Url.Action("Login", "Facebook")">
+                            <img style="width:100px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Facebook.svg/2560px-Facebook.svg.png" alt="File:Facebook.svg - Wikipedia" />
+                        </a>
+                    </div>
+                </div>
             </form>
 
         </div>
