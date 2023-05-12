@@ -17,8 +17,11 @@ namespace DoctorSkin.Areas.Admin.Controllers
     public class FacebookController : Controller
     {
         private readonly DoctorSkinEntities db = new DoctorSkinEntities();
-        private readonly string appId = "1251345148845110";
-        private readonly string appSecret = "f3fa28b401be3393088481849d2527c1";
+        //private readonly string appId = "1251345148845110";
+        //private readonly string appSecret = "f3fa28b401be3393088481849d2527c1";
+        private readonly string appId = ConfigurationManager.AppSettings["facebook:AppId"];
+        private readonly string appSecret = ConfigurationManager.AppSettings["facebook:AppSecret"];
+
         DateTime current = DateTime.Now;
 
         public ActionResult Login()
