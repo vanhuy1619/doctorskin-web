@@ -28,7 +28,13 @@ namespace DoctorSkin.config
             int now = int.Parse(createAt());
             using (var db = new DoctorSkinEntities())
             {
-                var dataToDelete = db.Forgots.Where(x => now - int.Parse(x.createAt) < 3).ToList();
+                var dataToDelete = db.Forgots.ToList()
+                    .Where(x =>
+                    {
+                        int createAt;
+                        return int.TryParse(x.createAt, out createAt) && now - createAt < 3;
+                    })
+                    .ToList();
                 db.Forgots.RemoveRange(dataToDelete);
                 db.SaveChanges();
             }

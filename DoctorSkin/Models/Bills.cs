@@ -32,6 +32,8 @@ namespace DoctorSkin.Models
         public Nullable<System.DateTime> datesuccess { set; get; }
 
         public string exception { set; get; }
+
+        public string address { set; get; }
     }
 
 

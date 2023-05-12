@@ -7,6 +7,9 @@
 
 }
 <style>
+    *{
+        font-size: 16px !important
+    }
     .active {
         background-color: #ee4d2d;
         color:white;
@@ -286,6 +289,78 @@
     </div>
 </div>
 
+@*MODAL XEM HÓA ĐƠN CHI TIẾT*@
+<div class="modal fade" id="billModal" tabindex="-1" role="dialog" aria-labelledby="billModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="display:flex;align-items:center">
+                <div style="font-size:25px" class="modal-title" id="exampleModalLabel">Chi tiết hóa đơn</div>
+                <div style="flex:auto">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span style="font-size:25px" aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Địa chỉ giao hàng</label>
+                        <input type="text" class="form-control" id="address-bill" placeholder="Số nhà, đường, khu phố, ..." />
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Tên khách hàng</label>
+                        <input disabled type="text" class="form-control" id="name-bill" />
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Email</label>
+                        <input disabled type="text" class="form-control" id="email-bill" />
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Số điện thoại</label>
+                        <input disabled type="text" class="form-control" id="phone-bill" />
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Mã giảm giá</label>
+                        <input disabled type="text" class="form-control" id="voucher-bill" />
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Tổng hóa đơn</label>
+                        <input disabled type="text" class="form-control" id="total-bill" />
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Trạng thái</label>
+                        <input disabled type="text" class="form-control" id="status-bill" />
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Ghi chú</label>
+                        <input type="text" class="form-control" id="note-bill" placeholder="Ghi chú đơn hàng" />
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Ngày mua hàng</label>
+                        <input disabled type="text" class="form-control" name="address" id="datebuy-bill" />
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Lý do hủy</label>
+                        <input disabled type="text" class="form-control" id="whycancel-bill" />
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Ngày nhận hàng thành công</label>
+                        <input disabled type="text" class="form-control" id="datesuccess-bill" />
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Ngoại lệ</label>
+                        <input disabled type="text" class="form-control" id="exception-bill" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" id="btnhuy" data-dismiss="modal">Hủy</button>
+                        <button type="submit" class="btn btn-success" id="confirmedit" onclick="saveAddress()">Cập nhật</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
 
@@ -420,6 +495,51 @@
                 } else {
                 }
             });
+    }
+
+    //XEM CHI TIẾT BILL
+    function clickItemBill(idbill) {
+        $.ajax({
+            url: "/admin/bills/getdatabill",
+            type: 'GET',
+            data: { idbill: idbill },
+            success: function (res) {
+                console.log(res.bills)
+                let data = res.bills.bill
+
+                var dateString = data.datebuy;
+                var timestampString = dateString.substring(6, dateString.length - 2);
+                var timestamp = parseInt(timestampString);
+                var date = new Date(timestamp);
+                var formattedDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
+
+                $('#address-bill').val(data.address)
+                $('#name-bill').val(res.bills.name)
+                $('#email-bill').val(res.bills.email)
+                $('#phone-bill').val(res.bills.phone)
+                $('#voucher-bill').val(data.idvoucher)
+                $('#total-bill').val(data.totalbill)
+                $('#status-bill').val(data.status)
+                $('#note-bill').val(data.note)
+                $('#datebuy-bill').val(formattedDate)
+                $('#whycancel-bill').val(data.whycancel)
+                $('#datesuccess-bill').val(data.datesuccess)
+                $('#exception-bill').val(data.exception)
+
+                var ele = $('[data-idbill="' + idbill + '"]');
+                console.log(ele.data('check'))
+                if (ele.data('check') == true) {
+                    $('#confirmedit').prop('disabled', true)
+                    $('#note-bill').prop('disabled', true)
+                    $('#address-bill').prop('disabled', true)
+                }
+                $('#confirmedit').attr("data-idbill", idbill)
+
+            },
+            error: function (xhr, status, error) {
+                console.log("lỗi")
+            }
+        });
     }
 
 </script>

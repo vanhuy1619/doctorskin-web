@@ -37,7 +37,6 @@
         border-radius: 2px;
         justify-content: space-between;
     }
-
 </style>
 <section id="aa-promo" style="background-color: #f5f5f5; min-height: 700px; padding: 0rem 7%">
     <div style="margin-top:30px">
@@ -47,10 +46,10 @@
                 <div style="color: #ee4d2d">Địa chỉ nhận hàng</div>
                 <div style="display:flex;justify-content:space-between">
                     <div style="font-weight:bold">@Model.name (@Model.phone)</div>
-                    <div>
-                        Chung Cư Bộ Ca, Đường Số 3, Phường An Phú, Thành Phố Thủ Đức, TP. Hồ Chí Minh
+                    <div id="myaddress">
+                        Vui lòng chọn địa chỉ giao hàng
                     </div>
-                    <div style="color: #4080ee">Thay đổi</div>
+                    <div data-toggle="modal" data-target="#addressleModal" style="color: #4080ee">Thay đổi</div>
                 </div>
             </div>
         </div>
@@ -174,12 +173,116 @@
     </div>
 </section>
 
+<div class="modal fade" id="addressleModal" tabindex="-1" role="dialog" aria-labelledby="addressleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="display:flex;align-items:center">
+                <div style="font-size:25px" class="modal-title" id="exampleModalLabel">Địa chỉ giao hàng</div>
+                <div style="flex:auto">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span style="font-size:25px" aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <div class="form-group">
+                        <select class="form-control form-select-sm mb-3" id="city" aria-label=".form-select-sm" required>
+                            <option value="" selected>Chọn tỉnh thành</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control form-select-sm mb-3" id="district" aria-label=".form-select-sm" required>
+                            <option value="" selected>Chọn quận huyện</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control form-select-sm" id="ward" aria-label=".form-select-sm" required>
+                            <option value="" selected>Chọn phường xã</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">Địa chỉ cụ thể</label>
+                        <input type="text" class="form-control" name="address" id="addressDetail" placeholder="Số nhà, đường, khu phố, ..." />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" id="btnhuy" data-dismiss="modal">Hủy</button>
+                        <button type="submit" class="btn btn-success" onclick="saveAddress()">Xác nhận</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@*XỬ LÝ ADDRESS*@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+
 <script>
+    let addressValue = "";
+    var citis = document.getElementById("city");
+    var districts = document.getElementById("district");
+    var wards = document.getElementById("ward");
+    var Parameter = {
+        url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+        method: "GET",
+        responseType: "application/json",
+    };
+    var promise = axios(Parameter);
+    promise.then(function (result) {
+        renderCity(result.data);
+    });
+
+    function renderCity(data) {
+        for (const x of data) {
+            citis.options[citis.options.length] = new Option(x.Name, x.Id);
+        }
+        citis.onchange = function () {
+            district.length = 1;
+            ward.length = 1;
+            if (this.value != "") {
+                const result = data.filter(n => n.Id === this.value);
+
+                for (const k of result[0].Districts) {
+                    district.options[district.options.length] = new Option(k.Name, k.Id);
+                }
+            }
+        };
+        district.onchange = function () {
+            ward.length = 1;
+            const dataCity = data.filter((n) => n.Id === citis.value);
+            if (this.value != "") {
+                const dataWards = dataCity[0].Districts.filter(n => n.Id === this.value)[0].Wards;
+
+                for (const w of dataWards) {
+                    wards.options[wards.options.length] = new Option(w.Name, w.Id);
+                }
+            }
+        };
+    }
+
+    var chooseAddress = false
+    function saveAddress() {
+        const fields = ['#city', '#district', '#ward', '#addressDetail'];
+
+        if (fields.some(field => $(field).val() === '')) {
+            alert('Vui lòng chọn đủ thông tin địa chỉ');
+        }
+        else {
+            addressValue = $("#city option:selected").text() + " - " + $("#district option:selected").text() + " - " + $("#ward option:selected").text() + " - " + $('#addressDetail').val()
+            $('#btnhuy').click()
+            $('#myaddress').text(addressValue)
+            chooseAddress = true
+        }
+    }
+
     let totalValue = document.querySelector('.total')
     const dataCart = JSON.parse(localStorage.getItem("dataCart")) || [];
     let html = dataCart.map(item => {
 
-        return  `<div class="row" id="div-pr-${item.idp}" >
+        return `<div class="row" id="div-pr-${item.idp}" >
                             <div class="row" style="margin-bottom:15px">
                                 <div class="col-md-4" style="display: flex;justify-content: space-between;">
                                     <div class="" style="padding: 0 8px;">
@@ -211,7 +314,7 @@
                                 </div>
                                 <div class="col-md-2" style='float:right'>
                                     <div>
-                                        <p class="money" value="${item.amount*item.dongia}" style="color: #ee4d2d">${item.amount*item.dongia}</p>
+                                        <p class="money" value="${item.amount * item.dongia}" style="color: #ee4d2d">${item.amount * item.dongia}</p>
                                     </div>
                                 </div>
                             </div>
@@ -228,7 +331,7 @@
     }
 
 
-    
+
     //Xử lý voucher
     function setPrice(price) {
         let result = "";
@@ -253,15 +356,14 @@
     inputVoucher.onchange = function () {
         totalValue.setAttribute('value', totalValue.getAttribute('valueori'))
     }
-    let resultVoucher = null
+    let resultVoucher = {}
     document.querySelector('.btnvoucher').onclick = function () {
         console.log("ok btn");
         $.ajax({
             type: "GET",
             url: "/vouchers/getVoucherByID?idvoucher=" + inputVoucher.value,
             success: function (res) {
-                if (res.code == 0)
-                {
+                if (res.code == 0) {
                     console.log(res.voucher)
                     const now = new Date();
                     const fromDate = new Date(res.voucher.datefrom);
@@ -328,30 +430,36 @@
         });
 
         console.log(updatedArray)
+        console.log(addressValue)
 
-
-        $.ajax({
-            type: "post",
-            url: "/carts/addBill",
-            data: JSON.stringify({
-                Bills: updatedArray,
-                totalmoney: totalValue.getAttribute('value'),
-                idvoucher: resultVoucher.idvoucher
-            }),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (data) {
-                localStorage.removeItem("dataCart")
-                swal("Thành công!", "Đặt hàng thành công", "success")
-                    .then(() => {
-                        window.localStorage.clear()
-                        window.location.href = "/"
-                    })
-            },
-            error: function (error) {
-                console.log("error saving data: " + error.responsetext);
-            }
-        });
+        if (chooseAddress == true) {
+            $.ajax({
+                type: "post",
+                url: "/carts/addBill",
+                data: JSON.stringify({
+                    Bills: updatedArray,
+                    totalmoney: totalValue.getAttribute('value'),
+                    idvoucher: resultVoucher.idvoucher != undefined ? resultVoucher.idvoucher : null,
+                    address: addressValue
+                }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    localStorage.removeItem("dataCart")
+                    swal("Thành công!", "Đặt hàng thành công", "success")
+                        .then(() => {
+                            window.localStorage.clear()
+                            window.location.href = "/don-hang"
+                        })
+                },
+                error: function (error) {
+                    console.log("error saving data: " + error.responsetext);
+                }
+            });
+        }
+        if (chooseAddress == false) {
+            alert("Vui lòng chọn địa chỉ giao hàng")
+        }
     })
 
 </script>

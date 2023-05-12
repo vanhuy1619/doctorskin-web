@@ -89,7 +89,7 @@ namespace DoctorSkin.Areas.Admin.Controllers
 
         public ActionResult reExamination(string phone)
         {
-            var patient = db.Patients.Where(s => s.phone == phone).ToList();
+            var patient = db.Patients.Where(s => s.phone == phone).OrderByDescending(s=>s.date).ToList();
             return View(patient);
         }
 
@@ -158,6 +158,7 @@ namespace DoctorSkin.Areas.Admin.Controllers
         {
             var products = db.Products.ToList();
             var medicines = db.Medicines.ToList();
+            var services = db.ServicesDetails.ToList();
 
             var productList = products.Select((p, index) => new MedicinesModel
             {
@@ -168,13 +169,22 @@ namespace DoctorSkin.Areas.Admin.Controllers
                 price = p.newprice
             }).ToList();
 
-            var medicineList = medicines.Select((m, index) => new MedicinesModel
+            var servicesList = medicines.Select((m, index) => new MedicinesModel
             {
                 stt = index + 1,
                 id = m.id,
                 type = 1,
                 name = m.name,
                 price = m.price
+            }).ToList();
+
+            var medicineList = services.Select((m, index) => new MedicinesModel
+            {
+                stt = index + 1,
+                id = m.id_sd,
+                type = 3,
+                name = m.name_sd,
+                price = m.price_sd
             }).ToList();
 
             var list = productList.Concat(medicineList).ToList();

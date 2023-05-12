@@ -168,16 +168,49 @@ namespace DoctorSkin.Areas.Admin.Controllers
 
             if (bills == null)
                 return Json(new { code = 0, message = "Fail" });
+
             foreach (var i in bills)
             {
                 i.status = "Thành công";
                 i.datesuccess = DateTime.Parse(currentDateTime.ToString("yyyy-MM-dd HH:mm:ss"));
+
+                //Cập nhật số tiền tích lũy
+                //Lấy thông tin user
+                var user = db.Users.FirstOrDefault(s => s.iduser == i.iduser);
+                user.total = user.total + int.Parse(i.totalmoney);
+
+                //100 ngàn tích được 10 điểm
+                user.point = user.point + (int)Math.Round(decimal.Parse(i.totalmoney) / 100000) * 10;
+
             }
             db.Configuration.ValidateOnSaveEnabled = false;
             db.SaveChanges();
             return Json(new { code = 0, message = "Hủy thành công" });
         }
 
+        [HttpGet]
+        public ActionResult getDataBill(string idbill)
+        {
+            string param = HttpUtility.UrlDecode(idbill);
+            var bill = db.Bills.FirstOrDefault(s => s.idbill == param);
+            if (bill == null)
+                return Json(new { code = 1, bills = "Lỗi" });
+            else
+            {
+                //lấy thông tin khách hàng
+                var user = db.Users.FirstOrDefault(s => s.iduser == bill.iduser);
+                var modifiedBills = new
+                {
+                    bill = bill,
+                    name = user.name,
+                    email = user.email,
+                    phone = user.phone,
+                };
+
+                return Json(new { code = 0, bills = modifiedBills }, JsonRequestBehavior.AllowGet);
+            }    
+
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

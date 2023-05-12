@@ -95,6 +95,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Facebook, Version=6.0.10.0, Culture=neutral, PublicKeyToken=58cb4f2111d1e6de, processorArchitecture=MSIL">
+      <HintPath>..\packages\Facebook.7.0.6\lib\net45\Facebook.dll</HintPath>
+    </Reference>
     <Reference Include="Hangfire.Core, Version=1.7.34.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Hangfire.Core.1.7.34\lib\net46\Hangfire.Core.dll</HintPath>
     </Reference>
@@ -610,6 +613,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Mappings\AutoMapperConfiguration.cs" />
+    <Compile Include="Models\Banners.cs" />
     <Compile Include="Models\Bills.cs" />
     <Compile Include="Models\BlogContent.cs" />
     <Compile Include="Models\BlogDetails.cs" />
@@ -1748,6 +1752,7 @@
     <Content Include="Areas\Content\css\message.css" />
     <Content Include="Areas\Content\css\style.css" />
     <Content Include="Areas\Content\scripts\services.js" />
+    <Compile Include="config\Realtime.cs" />
     <Content Include="Content\assets\css\cardvoucher.css" />
     <Content Include="Content\assets\css\bootstrap.css" />
     <Content Include="Content\assets\css\font-awesome.css" />

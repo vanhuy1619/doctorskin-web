@@ -42,7 +42,7 @@
         {
             <div class="col-md-3" style="text-align:right">
                 <div>
-                    <a class="btn btn-warning" data-idbill="@item.idbill" onclick="btnedit('@item.idbill')">Sửa</a>
+                    <a data-check="false" class="btn btn-warning" data-idbill="@item.idbill" data-toggle="modal" data-target="#billModal" onclick="clickItemBill('@item.idbill')">Sửa</a>
                     <a class="btn btn-success" data-idbill="@item.idbill" onclick="btnConfirm('@item.idbill')">Xác nhận</a>
                     <a class="btn btn-danger" data-idbill="@item.idbill" onclick="btnCancel('@item.idbill')">Hủy</a>
                 </div>
@@ -52,6 +52,7 @@
         {
             <div class="col-md-3" style="text-align:right">
                 <div>
+                    <a data-check="true" class="btn btn-warning" data-idbill="@item.idbill" data-toggle="modal" data-target="#billModal" onclick="clickItemBill('@item.idbill')">Chi tiết</a>
                     <a class="btn btn-primary" data-idbill="@item.idbill" onclick="thanhcong('@item.idbill')">Xác nhận đã giao hàng</a>
                 </div>
             </div>
@@ -60,6 +61,7 @@
         {
             <div class="col-md-3" style="text-align:right">
                 <div>
+                    <a data-check="true" class="btn btn-warning" data-idbill="@item.idbill" data-toggle="modal" data-target="#billModal" onclick="clickItemBill('@item.idbill')">Chi tiết</a>
                     <a class="btn btn-success" data-idbill="@item.idbill">Giao hàng thành công</a>
                 </div>
             </div>
@@ -68,6 +70,7 @@
         {
             <div class="col-md-3" style="text-align:right">
                 <div>
+                    <a data-check="true" class="btn btn-warning" data-idbill="@item.idbill" data-toggle="modal" data-target="#billModal" onclick="clickItemBill('@item.idbill')">Chi tiết</a>
                     <a class="btn btn-danger" data-idbill="@item.idbill">Đã hủy đơn hàng</a>
                 </div>
             </div>

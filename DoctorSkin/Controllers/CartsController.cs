@@ -62,7 +62,7 @@ namespace DoctorSkin.Controllers
        
 
         [HttpPost]
-        public ActionResult addBill(List<Bills> Bills, string totalmoney, string idvoucher)
+        public ActionResult addBill(List<Bills> Bills, string totalmoney, string idvoucher, string address)
         {
             DateTime currentDateTime = DateTime.Now;
 
@@ -71,16 +71,22 @@ namespace DoctorSkin.Controllers
             {
                 i.datebuy = DateTime.Parse(currentDateTime.ToString("yyyy-MM-dd HH:mm:ss"));
                 i.totalbill = totalmoney;
+                i.address = address;
                 db.Bills.Add(i);
             }
             db.Bills.AddRange(Bills);
+
+            //xóa khỏi cart
             foreach(var i in Bills)
             {
                 var item = db.Carts.Where(s => s.iduser == i.iduser && s.idp == i.idp).FirstOrDefault();
                 db.Carts.Remove(item);
             }
+
+            //xử lý voucher
             var voucher = db.Vouchers.FirstOrDefault(s => s.idvoucher == idvoucher);
-            voucher.dasudung = voucher.dasudung + 1;
+            if(voucher != null)
+                voucher.dasudung = voucher.dasudung + 1;
 
             db.SaveChanges();
 

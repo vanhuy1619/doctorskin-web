@@ -528,3 +528,13 @@ D:\.NET\doctorskin-web\DoctorSkin\bin\Slugify.dll
 D:\.NET\doctorskin-web\DoctorSkin\bin\Slugify.Core.dll
 D:\.NET\doctorskin-web\DoctorSkin\bin\System.Text.Encoding.CodePages.dll
 D:\.NET\doctorskin-web\DoctorSkin\bin\System.Text.Encoding.CodePages.xml
+D:\.NET\doctorskin-web\DoctorSkin\bin\Microsoft.AspNet.SignalR.Core.dll
+D:\.NET\doctorskin-web\DoctorSkin\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+D:\.NET\doctorskin-web\DoctorSkin\bin\Microsoft.Owin.Security.dll
+D:\.NET\doctorskin-web\DoctorSkin\bin\Microsoft.AspNet.SignalR.Core.pdb
+D:\.NET\doctorskin-web\DoctorSkin\bin\Microsoft.AspNet.SignalR.Core.xml
+D:\.NET\doctorskin-web\DoctorSkin\bin\Microsoft.AspNet.SignalR.SystemWeb.pdb
+D:\.NET\doctorskin-web\DoctorSkin\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+D:\.NET\doctorskin-web\DoctorSkin\bin\Microsoft.Owin.Security.xml
+D:\.NET\doctorskin-web\DoctorSkin\bin\Facebook.dll
+D:\.NET\doctorskin-web\DoctorSkin\bin\Facebook.xml
