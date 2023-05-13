@@ -634,6 +634,7 @@
     <Compile Include="Models\Patients.cs" />
     <Compile Include="Models\Products.cs" />
     <Compile Include="Models\Feedbacks.cs" />
+    <Compile Include="Models\Questions.cs" />
     <Compile Include="Models\RepFeedbacks.cs" />
     <Compile Include="Models\Role\RoleMasters.cs" />
     <Compile Include="Models\Role\UserRoles.cs" />
@@ -2308,6 +2309,7 @@
     <Content Include="Views\Products\getAllProductView.cshtml" />
     <Content Include="Views\Products\getProductsByBrand.cshtml" />
     <Content Include="Views\Default\getListProductByBrand.cshtml" />
+    <Content Include="Views\Default\slideBanner.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

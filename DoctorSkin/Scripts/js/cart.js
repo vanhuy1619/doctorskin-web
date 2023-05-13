@@ -5,6 +5,10 @@ if (nameuser.hasAttribute('data-id')) {
     iduser = nameuser.dataset.id;
 }
 
+$(document).ready(function () {
+    console.log("ready!");
+});
+
 //lấy danh sách giỏ hàng lúc hover
 $.ajax({
     type: "GET",

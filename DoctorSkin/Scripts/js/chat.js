@@ -52,33 +52,35 @@ function clicktosend(uid) {
     console.log(uid)
     let data = {
         iduser: uid,
-        message: $('#inputquestion').val()
+        question: $('#inputquestion').val()
     }
+    console.log(data)
     $.ajax({
         type: "POST",
-        url: "http://localhost:8080/api/api/question/send",
+        url: "/users/addQuestion",
         data: JSON.stringify(data),
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
         },
-        success: function (data) {
-            console.log("send ok")
-            let send = document.createElement("p");
-            send.classList.add('mess-send')
-            let textsend = document.createTextNode($('#inputquestion').val());
-            send.appendChild(textsend);
-            document.querySelector('.main-message').appendChild(send)
-            $('#inputquestion').val('')
+        success: function (res) {
+            console.log(res)
+            if (res.code == 0) {
+                let send = document.createElement("p");
+                send.classList.add('mess-send')
+                let textsend = document.createTextNode($('#inputquestion').val());
+                send.appendChild(textsend);
+                document.querySelector('.main-message').appendChild(send)
+                $('#inputquestion').val('')
 
-            setTimeout(function () {
-                let to = document.createElement("p");
-                to.classList.add('mess-to')
-                let textto = document.createTextNode('Nhân viên chúng tôi sẽ phản hồi cho quý khách trong thời gian sớm nhất!');
-                to.appendChild(textto);
-                document.querySelector('.main-message').appendChild(to)
-            }, 1500)
-
+                setTimeout(function () {
+                    let to = document.createElement("p");
+                    to.classList.add('mess-to')
+                    let textto = document.createTextNode('Nhân viên chúng tôi sẽ phản hồi cho quý khách trong thời gian sớm nhất!');
+                    to.appendChild(textto);
+                    document.querySelector('.main-message').appendChild(to)
+                }, 1500)
+            }
         },
         error: function (e) {
             console.log("lỗi")

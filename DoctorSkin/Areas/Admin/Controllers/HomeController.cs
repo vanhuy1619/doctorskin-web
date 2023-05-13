@@ -115,6 +115,24 @@ namespace DoctorSkin.Areas.Admin.Controllers
             ViewBag.topServices = topServices;
             ViewBag.topProducts = topProducts;
 
+            //Câu hỏi
+            var questions = db.Questions.ToList();
+            var usersIds = db.Users.ToList().Select(s => s.iduser).ToList();
+            var users = db.Users.Where(s => usersIds.Contains(s.iduser)).ToList();
+
+            var listQuestions = questions.Select(q =>
+            {
+                var user = users.FirstOrDefault(s => s.iduser == q.iduser);
+                return new
+                {
+                    q.question,
+                    q.datequestion,
+                    q.rep,
+                    user?.name,
+                    user?.ava
+                };
+            }).ToList();
+            ViewBag.listQuestions = listQuestions; ;
             return View();
         }
     }

@@ -119,3 +119,49 @@ li {
 	font-size: 24px;
 	padding: 4px;
 }
+
+/*MESS*/
+.main-message {
+	margin: 10px;
+	overflow: hidden;
+	overflow-y: scroll;
+	height: 91%;
+	display: flex;
+	flex-direction: column;
+	padding-right: 4px;
+}
+
+.mess-send {
+	font-size: 16px;
+	background-color: #E8952F;
+	color: white;
+	padding: 6px;
+	width: fit-content;
+	max-width: 60%;
+	float: right;
+	border-radius: 6px;
+	/* position: relative; */
+	/* left: 283px; */
+	display: flex;
+	text-align: right;
+	/* margin-right: 100%; */
+	clear: both;
+	align-self: flex-end;
+	text-align: inherit;
+}
+
+.mess-to {
+	font-size: 16px;
+	background-color: white;
+	padding: 6px;
+	width: 60%;
+	float: left;
+	border-radius: 6px;
+	border: 1px solid #eee;
+	margin-top: 4px;
+}
+
+.close-mess:hover {
+	color: red;
+	cursor: pointer;
+}

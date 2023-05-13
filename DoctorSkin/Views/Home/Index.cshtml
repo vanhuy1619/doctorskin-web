@@ -15,33 +15,9 @@
         height: 350px;
     }
 </style>
-<section id="aa-slider">
-    <div class="aa-slider-area">
-        <div id="sequence" class="seq">
-            <div class="seq-screen">
-                <ul class="seq-canvas">
-                    @foreach (var i in banners)
-                    {
-                        if (i.homepage == true)
-                        {
-                            <li>
-                                <div class="seq-model">
-                                    <img data-seq src="@i.link" alt="Men slide img" />
-                                </div>
-                            </li>
-                        }
-                    }
-                </ul>
-            </div>
-            <!-- slider navigation btn -->
-            <fieldset class="seq-nav" aria-controls="sequence" aria-label="Slider buttons">
-                <a type="button" class="seq-prev" aria-label="Previous"><span class="fa fa-angle-left"></span></a>
-                <a type="button" class="seq-next" aria-label="Next"><span class="fa fa-angle-right"></span></a>
-            </fieldset>
-        </div>
-    </div>
-</section>
-<!-- / slider -->
+
+
+@Html.Action("slideBanner", "Default", new { page = "homepage" })
 
 <section>
 </section>
@@ -942,8 +918,8 @@ background-size: cover !important;">
         <div class="chatheader">
             <div class="chatheader-logo">
                 @*<div>
-                    <img style="width: 36px;border-radius: 50%" src="/image/logochat.png" />
-                </div>*@
+                        <img style="width: 36px;border-radius: 50%" src="/image/logochat.png" />
+                    </div>*@
                 <div style="font-size: 16px;font-weight: 700;color: white;margin-left: 6px">O2 SKIN</div>
             </div>
             <div style="color: white;font-size: 20px" onclick="closemess()" class="close-mess">x</div>
@@ -966,7 +942,7 @@ background-size: cover !important;">
                 </div>
                 <div style="width: 20%;" class="chaticon">
                     <i class="fa fa-smile-o" style="font-size: 22px" aria-hidden="true"></i>
-                    <i class="fa fa-paper-plane ml-2" id="iconsend" onclick="clicktosend('@Session["iduser"]')"style="font-size: 22px"></i>
+                    <i class="fa fa-paper-plane ml-2" id="iconsend" onclick="clicktosend('@Session["iduser"]')" style="font-size: 22px"></i>
                 </div>
             </div>
         </div>

@@ -203,6 +203,20 @@ namespace DoctorSkin.Controllers
             return PartialView(v.ToPagedList(pageNumber, pageSize));
         }
 
+        public ActionResult slideBanner(string page)
+        {
+            var banners = db.Banners.ToList();
+
+            if (page == "productpage")
+                banners = banners.Where(s => s.productpage == true).ToList();
+            if (page == "homepage")
+                banners = banners.Where(s => s.homepage == true).ToList();
+            if (page == "blogpage")
+                banners = banners.Where(s => s.blogpage == true).ToList();
+            if (page == "servicepage")
+                banners = banners.Where(s => s.servicepage == true).ToList();
+            return PartialView(banners);
+        }
 
     }
 }

@@ -71,5 +71,7 @@ namespace DoctorSkin.Models
         public System.Data.Entity.DbSet<DoctorSkin.Models.Banners> Banners { get; set; }
 
         public System.Data.Entity.DbSet<DoctorSkin.Models.Patients> Patients { get; set; }
+
+        public System.Data.Entity.DbSet<DoctorSkin.Models.Questions> Questions { get; set; }
     }
 }

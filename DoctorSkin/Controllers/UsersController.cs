@@ -319,7 +319,8 @@ namespace DoctorSkin.Controllers
                 Response.Cookies.Add(authCookie);
             }
             FormsAuthentication.SignOut();
-            Session.Abandon();
+            Session.Clear();
+            Session.Abandon(); //Xóa tất cả các phiên session, cookie, gán null cho session
 
             return Redirect("/");
         }
@@ -526,6 +527,32 @@ namespace DoctorSkin.Controllers
             var bills = db.Bills.Where(s => s.iduser == iduser && s.status == status && s.idbill == idbill).ToList();
             return PartialView(bills);
         }
+
+        [HttpPost]
+        public ActionResult AddQuestion(string iduser, string question)
+        {
+            try
+            {
+                var newQuestion = new Questions();
+                newQuestion.iduser = iduser;
+                newQuestion.rep = false;
+                newQuestion.question = question;
+
+                DateTime currentDateTime = DateTime.Now;
+                newQuestion.datequestion = currentDateTime;
+
+                db.Questions.Add(newQuestion);
+                db.SaveChanges();
+
+                return Json(new { code = 0, message = "Thành công" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { code = 1, message = "Lỗi: " + ex.Message });
+            }
+        }
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -2,45 +2,23 @@
     DoctorSkin.Models.DoctorSkinEntities db = new DoctorSkin.Models.DoctorSkinEntities();
 
     var banners = db.Banners.ToList();
+
+    var active = true;
+    var index = 0;
 }
 
 <link href="~/Content/assets/css/nouislider.css" rel="stylesheet" />
+
 <style>
     .active-brand {
         color: blue;
     }
-    .seq{
-        height:550px !important
-    }
 </style>
+
 <!-- catg header banner section -->
-<section id="aa-slider">
-    <div class="aa-slider-area">
-        <div id="sequence" class="seq">
-            <div class="seq-screen">
-                <ul class="seq-canvas">
-                    @foreach (var i in banners)
-                    {
-                        if (i.productpage == true)
-                        {
-                            <li>
-                                <div class="seq-model">
-                                    <img style="width:100%;object-fit:cover !important" data-seq src="@i.link" alt="Men slide img" />
-                                </div>
-                            </li>
-                        }
-                    }
-                </ul>
-            </div>
-            <!-- slider navigation btn -->
-            <fieldset class="seq-nav" aria-controls="sequence" aria-label="Slider buttons">
-                <a type="button" class="seq-prev" aria-label="Previous"><span class="fa fa-angle-left"></span></a>
-                <a type="button" class="seq-next" aria-label="Next"><span class="fa fa-angle-right"></span></a>
-            </fieldset>
-        </div>
-    </div>
-</section>
+@Html.Action("slideBanner", "Default", new { page = "productpage" })
 <!-- / catg header banner section -->
+
 <!-- product category -->
 <section id="aa-product-category">
     <div class="container">
