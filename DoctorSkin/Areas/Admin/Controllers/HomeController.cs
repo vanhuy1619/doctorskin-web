@@ -120,19 +120,20 @@ namespace DoctorSkin.Areas.Admin.Controllers
             var usersIds = db.Users.ToList().Select(s => s.iduser).ToList();
             var users = db.Users.Where(s => usersIds.Contains(s.iduser)).ToList();
 
-            var listQuestions = questions.Select(q =>
+            var listQuestions = questions.Select(question =>
             {
-                var user = users.FirstOrDefault(s => s.iduser == q.iduser);
-                return new
+                var user = users.FirstOrDefault(s => s.iduser == question.iduser);
+                dynamic dynamicObj = new
                 {
-                    q.question,
-                    q.datequestion,
-                    q.rep,
-                    user?.name,
-                    user?.ava
+                    q = question,
+                    name = user?.name,
+                    ava = user?.ava
                 };
+                return dynamicObj;
             }).ToList();
-            ViewBag.listQuestions = listQuestions; ;
+
+            ViewBag.listQuestions = listQuestions;
+
             return View();
         }
     }

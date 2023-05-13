@@ -3,8 +3,6 @@
     ViewBag.Title = "Trang chủ";
     Layout = "~/Areas/Admin/Views/Shared/AdminLayout.cshtml";
 
-    //var listQuestions = ViewBag.ListQuestions as List<dynamic>;
-    var listQuestions = ViewBag.listQuestions;
 }
 
 <div class="overview-boxes">
@@ -147,7 +145,7 @@
             <a href="#">See All</a>
         </div>
 
-        <div class="title mt-5">THỐNG KÊ LƯỢNG PHẢN HỒI TỪ KHÁCH HÀNG</div>
+        <div class="title mt-5">THỐNG KÊ ĐÁNH GIÁ SẢN PHẨM TỪ KHÁCH HÀNG</div>
         <div class="sales-details">
             <div id="chart3" style="width:100%"></div>
         </div>
@@ -161,41 +159,13 @@
             Tin nhắn của khách hàng
             <div>
                 <div class="uil-bell" id="bell">
-                    <div id="num-bell">/////</div>
+                    <div id="num-bell"></div>
                 </div>
             </div>
         </div>
         <div class="top-sales-details messages-section">
-            <div class="message" style="padding-top: 20px">
-                @*@foreach (var i in ViewBag.listQuestions)
-                {
-                    <p>@i.name</p>
-                    <div class="message-box" id="ms-@i.name">
-                        <img src="@i.ava" alt="profile image">
-                        <div class="message-content">
-                            <div class="message-header">
-                                <div class="name">@i.name</div>
-                                <div class="star-checkbox" style="display: flex;align-items: center">
-                                    <input type="checkbox" id="star-1">
-                                    <i id="" class="uil-trash-alt" style="font-size: 20px;color: red;cursor:pointer" onclick="handleDelete('@i.name')"></i>
-                                    <button class="buttonrep btn btn-success ml-2" style="padding: 2px !important;" data-toggle="modal" data-target="#exampleModal" data-value="@i.name">Rep</button>
+            <div class="message" style="padding-top: 20px" id="message-div">
 
-                                    <label for="star-1" style="margin-left: 4px;margin-bottom: 0px !important;">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star">
-                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                                        </svg>
-                                    </label>
-                                </div>
-                            </div>
-                            <p class="message-line" id="contentquestion-{{this._id}}">
-                                {{this.question}}
-                            </p>
-                            <p class="message-line time">
-                                {{this.datesendString}}
-                            </p>
-                        </div>
-                    </div>
-                }*@
             </div>
         </div>
     </div>
@@ -224,6 +194,41 @@
         </div>
     </div>
 </div>
+
+<script>
+    const listQuestions = @Html.Raw(Json.Encode(ViewBag.listQuestions));
+    $('#num-bell').text(listQuestions.length)
+    console.log(listQuestions.length)
+    let messDiv = document.querySelector('#message-div')
+    let htmlMess = listQuestions.map(ele => {
+        return `<div class="message-box" id="ms-${ele.q.stt}">
+                        <img src="${ele.ava}" alt="profile image">
+                        <div class="message-content">
+                            <div class="message-header">
+                                <div class="name">${ele.name}</div>
+                                <div class="star-checkbox" style="display: flex;align-items: center">
+                                    <input type="checkbox" id="star-1">
+                                    <i id="" class="uil-trash-alt" style="font-size: 20px;color: red;cursor:pointer" onclick="handleDelete('${ele.q.stt}')"></i>
+                                    <button class="buttonrep btn btn-success ml-2" style="padding: 2px !important;" data-toggle="modal" data-target="#exampleModal" data-value="${ele.name}">Rep</button>
+
+                                    <label for="star-1" style="margin-left: 4px;margin-bottom: 0px !important;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star">
+                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                                        </svg>
+                                    </label>
+                                </div>
+                            </div>
+                            <p class="message-line" id="contentquestion-{{this._id}}">
+                                ${ele.q.question}
+                            </p>
+                            <p class="message-line time">
+                                ${ele.q.datequestion}
+                            </p>
+                        </div>
+                    </div>`
+    })
+    messDiv.innerHTML = htmlMess.join('')
+</script>
 
 {{!-- handler modal rep message --}}
 <script>
